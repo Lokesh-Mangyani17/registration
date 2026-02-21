@@ -2,12 +2,31 @@
 /**
  * Theme functions for New AI Site.
  *
- * Displays admin notices for HCP Registration approve/reject actions.
+ * Loads the bundled HCP Registration plugin and displays admin notices.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+
+// Load the HCP Registration plugin bundled with this theme.
+define( 'HCP_REG_PLUGIN_URL', get_template_directory_uri() . '/hcp-registration/' );
+require_once get_template_directory() . '/hcp-registration/hcp-registration.php';
+
+/**
+ * Ensure the HCP Registration database table and role exist.
+ *
+ * The plugin's register_activation_hook does not fire when loaded from a theme,
+ * so we run the setup on admin_init with a version check.
+ */
+function newaisite_hcp_setup() {
+    if ( get_option( 'hcp_reg_version' ) !== HCP_REG_VERSION ) {
+        HCP_DB::create_table();
+        HCP_DB::register_role();
+        update_option( 'hcp_reg_version', HCP_REG_VERSION );
+    }
+}
+add_action( 'admin_init', 'newaisite_hcp_setup' );
 
 /**
  * Show admin notices after HCP registration approve/reject.
