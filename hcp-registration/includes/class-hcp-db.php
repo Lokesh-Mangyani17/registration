@@ -34,6 +34,7 @@ class HCP_DB {
             practice_name varchar(200) NOT NULL,
             hcp_type varchar(100) NOT NULL,
             hcp_reg_number varchar(100) NOT NULL,
+            password_hash varchar(255) NOT NULL DEFAULT '',
             status varchar(20) NOT NULL DEFAULT 'pending',
             submitted_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             reviewed_at datetime DEFAULT NULL,
@@ -79,9 +80,10 @@ class HCP_DB {
                 'practice_name'  => $data['practice_name'],
                 'hcp_type'       => $data['hcp_type'],
                 'hcp_reg_number' => $data['hcp_reg_number'],
+                'password_hash'  => $data['password_hash'] ?? '',
                 'status'         => 'pending',
             ),
-            array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
+            array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
         );
 
         return $result ? $wpdb->insert_id : false;

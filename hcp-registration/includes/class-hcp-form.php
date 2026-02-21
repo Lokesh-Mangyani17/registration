@@ -65,11 +65,28 @@ class HCP_Form {
             'hcp_reg_number' => sanitize_text_field( wp_unslash( $_POST['hcp_reg_number'] ?? '' ) ),
         );
 
+        $password = $_POST['password'] ?? '';
+        $terms    = $_POST['terms'] ?? '';
+
         // Validate required fields.
         foreach ( $fields as $key => $value ) {
             if ( empty( $value ) ) {
                 wp_send_json_error( array( 'message' => __( 'All fields are required.', 'hcp-registration' ) ) );
             }
+        }
+
+        // Validate password.
+        if ( empty( $password ) ) {
+            wp_send_json_error( array( 'message' => __( 'Password is required.', 'hcp-registration' ) ) );
+        }
+
+        if ( strlen( $password ) < 8 ) {
+            wp_send_json_error( array( 'message' => __( 'Password must be at least 8 characters long.', 'hcp-registration' ) ) );
+        }
+
+        // Validate terms acceptance.
+        if ( empty( $terms ) ) {
+            wp_send_json_error( array( 'message' => __( 'You must accept the terms and conditions.', 'hcp-registration' ) ) );
         }
 
         // Validate email format.
@@ -86,6 +103,9 @@ class HCP_Form {
         if ( HCP_DB::email_exists_in_requests( $fields['email'] ) ) {
             wp_send_json_error( array( 'message' => __( 'A registration request with this email is already pending or approved.', 'hcp-registration' ) ) );
         }
+
+        // Hash password before storage.
+        $fields['password_hash'] = wp_hash_password( $password );
 
         $insert_id = HCP_DB::insert_request( $fields );
 
