@@ -13,6 +13,10 @@ class HCP_Admin {
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_assets' ) );
         add_action( 'admin_post_hcp_approve', array( __CLASS__, 'handle_approve' ) );
         add_action( 'admin_post_hcp_reject', array( __CLASS__, 'handle_reject' ) );
+        add_action( 'show_user_profile', array( __CLASS__, 'render_user_profile_fields' ) );
+        add_action( 'edit_user_profile', array( __CLASS__, 'render_user_profile_fields' ) );
+        add_action( 'personal_options_update', array( __CLASS__, 'save_user_profile_fields' ) );
+        add_action( 'edit_user_profile_update', array( __CLASS__, 'save_user_profile_fields' ) );
     }
 
     /**
@@ -295,5 +299,70 @@ class HCP_Admin {
             $i++;
         }
         return $username;
+    }
+
+    /**
+     * Display HCP custom fields on the WordPress user profile page.
+     *
+     * @param WP_User $user The user object.
+     */
+    public static function render_user_profile_fields( $user ) {
+        $phone          = get_user_meta( $user->ID, 'hcp_phone', true );
+        $practice_name  = get_user_meta( $user->ID, 'hcp_practice_name', true );
+        $hcp_type       = get_user_meta( $user->ID, 'hcp_type', true );
+        $hcp_reg_number = get_user_meta( $user->ID, 'hcp_reg_number', true );
+
+        // Only show the section if the user has any HCP meta or is a healthcare professional.
+        $user_roles = $user->roles;
+        if ( ! in_array( 'healthcare_professional', $user_roles, true ) && empty( $phone ) && empty( $practice_name ) && empty( $hcp_type ) && empty( $hcp_reg_number ) ) {
+            return;
+        }
+        ?>
+        <h3><?php esc_html_e( 'Healthcare Professional Information', 'hcp-registration' ); ?></h3>
+        <table class="form-table" role="presentation">
+            <tr>
+                <th><label for="hcp_phone"><?php esc_html_e( 'Phone', 'hcp-registration' ); ?></label></th>
+                <td><input type="text" name="hcp_phone" id="hcp_phone" value="<?php echo esc_attr( $phone ); ?>" class="regular-text" /></td>
+            </tr>
+            <tr>
+                <th><label for="hcp_practice_name"><?php esc_html_e( 'Practice/Clinic Name', 'hcp-registration' ); ?></label></th>
+                <td><input type="text" name="hcp_practice_name" id="hcp_practice_name" value="<?php echo esc_attr( $practice_name ); ?>" class="regular-text" /></td>
+            </tr>
+            <tr>
+                <th><label for="hcp_type"><?php esc_html_e( 'Healthcare Professional Type', 'hcp-registration' ); ?></label></th>
+                <td><input type="text" name="hcp_type" id="hcp_type" value="<?php echo esc_attr( $hcp_type ); ?>" class="regular-text" /></td>
+            </tr>
+            <tr>
+                <th><label for="hcp_reg_number"><?php esc_html_e( 'HCP Registration Number', 'hcp-registration' ); ?></label></th>
+                <td><input type="text" name="hcp_reg_number" id="hcp_reg_number" value="<?php echo esc_attr( $hcp_reg_number ); ?>" class="regular-text" /></td>
+            </tr>
+        </table>
+        <?php
+    }
+
+    /**
+     * Save HCP custom fields when the user profile is updated.
+     *
+     * @param int $user_id The user ID.
+     */
+    public static function save_user_profile_fields( $user_id ) {
+        if ( ! current_user_can( 'edit_user', $user_id ) ) {
+            return;
+        }
+
+        check_admin_referer( 'update-user_' . $user_id );
+
+        if ( isset( $_POST['hcp_phone'] ) ) {
+            update_user_meta( $user_id, 'hcp_phone', sanitize_text_field( wp_unslash( $_POST['hcp_phone'] ) ) );
+        }
+        if ( isset( $_POST['hcp_practice_name'] ) ) {
+            update_user_meta( $user_id, 'hcp_practice_name', sanitize_text_field( wp_unslash( $_POST['hcp_practice_name'] ) ) );
+        }
+        if ( isset( $_POST['hcp_type'] ) ) {
+            update_user_meta( $user_id, 'hcp_type', sanitize_text_field( wp_unslash( $_POST['hcp_type'] ) ) );
+        }
+        if ( isset( $_POST['hcp_reg_number'] ) ) {
+            update_user_meta( $user_id, 'hcp_reg_number', sanitize_text_field( wp_unslash( $_POST['hcp_reg_number'] ) ) );
+        }
     }
 }

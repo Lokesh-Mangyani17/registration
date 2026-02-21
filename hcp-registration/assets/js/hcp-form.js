@@ -19,7 +19,7 @@
 
             // Basic client-side validation.
             var valid = true;
-            $form.find('[required]').each(function () {
+            $form.find('input[required]:not([type="checkbox"]), select[required]').each(function () {
                 if (!$(this).val().trim()) {
                     $(this).addClass('hcp-error');
                     valid = false;
@@ -32,10 +32,15 @@
                 valid = false;
             }
 
+            // Terms checkbox validation.
+            if (!$form.find('[name="terms"]').is(':checked')) {
+                valid = false;
+            }
+
             if (!valid) {
                 $message
                     .addClass('hcp-msg-error')
-                    .text('Please fill in all required fields correctly.')
+                    .text('Please fill in all required fields correctly and accept the terms and conditions.')
                     .show();
                 return;
             }

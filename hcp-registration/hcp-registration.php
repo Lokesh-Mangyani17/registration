@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'HCP_REG_VERSION' ) ) {
-    define( 'HCP_REG_VERSION', '1.0.0' );
+    define( 'HCP_REG_VERSION', '1.1.0' );
 }
 if ( ! defined( 'HCP_REG_PLUGIN_DIR' ) ) {
     define( 'HCP_REG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );

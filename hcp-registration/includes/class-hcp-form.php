@@ -65,11 +65,18 @@ class HCP_Form {
             'hcp_reg_number' => sanitize_text_field( wp_unslash( $_POST['hcp_reg_number'] ?? '' ) ),
         );
 
+        $terms = $_POST['terms'] ?? '';
+
         // Validate required fields.
         foreach ( $fields as $key => $value ) {
             if ( empty( $value ) ) {
                 wp_send_json_error( array( 'message' => __( 'All fields are required.', 'hcp-registration' ) ) );
             }
+        }
+
+        // Validate terms acceptance.
+        if ( empty( $terms ) ) {
+            wp_send_json_error( array( 'message' => __( 'You must accept the terms and conditions.', 'hcp-registration' ) ) );
         }
 
         // Validate email format.
