@@ -201,7 +201,7 @@ class HCP_Admin {
      */
     public static function handle_approve() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorised.', 'hcp-registration' ) );
+            wp_die( esc_html__( 'Unauthorized.', 'hcp-registration' ) );
         }
 
         $id = absint( $_GET['id'] ?? 0 );
@@ -256,7 +256,7 @@ class HCP_Admin {
      */
     public static function handle_reject() {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( esc_html__( 'Unauthorised.', 'hcp-registration' ) );
+            wp_die( esc_html__( 'Unauthorized.', 'hcp-registration' ) );
         }
 
         $id = absint( $_GET['id'] ?? 0 );

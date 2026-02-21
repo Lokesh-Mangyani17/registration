@@ -63,7 +63,7 @@ class HCP_DB {
     /**
      * Insert a new registration request.
      *
-     * @param array $data Sanitised form data.
+     * @param array $data Sanitized form data.
      * @return int|false Insert ID or false on failure.
      */
     public static function insert_request( $data ) {
