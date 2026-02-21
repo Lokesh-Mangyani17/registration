@@ -1,0 +1,150 @@
+/* ==========================================================================
+   HCP Registration Form – Front-end Styles
+   ========================================================================== */
+
+#hcp-registration-wrap {
+    max-width: 680px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+#hcp-registration-form {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 32px;
+}
+
+#hcp-registration-form h2 {
+    margin: 0 0 8px;
+    font-size: 24px;
+}
+
+.hcp-description {
+    color: #555;
+    margin-bottom: 24px;
+}
+
+/* Field rows (two-column on wider screens) */
+.hcp-field-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 0;
+}
+
+.hcp-field-row .hcp-field {
+    flex: 1;
+}
+
+.hcp-field {
+    margin-bottom: 18px;
+}
+
+.hcp-field label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.hcp-field label .required {
+    color: #d63638;
+}
+
+.hcp-field input,
+.hcp-field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.hcp-field input:focus,
+.hcp-field select:focus {
+    border-color: #0073aa;
+    outline: none;
+    box-shadow: 0 0 0 1px #0073aa;
+}
+
+.hcp-field input.hcp-error,
+.hcp-field select.hcp-error {
+    border-color: #d63638;
+}
+
+/* Submit button */
+.hcp-submit-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.hcp-submit-btn {
+    background: #0073aa;
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.hcp-submit-btn:hover {
+    background: #005f8d;
+}
+
+.hcp-submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Spinner */
+.hcp-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ddd;
+    border-top-color: #0073aa;
+    border-radius: 50%;
+    animation: hcp-spin 0.7s linear infinite;
+}
+
+@keyframes hcp-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Messages */
+#hcp-form-message {
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+#hcp-form-message.hcp-msg-success {
+    background: #edfaef;
+    color: #1a7a2e;
+    border: 1px solid #b7e4c7;
+}
+
+#hcp-form-message.hcp-msg-error {
+    background: #fef0f0;
+    color: #a00;
+    border: 1px solid #f5c6c6;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .hcp-field-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    #hcp-registration-form {
+        padding: 20px;
+    }
+}
