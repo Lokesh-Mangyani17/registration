@@ -338,7 +338,7 @@ class HCP_Admin {
                 <td><input type="text" name="hcp_phone" id="hcp_phone" value="<?php echo esc_attr( $phone ); ?>" class="regular-text" /></td>
             </tr>
             <tr>
-                <th><label for="hcp_practice_name"><?php esc_html_e( 'Practice / Clinic Name', 'hcp-registration' ); ?></label></th>
+                <th><label for="hcp_practice_name"><?php esc_html_e( 'Practice/Clinic Name', 'hcp-registration' ); ?></label></th>
                 <td><input type="text" name="hcp_practice_name" id="hcp_practice_name" value="<?php echo esc_attr( $practice_name ); ?>" class="regular-text" /></td>
             </tr>
             <tr>
@@ -362,6 +362,8 @@ class HCP_Admin {
         if ( ! current_user_can( 'edit_user', $user_id ) ) {
             return;
         }
+
+        check_admin_referer( 'update-user_' . $user_id );
 
         if ( isset( $_POST['hcp_phone'] ) ) {
             update_user_meta( $user_id, 'hcp_phone', sanitize_text_field( wp_unslash( $_POST['hcp_phone'] ) ) );

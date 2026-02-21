@@ -84,6 +84,22 @@ class HCP_Form {
             wp_send_json_error( array( 'message' => __( 'Password must be at least 8 characters long.', 'hcp-registration' ) ) );
         }
 
+        if ( ! preg_match( '/[A-Z]/', $password ) ) {
+            wp_send_json_error( array( 'message' => __( 'Password must contain at least one uppercase letter (A-Z).', 'hcp-registration' ) ) );
+        }
+
+        if ( ! preg_match( '/[a-z]/', $password ) ) {
+            wp_send_json_error( array( 'message' => __( 'Password must contain at least one lowercase letter (a-z).', 'hcp-registration' ) ) );
+        }
+
+        if ( ! preg_match( '/[0-9]/', $password ) ) {
+            wp_send_json_error( array( 'message' => __( 'Password must contain at least one number (0-9).', 'hcp-registration' ) ) );
+        }
+
+        if ( ! preg_match( '/[^a-zA-Z0-9]/', $password ) ) {
+            wp_send_json_error( array( 'message' => __( 'Password must contain at least one special character.', 'hcp-registration' ) ) );
+        }
+
         // Validate terms acceptance.
         if ( empty( $terms ) ) {
             wp_send_json_error( array( 'message' => __( 'You must accept the terms and conditions.', 'hcp-registration' ) ) );
