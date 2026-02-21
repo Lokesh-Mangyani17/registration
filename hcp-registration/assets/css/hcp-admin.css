@@ -1,0 +1,58 @@
+/* ==========================================================================
+   HCP Registration – Admin Dashboard Styles
+   ========================================================================== */
+
+.hcp-registrations-table {
+    margin-top: 16px;
+}
+
+.hcp-reject-btn {
+    color: #a00 !important;
+    border-color: #a00 !important;
+}
+
+.hcp-reject-btn:hover {
+    background: #a00 !important;
+    color: #fff !important;
+}
+
+/* Detail view */
+.hcp-detail-table th {
+    width: 220px;
+    font-weight: 600;
+}
+
+.hcp-detail-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+/* Status badges */
+.hcp-status {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.hcp-status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.hcp-status-approved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.hcp-status-rejected {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* Admin notices */
+.hcp-admin-notice {
+    margin: 16px 0;
+}
