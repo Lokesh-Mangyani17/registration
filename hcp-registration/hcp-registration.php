@@ -11,9 +11,15 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-define( 'HCP_REG_VERSION', '1.0.0' );
-define( 'HCP_REG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'HCP_REG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'HCP_REG_VERSION' ) ) {
+    define( 'HCP_REG_VERSION', '1.0.0' );
+}
+if ( ! defined( 'HCP_REG_PLUGIN_DIR' ) ) {
+    define( 'HCP_REG_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+}
+if ( ! defined( 'HCP_REG_PLUGIN_URL' ) ) {
+    define( 'HCP_REG_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+}
 
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-db.php';
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-form.php';
