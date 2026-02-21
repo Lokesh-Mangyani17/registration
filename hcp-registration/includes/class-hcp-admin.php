@@ -233,19 +233,6 @@ class HCP_Admin {
             wp_die( esc_html( $user_id->get_error_message() ) );
         }
 
-        // If a password hash was stored during registration, apply it.
-        if ( ! empty( $request->password_hash ) ) {
-            global $wpdb;
-            $wpdb->update(
-                $wpdb->users,
-                array( 'user_pass' => $request->password_hash ),
-                array( 'ID' => $user_id ),
-                array( '%s' ),
-                array( '%d' )
-            );
-            clean_user_cache( $user_id );
-        }
-
         // Store additional profile fields as user meta.
         update_user_meta( $user_id, 'hcp_phone', $request->phone );
         update_user_meta( $user_id, 'hcp_practice_name', $request->practice_name );

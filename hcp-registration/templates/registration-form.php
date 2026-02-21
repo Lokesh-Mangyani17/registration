@@ -62,12 +62,6 @@ if ( ! defined( 'ABSPATH' ) ) {
             <input type="text" id="hcp_reg_number" name="hcp_reg_number" required />
         </div>
 
-        <div class="hcp-field">
-            <label for="hcp_password"><?php esc_html_e( 'Password', 'hcp-registration' ); ?> <span class="required">*</span></label>
-            <input type="password" id="hcp_password" name="password" placeholder="<?php esc_attr_e( 'Password.', 'hcp-registration' ); ?>" required />
-            <p class="hcp-field-hint"><?php esc_html_e( 'A minimum length of at least 8 characters, though 12 or more is strongly recommended. At least one uppercase letter (A-Z). At least one lowercase letter (a-z). At least one number (0-9). At least one special character (e.g., ! @ # $ % ^ & * ( ) - + ?).', 'hcp-registration' ); ?></p>
-        </div>
-
         <div class="hcp-field hcp-terms-field">
             <label class="hcp-checkbox-label">
                 <input type="checkbox" id="hcp_terms" name="terms" value="1" required />

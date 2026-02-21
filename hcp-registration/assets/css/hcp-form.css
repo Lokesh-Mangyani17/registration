@@ -51,7 +51,6 @@
 .hcp-field input[type="text"],
 .hcp-field input[type="tel"],
 .hcp-field input[type="email"],
-.hcp-field input[type="password"],
 .hcp-field select {
     width: 100%;
     padding: 10px 0;
@@ -68,7 +67,6 @@
 .hcp-field input[type="text"]:focus,
 .hcp-field input[type="tel"]:focus,
 .hcp-field input[type="email"]:focus,
-.hcp-field input[type="password"]:focus,
 .hcp-field select:focus {
     border-bottom-color: #0b1d3a;
     outline: none;

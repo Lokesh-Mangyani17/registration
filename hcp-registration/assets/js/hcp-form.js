@@ -32,13 +32,6 @@
                 valid = false;
             }
 
-            // Password validation.
-            var password = $form.find('[name="password"]').val();
-            if (password && password.length < 8) {
-                $form.find('[name="password"]').addClass('hcp-error');
-                valid = false;
-            }
-
             // Terms checkbox validation.
             if (!$form.find('[name="terms"]').is(':checked')) {
                 valid = false;
