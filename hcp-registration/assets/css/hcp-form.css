@@ -182,15 +182,188 @@
 
 /* Responsive */
 @media (max-width: 600px) {
-    #hcp-registration-form {
+    #hcp-registration-form,
+    #trade-application-form {
         padding: 28px 20px;
     }
 
-    #hcp-registration-form h2 {
+    #hcp-registration-form h2,
+    #trade-application-form h2 {
         font-size: 28px;
     }
 
     .hcp-submit-btn {
         width: 100%;
     }
+
+    #trade-signature-pad {
+        width: 100%;
+        height: 150px;
+    }
+}
+
+/* ==========================================================================
+   Trade Application Form – Additional Styles
+   ========================================================================== */
+
+#trade-application-form {
+    background: #dce5ef;
+    border: 1px solid #b8c7d6;
+    border-radius: 4px;
+    padding: 48px 56px;
+}
+
+#trade-application-form h2 {
+    margin: 0 0 16px;
+    font-size: 36px;
+    font-weight: 700;
+    text-align: center;
+    color: #0b1d3a;
+}
+
+.trade-section-heading {
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #0b1d3a;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0b1d3a;
+}
+
+/* Textarea fields */
+#trade-application-form textarea {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #0b1d3a;
+    border-radius: 0;
+    font-size: 15px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #0b1d3a;
+    resize: vertical;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+#trade-application-form textarea:focus {
+    border-bottom-color: #0b1d3a;
+    outline: none;
+    box-shadow: none;
+}
+
+#trade-application-form textarea.hcp-error {
+    border-bottom-color: #d63638;
+}
+
+/* Date input */
+#trade-application-form input[type="date"] {
+    width: 100%;
+    padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #0b1d3a;
+    border-radius: 0;
+    font-size: 15px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #0b1d3a;
+    transition: border-color 0.2s;
+}
+
+#trade-application-form input[type="date"]:focus {
+    border-bottom-color: #0b1d3a;
+    outline: none;
+    box-shadow: none;
+}
+
+/* File input */
+#trade-application-form input[type="file"] {
+    font-size: 14px;
+    color: #0b1d3a;
+}
+
+/* Radio group */
+.trade-radio-group {
+    display: flex;
+    gap: 24px;
+    margin-top: 4px;
+}
+
+.trade-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 400 !important;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.trade-radio-label input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Signature pad */
+.trade-signature-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#trade-signature-pad {
+    border: 1px solid #0b1d3a;
+    border-radius: 4px;
+    background: #fff;
+    cursor: crosshair;
+    max-width: 100%;
+    touch-action: none;
+}
+
+.trade-clear-sig-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid #0b1d3a;
+    color: #0b1d3a;
+    padding: 6px 16px;
+    font-size: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.trade-clear-sig-btn:hover {
+    background: #0b1d3a;
+    color: #fff;
+}
+
+/* Trade form message */
+#trade-form-message {
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+#trade-form-message.hcp-msg-success {
+    background: #edfaef;
+    color: #1a7a2e;
+    border: 1px solid #b7e4c7;
+}
+
+#trade-form-message.hcp-msg-error {
+    background: #fef0f0;
+    color: #a00;
+    border: 1px solid #f5c6c6;
+}
+
+/* Trade spinner */
+.trade-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #b8c7d6;
+    border-top-color: #0b1d3a;
+    border-radius: 50%;
+    animation: hcp-spin 0.7s linear infinite;
 }
