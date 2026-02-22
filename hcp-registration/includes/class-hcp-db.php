@@ -257,9 +257,7 @@ class HCP_DB {
     public static function insert_trade_request( $data ) {
         global $wpdb;
 
-        $result = $wpdb->insert(
-            self::trade_table_name(),
-            array(
+        $insert_data = array(
                 'first_name'             => $data['first_name'],
                 'last_name'              => $data['last_name'],
                 'phone'                  => $data['phone'],
@@ -287,8 +285,12 @@ class HCP_DB {
                 'trade_reference'        => $data['trade_reference'],
                 'signature'              => $data['signature'],
                 'status'                 => 'pending',
-            ),
-            array_fill( 0, 27, '%s' )
+            );
+
+        $result = $wpdb->insert(
+            self::trade_table_name(),
+            $insert_data,
+            array_fill( 0, count( $insert_data ), '%s' )
         );
 
         return $result ? $wpdb->insert_id : false;

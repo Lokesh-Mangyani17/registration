@@ -295,7 +295,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             <p><?php esc_html_e( 'If you are placing orders with us as prescriptions come in, you will have an option to enter the Section 29 data into the HCP Community portal at the time of ordering.', 'hcp-registration' ); ?></p>
 
-            <p><?php esc_html_e( 'If you order from NUBU in volumes that allow you to keep stock on hand and don\'t have prescription data on hand at the time of ordering, you will be unable to use this function.', 'hcp-registration' ); ?></p>
+            <p><?php esc_html_e( "If you order from NUBU in volumes that allow you to keep stock on hand and don't have prescription data on hand at the time of ordering, you will be unable to use this function.", 'hcp-registration' ); ?></p>
 
             <p><?php esc_html_e( 'Instead, you will need to email your data through to hq@nubupharma.com using the excel template provided by NUBU, within 5 business days of the end of the month.', 'hcp-registration' ); ?></p>
 
