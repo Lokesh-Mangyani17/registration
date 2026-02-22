@@ -28,6 +28,23 @@
             }
         });
 
+        /* ---- Country "Other" toggle ---- */
+        $form.on('change', '#physical_country', function () {
+            if ($(this).val() === 'Other') {
+                $('#physical-country-other-field').show();
+            } else {
+                $('#physical-country-other-field').hide().find('input').val('');
+            }
+        });
+
+        $form.on('change', '#postal_country', function () {
+            if ($(this).val() === 'Other') {
+                $('#postal-country-other-field').show();
+            } else {
+                $('#postal-country-other-field').hide().find('input').val('');
+            }
+        });
+
         /* ---- Signature Pad ---- */
         var canvas = document.getElementById('trade-signature-pad');
         var ctx    = canvas ? canvas.getContext('2d') : null;

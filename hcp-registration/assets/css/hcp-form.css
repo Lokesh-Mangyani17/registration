@@ -5,30 +5,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 #hcp-registration-wrap {
-    max-width: 680px;
+    max-width: 720px;
     margin: 40px auto;
     padding: 0 16px;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 #hcp-registration-form {
-    background: #dce5ef;
-    border: 1px solid #b8c7d6;
-    border-radius: 4px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
     padding: 48px 56px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 #hcp-registration-form h2 {
     margin: 0 0 16px;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 700;
     text-align: center;
     color: #0b1d3a;
+    letter-spacing: -0.02em;
 }
 
 .hcp-description {
-    color: #0b1d3a;
+    color: #475569;
     margin-bottom: 32px;
     text-align: center;
     font-size: 15px;
@@ -43,12 +45,12 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    font-size: 15px;
-    color: #0b1d3a;
+    font-size: 14px;
+    color: #1e293b;
 }
 
 .hcp-field label .required {
-    color: #0b1d3a;
+    color: #dc2626;
     font-weight: 700;
 }
 
@@ -57,29 +59,29 @@
 .hcp-field input[type="email"],
 .hcp-field select {
     width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #0b1d3a;
-    border-radius: 0;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     font-size: 15px;
     box-sizing: border-box;
-    background: transparent;
-    color: #0b1d3a;
-    transition: border-color 0.2s;
+    background: #fff;
+    color: #1e293b;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .hcp-field input[type="text"]:focus,
 .hcp-field input[type="tel"]:focus,
 .hcp-field input[type="email"]:focus,
 .hcp-field select:focus {
-    border-bottom-color: #0b1d3a;
+    border-color: #0b1d3a;
     outline: none;
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(11, 29, 58, 0.1);
 }
 
 .hcp-field input.hcp-error,
 .hcp-field select.hcp-error {
-    border-bottom-color: #d63638;
+    border-color: #d63638;
 }
 
 .hcp-field select {
@@ -90,7 +92,7 @@
 .hcp-field-hint {
     margin: 8px 0 0;
     font-size: 13px;
-    color: #4a5568;
+    color: #64748b;
     line-height: 1.5;
 }
 
@@ -129,19 +131,21 @@
     background: #0b1d3a;
     color: #fff;
     border: none;
-    padding: 16px 32px;
+    padding: 14px 32px;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, box-shadow 0.2s;
     width: 80%;
     max-width: 420px;
     text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .hcp-submit-btn:hover {
     background: #162d52;
+    box-shadow: 0 4px 12px rgba(11, 29, 58, 0.2);
 }
 
 .hcp-submit-btn:disabled {
@@ -154,7 +158,7 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 3px solid #b8c7d6;
+    border: 3px solid #e2e8f0;
     border-top-color: #0b1d3a;
     border-radius: 50%;
     animation: hcp-spin 0.7s linear infinite;
@@ -167,7 +171,7 @@
 /* Messages */
 #hcp-form-message {
     padding: 12px 16px;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-bottom: 18px;
     font-size: 14px;
 }
@@ -193,7 +197,7 @@
 
     #hcp-registration-form h2,
     #trade-application-form h2 {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .hcp-submit-btn {
@@ -211,80 +215,82 @@
    ========================================================================== */
 
 #trade-application-form {
-    background: #dce5ef;
-    border: 1px solid #b8c7d6;
-    border-radius: 4px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
     padding: 48px 56px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 #trade-application-form h2 {
-    margin: 0 0 16px;
-    font-size: 36px;
+    margin: 0 0 8px;
+    font-size: 32px;
     font-weight: 700;
     text-align: center;
     color: #0b1d3a;
+    letter-spacing: -0.02em;
 }
 
 .trade-section-heading {
-    margin: 32px 0 16px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #0b1d3a;
-    font-size: 20px;
+    margin: 36px 0 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+    font-size: 18px;
     font-weight: 700;
     color: #0b1d3a;
+    letter-spacing: -0.01em;
 }
 
-/* Textarea fields */
+/* Input fields inside trade form */
 #trade-application-form textarea {
     width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #0b1d3a;
-    border-radius: 0;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     font-size: 15px;
     box-sizing: border-box;
-    background: transparent;
-    color: #0b1d3a;
+    background: #fff;
+    color: #1e293b;
     resize: vertical;
     font-family: inherit;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 #trade-application-form textarea:focus {
-    border-bottom-color: #0b1d3a;
+    border-color: #0b1d3a;
     outline: none;
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(11, 29, 58, 0.1);
 }
 
 #trade-application-form textarea.hcp-error {
-    border-bottom-color: #d63638;
+    border-color: #d63638;
 }
 
 /* Date input */
 #trade-application-form input[type="date"] {
     width: 100%;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid #0b1d3a;
-    border-radius: 0;
+    padding: 10px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     font-size: 15px;
     box-sizing: border-box;
-    background: transparent;
-    color: #0b1d3a;
-    transition: border-color 0.2s;
+    background: #fff;
+    color: #1e293b;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 #trade-application-form input[type="date"]:focus {
-    border-bottom-color: #0b1d3a;
+    border-color: #0b1d3a;
     outline: none;
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(11, 29, 58, 0.1);
 }
 
 /* File input */
 #trade-application-form input[type="file"] {
     font-size: 14px;
-    color: #0b1d3a;
+    color: #1e293b;
 }
 
 /* Radio group */
@@ -317,8 +323,8 @@
 }
 
 #trade-signature-pad {
-    border: 1px solid #0b1d3a;
-    border-radius: 4px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
     background: #fff;
     cursor: crosshair;
     max-width: 100%;
@@ -328,24 +334,26 @@
 .trade-clear-sig-btn {
     align-self: flex-start;
     background: transparent;
-    border: 1px solid #0b1d3a;
-    color: #0b1d3a;
+    border: 1px solid #cbd5e1;
+    color: #475569;
     padding: 6px 16px;
     font-size: 13px;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, color 0.2s;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 .trade-clear-sig-btn:hover {
     background: #0b1d3a;
     color: #fff;
+    border-color: #0b1d3a;
 }
 
 /* Trade form message */
 #trade-form-message {
     padding: 12px 16px;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-bottom: 18px;
     font-size: 14px;
 }
@@ -367,7 +375,7 @@
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 3px solid #b8c7d6;
+    border: 3px solid #e2e8f0;
     border-top-color: #0b1d3a;
     border-radius: 50%;
     animation: hcp-spin 0.7s linear infinite;
@@ -378,11 +386,18 @@
    ========================================================================== */
 
 .hcp-address-group {
-    padding: 8px 0;
+    padding: 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
 }
 
 .hcp-address-group .hcp-field {
     margin-bottom: 16px;
+}
+
+.hcp-address-group .hcp-field:last-child {
+    margin-bottom: 0;
 }
 
 .hcp-field-row {
@@ -400,14 +415,16 @@
    ========================================================================== */
 
 .trade-conditions-block {
-    background: #f0f4f8;
-    border: 1px solid #b8c7d6;
-    border-radius: 6px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
     padding: 24px 28px;
     margin-bottom: 24px;
     font-size: 13px;
     line-height: 1.7;
-    color: #1a2a3a;
+    color: #334155;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .trade-conditions-block h4 {
