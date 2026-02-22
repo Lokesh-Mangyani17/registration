@@ -173,7 +173,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="hcp-field">
             <label><?php esc_html_e( 'Please sign below', 'hcp-registration' ); ?></label>
             <div class="trade-signature-wrap">
-                <canvas id="trade-signature-pad" width="600" height="200"></canvas>
+                <canvas id="trade-signature-pad" width="600" height="200" role="img" aria-label="<?php esc_attr_e( 'Signature drawing area', 'hcp-registration' ); ?>"></canvas>
                 <input type="hidden" name="signature" id="trade_signature_data" />
                 <button type="button" id="trade-clear-signature" class="trade-clear-sig-btn"><?php esc_html_e( 'Clear Signature', 'hcp-registration' ); ?></button>
             </div>

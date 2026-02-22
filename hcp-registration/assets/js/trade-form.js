@@ -14,6 +14,7 @@
         var canvas = document.getElementById('trade-signature-pad');
         var ctx    = canvas ? canvas.getContext('2d') : null;
         var drawing = false;
+        var hasDrawn = false;
 
         if (canvas && ctx) {
             ctx.strokeStyle = '#0b1d3a';
@@ -22,6 +23,7 @@
 
             canvas.addEventListener('mousedown', function (e) {
                 drawing = true;
+                hasDrawn = true;
                 ctx.beginPath();
                 ctx.moveTo(e.offsetX, e.offsetY);
             });
@@ -39,6 +41,7 @@
                 var rect = canvas.getBoundingClientRect();
                 var touch = e.touches[0];
                 drawing = true;
+                hasDrawn = true;
                 ctx.beginPath();
                 ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
             });
@@ -55,6 +58,7 @@
             $('#trade-clear-signature').on('click', function () {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 $('#trade_signature_data').val('');
+                hasDrawn = false;
             });
         }
 
@@ -95,15 +99,8 @@
             }
 
             // Capture signature data.
-            if (canvas) {
-                var sigData = canvas.toDataURL('image/png');
-                // Only store if there is actual drawing (non-blank canvas).
-                var blank = document.createElement('canvas');
-                blank.width = canvas.width;
-                blank.height = canvas.height;
-                if (canvas.toDataURL() !== blank.toDataURL()) {
-                    $('#trade_signature_data').val(sigData);
-                }
+            if (canvas && hasDrawn) {
+                $('#trade_signature_data').val(canvas.toDataURL('image/png'));
             }
 
             // Build FormData for file uploads.
@@ -131,6 +128,7 @@
                         $form[0].reset();
                         if (ctx) {
                             ctx.clearRect(0, 0, canvas.width, canvas.height);
+                            hasDrawn = false;
                         }
                     } else {
                         $message
