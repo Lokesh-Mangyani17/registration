@@ -31,8 +31,8 @@ class HCP_Admin {
         $badge         = $total_pending ? " <span class='awaiting-mod'>{$total_pending}</span>" : '';
 
         add_menu_page(
-            __( 'HCP Registrations', 'hcp-registration' ),
-            __( 'HCP Registrations', 'hcp-registration' ) . $badge,
+            __( 'Registration Requests', 'hcp-registration' ),
+            __( 'Registration Requests', 'hcp-registration' ) . $badge,
             'manage_options',
             'hcp-registrations',
             array( __CLASS__, 'render_page' ),
@@ -48,6 +48,13 @@ class HCP_Admin {
         if ( 'toplevel_page_hcp-registrations' !== $hook ) {
             return;
         }
+
+        wp_enqueue_style(
+            'hcp-admin-inter-font',
+            'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap',
+            array(),
+            null
+        );
 
         wp_enqueue_style(
             'hcp-admin-css',
@@ -111,7 +118,7 @@ class HCP_Admin {
         $trade_pending  = count( HCP_DB::get_trade_requests( 'pending' ) );
         ?>
         <div class="wrap">
-            <h1><?php esc_html_e( 'Registration Dashboard', 'hcp-registration' ); ?></h1>
+            <h1><?php esc_html_e( 'Registration Requests', 'hcp-registration' ); ?></h1>
             <nav class="nav-tab-wrapper">
                 <a href="<?php echo esc_url( add_query_arg( 'tab', 'hcp', $page_url ) ); ?>"
                    class="nav-tab <?php echo 'hcp' === $current_tab ? 'nav-tab-active' : ''; ?>">
@@ -222,6 +229,12 @@ class HCP_Admin {
                 <tr><th><?php esc_html_e( 'Submitted At', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->submitted_at ); ?></td></tr>
                 <?php if ( $r->reviewed_at ) : ?>
                     <tr><th><?php esc_html_e( 'Reviewed At', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->reviewed_at ); ?></td></tr>
+                <?php endif; ?>
+                <?php if ( ! empty( $r->reviewed_by ) ) : ?>
+                    <?php $reviewer = get_userdata( $r->reviewed_by ); ?>
+                    <?php if ( $reviewer ) : ?>
+                        <tr><th><?php esc_html_e( 'Reviewed By', 'hcp-registration' ); ?></th><td><?php echo esc_html( $reviewer->display_name ); ?></td></tr>
+                    <?php endif; ?>
                 <?php endif; ?>
             </table>
 
@@ -391,9 +404,73 @@ class HCP_Admin {
                 <tr><th><?php esc_html_e( 'NZ Business Number', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->nz_business_number ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'Legal Entity Number', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->legal_entity_number ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'Acts as Trustee', 'hcp-registration' ); ?></th><td><?php echo esc_html( ucfirst( $r->acts_as_trustee ) ); ?></td></tr>
+                <?php if ( 'yes' === $r->acts_as_trustee && ! empty( $r->trust_name ) ) : ?>
+                    <tr><th><?php esc_html_e( 'Trust Name', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->trust_name ); ?></td></tr>
+                <?php endif; ?>
                 <tr><th><?php esc_html_e( 'Trading Name', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->trading_name ); ?></td></tr>
-                <tr><th><?php esc_html_e( 'Physical Address', 'hcp-registration' ); ?></th><td><?php echo nl2br( esc_html( $r->physical_address ) ); ?></td></tr>
-                <tr><th><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?></th><td><?php echo nl2br( esc_html( $r->postal_address ) ); ?></td></tr>
+                <tr>
+                    <th><?php esc_html_e( 'Physical Address', 'hcp-registration' ); ?></th>
+                    <td>
+                        <?php
+                        $pa = json_decode( $r->physical_address, true );
+                        if ( is_array( $pa ) ) {
+                            $parts = array_filter( array(
+                                isset( $pa['street_address'] ) ? $pa['street_address'] : '',
+                                isset( $pa['suburb'] ) ? $pa['suburb'] : '',
+                                isset( $pa['city'] ) ? $pa['city'] : '',
+                                isset( $pa['state'] ) ? $pa['state'] : '',
+                                isset( $pa['postal_code'] ) ? $pa['postal_code'] : '',
+                                isset( $pa['country'] ) ? $pa['country'] : '',
+                            ) );
+                            echo esc_html( implode( ', ', $parts ) );
+                            if ( ! empty( $pa['phone'] ) ) {
+                                echo '<br>' . esc_html__( 'Phone: ', 'hcp-registration' ) . esc_html( $pa['phone'] );
+                            }
+                            if ( ! empty( $pa['fax'] ) ) {
+                                echo '<br>' . esc_html__( 'Fax: ', 'hcp-registration' ) . esc_html( $pa['fax'] );
+                            }
+                        } else {
+                            echo nl2br( esc_html( $r->physical_address ) );
+                        }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?></th>
+                    <td>
+                        <?php
+                        $postal_same = isset( $r->postal_same_as_physical ) ? $r->postal_same_as_physical : 'no';
+                        if ( 'yes' === $postal_same ) {
+                            esc_html_e( 'Same as physical address', 'hcp-registration' );
+                        } else {
+                            $po = json_decode( $r->postal_address, true );
+                            if ( is_array( $po ) ) {
+                                if ( isset( $po['postal_address'] ) ) {
+                                    $parts = array_filter( array(
+                                        $po['postal_address'],
+                                        isset( $po['suburb'] ) ? $po['suburb'] : '',
+                                        isset( $po['country'] ) ? $po['country'] : '',
+                                    ) );
+                                    echo esc_html( implode( ', ', $parts ) );
+                                } else {
+                                    // Fallback for physical-address style JSON
+                                    $parts = array_filter( array(
+                                        isset( $po['street_address'] ) ? $po['street_address'] : '',
+                                        isset( $po['suburb'] ) ? $po['suburb'] : '',
+                                        isset( $po['city'] ) ? $po['city'] : '',
+                                        isset( $po['state'] ) ? $po['state'] : '',
+                                        isset( $po['postal_code'] ) ? $po['postal_code'] : '',
+                                        isset( $po['country'] ) ? $po['country'] : '',
+                                    ) );
+                                    echo esc_html( implode( ', ', $parts ) );
+                                }
+                            } else {
+                                echo nl2br( esc_html( $r->postal_address ) );
+                            }
+                        }
+                        ?>
+                    </td>
+                </tr>
             </table>
 
             <h3><?php esc_html_e( 'Contact & Operations', 'hcp-registration' ); ?></h3>
@@ -437,6 +514,12 @@ class HCP_Admin {
                 <tr><th><?php esc_html_e( 'Submitted At', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->submitted_at ); ?></td></tr>
                 <?php if ( $r->reviewed_at ) : ?>
                     <tr><th><?php esc_html_e( 'Reviewed At', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->reviewed_at ); ?></td></tr>
+                <?php endif; ?>
+                <?php if ( ! empty( $r->reviewed_by ) ) : ?>
+                    <?php $reviewer = get_userdata( $r->reviewed_by ); ?>
+                    <?php if ( $reviewer ) : ?>
+                        <tr><th><?php esc_html_e( 'Reviewed By', 'hcp-registration' ); ?></th><td><?php echo esc_html( $reviewer->display_name ); ?></td></tr>
+                    <?php endif; ?>
                 <?php endif; ?>
             </table>
 
@@ -497,7 +580,7 @@ class HCP_Admin {
         update_user_meta( $user_id, 'hcp_type', $request->hcp_type );
         update_user_meta( $user_id, 'hcp_reg_number', $request->hcp_reg_number );
 
-        HCP_DB::update_status( $id, 'approved' );
+        HCP_DB::update_status( $id, 'approved', get_current_user_id() );
 
         // Send approval email with password-reset (set-password) link.
         HCP_Email::send_approval_email( $user_id, $request );
@@ -530,7 +613,7 @@ class HCP_Admin {
             wp_die( esc_html__( 'Invalid request.', 'hcp-registration' ) );
         }
 
-        HCP_DB::update_status( $id, 'rejected' );
+        HCP_DB::update_status( $id, 'rejected', get_current_user_id() );
 
         // Notify the applicant about rejection.
         HCP_Email::send_rejection_email( $request );
@@ -606,8 +689,10 @@ class HCP_Admin {
         update_user_meta( $user_id, 'trade_nz_business_number', $request->nz_business_number );
         update_user_meta( $user_id, 'trade_legal_entity_number', $request->legal_entity_number );
         update_user_meta( $user_id, 'trade_acts_as_trustee', $request->acts_as_trustee );
+        update_user_meta( $user_id, 'trade_trust_name', isset( $request->trust_name ) ? $request->trust_name : '' );
         update_user_meta( $user_id, 'trade_trading_name', $request->trading_name );
         update_user_meta( $user_id, 'trade_physical_address', $request->physical_address );
+        update_user_meta( $user_id, 'trade_postal_same_as_physical', isset( $request->postal_same_as_physical ) ? $request->postal_same_as_physical : 'no' );
         update_user_meta( $user_id, 'trade_postal_address', $request->postal_address );
         update_user_meta( $user_id, 'trade_business_email', $request->business_email );
         update_user_meta( $user_id, 'trade_accounts_payable_contact', $request->accounts_payable_contact );
@@ -620,7 +705,7 @@ class HCP_Admin {
         update_user_meta( $user_id, 'trade_trade_reference', $request->trade_reference );
         update_user_meta( $user_id, 'trade_signature', $request->signature );
 
-        HCP_DB::update_trade_status( $id, 'approved' );
+        HCP_DB::update_trade_status( $id, 'approved', get_current_user_id() );
 
         // Send appropriate approval email.
         HCP_Email::send_trade_approval_email( $user_id, $request, $is_existing );
@@ -653,7 +738,7 @@ class HCP_Admin {
             wp_die( esc_html__( 'Invalid application.', 'hcp-registration' ) );
         }
 
-        HCP_DB::update_trade_status( $id, 'rejected' );
+        HCP_DB::update_trade_status( $id, 'rejected', get_current_user_id() );
 
         // Notify the applicant about rejection.
         HCP_Email::send_trade_rejection_email( $request );

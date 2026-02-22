@@ -37,6 +37,7 @@ class HCP_DB {
             status varchar(20) NOT NULL DEFAULT 'pending',
             submitted_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             reviewed_at datetime DEFAULT NULL,
+            reviewed_by bigint(20) unsigned DEFAULT NULL,
             PRIMARY KEY (id),
             UNIQUE KEY email (email)
         ) {$charset};";
@@ -126,19 +127,28 @@ class HCP_DB {
      *
      * @param int    $id     Row ID.
      * @param string $status New status.
+     * @param int    $admin_id Optional admin user ID who reviewed.
      * @return bool
      */
-    public static function update_status( $id, $status ) {
+    public static function update_status( $id, $status, $admin_id = 0 ) {
         global $wpdb;
+
+        $data   = array(
+            'status'      => $status,
+            'reviewed_at' => current_time( 'mysql' ),
+        );
+        $format = array( '%s', '%s' );
+
+        if ( $admin_id ) {
+            $data['reviewed_by'] = $admin_id;
+            $format[]            = '%d';
+        }
 
         return (bool) $wpdb->update(
             self::table_name(),
-            array(
-                'status'      => $status,
-                'reviewed_at' => current_time( 'mysql' ),
-            ),
+            $data,
             array( 'id' => $id ),
-            array( '%s', '%s' ),
+            $format,
             array( '%d' )
         );
     }
@@ -197,8 +207,10 @@ class HCP_DB {
             nz_business_number varchar(100) DEFAULT '',
             legal_entity_number varchar(100) DEFAULT '',
             acts_as_trustee varchar(10) DEFAULT 'no',
+            trust_name varchar(200) DEFAULT '',
             trading_name varchar(200) DEFAULT '',
             physical_address text,
+            postal_same_as_physical varchar(10) DEFAULT 'no',
             postal_address text,
             business_email varchar(200) DEFAULT '',
             accounts_payable_contact varchar(200) DEFAULT '',
@@ -213,6 +225,7 @@ class HCP_DB {
             status varchar(20) NOT NULL DEFAULT 'pending',
             submitted_at datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
             reviewed_at datetime DEFAULT NULL,
+            reviewed_by bigint(20) unsigned DEFAULT NULL,
             PRIMARY KEY (id)
         ) {$charset};";
 
@@ -244,9 +257,7 @@ class HCP_DB {
     public static function insert_trade_request( $data ) {
         global $wpdb;
 
-        $result = $wpdb->insert(
-            self::trade_table_name(),
-            array(
+        $insert_data = array(
                 'first_name'             => $data['first_name'],
                 'last_name'              => $data['last_name'],
                 'phone'                  => $data['phone'],
@@ -258,8 +269,10 @@ class HCP_DB {
                 'nz_business_number'     => $data['nz_business_number'],
                 'legal_entity_number'    => $data['legal_entity_number'],
                 'acts_as_trustee'        => $data['acts_as_trustee'],
+                'trust_name'             => $data['trust_name'],
                 'trading_name'           => $data['trading_name'],
                 'physical_address'       => $data['physical_address'],
+                'postal_same_as_physical' => $data['postal_same_as_physical'],
                 'postal_address'         => $data['postal_address'],
                 'business_email'         => $data['business_email'],
                 'accounts_payable_contact' => $data['accounts_payable_contact'],
@@ -272,8 +285,12 @@ class HCP_DB {
                 'trade_reference'        => $data['trade_reference'],
                 'signature'              => $data['signature'],
                 'status'                 => 'pending',
-            ),
-            array_fill( 0, 25, '%s' )
+            );
+
+        $result = $wpdb->insert(
+            self::trade_table_name(),
+            $insert_data,
+            array_fill( 0, count( $insert_data ), '%s' )
         );
 
         return $result ? $wpdb->insert_id : false;
@@ -318,19 +335,28 @@ class HCP_DB {
      *
      * @param int    $id     Row ID.
      * @param string $status New status.
+     * @param int    $admin_id Optional admin user ID who reviewed.
      * @return bool
      */
-    public static function update_trade_status( $id, $status ) {
+    public static function update_trade_status( $id, $status, $admin_id = 0 ) {
         global $wpdb;
+
+        $data   = array(
+            'status'      => $status,
+            'reviewed_at' => current_time( 'mysql' ),
+        );
+        $format = array( '%s', '%s' );
+
+        if ( $admin_id ) {
+            $data['reviewed_by'] = $admin_id;
+            $format[]            = '%d';
+        }
 
         return (bool) $wpdb->update(
             self::trade_table_name(),
-            array(
-                'status'      => $status,
-                'reviewed_at' => current_time( 'mysql' ),
-            ),
+            $data,
             array( 'id' => $id ),
-            array( '%s', '%s' ),
+            $format,
             array( '%d' )
         );
     }

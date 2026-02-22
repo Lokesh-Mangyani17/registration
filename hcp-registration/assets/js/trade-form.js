@@ -10,6 +10,24 @@
         var $btn     = $form.find('.hcp-submit-btn');
         var $spinner = $form.find('.trade-spinner');
 
+        /* ---- Trustee toggle ---- */
+        $form.on('change', 'input[name="acts_as_trustee"]', function () {
+            if ($(this).val() === 'yes') {
+                $('#trust-name-field').show();
+            } else {
+                $('#trust-name-field').hide().find('input').val('');
+            }
+        });
+
+        /* ---- Postal same as physical toggle ---- */
+        $form.on('change', 'input[name="postal_same_as_physical"]', function () {
+            if ($(this).val() === 'no') {
+                $('#postal-address-fields').show();
+            } else {
+                $('#postal-address-fields').hide();
+            }
+        });
+
         /* ---- Signature Pad ---- */
         var canvas = document.getElementById('trade-signature-pad');
         var ctx    = canvas ? canvas.getContext('2d') : null;
@@ -72,18 +90,22 @@
 
             // Basic client-side validation.
             var valid = true;
-            $form.find('input[required]:not([type="checkbox"]):not([type="radio"]), select[required], textarea[required]').each(function () {
+            $form.find('input[required]:visible:not([type="checkbox"]):not([type="radio"]), select[required]:visible, textarea[required]:visible').each(function () {
                 if (!$(this).val().trim()) {
                     $(this).addClass('hcp-error');
                     valid = false;
                 }
             });
 
-            var email = $form.find('[name="email"]').val().trim();
-            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-                $form.find('[name="email"]').addClass('hcp-error');
-                valid = false;
-            }
+            // Email validation for all email-type inputs.
+            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            $form.find('input[type="email"]').each(function () {
+                var val = $(this).val().trim();
+                if (val && !emailPattern.test(val)) {
+                    $(this).addClass('hcp-error');
+                    valid = false;
+                }
+            });
 
             // Terms checkbox validation.
             if (!$form.find('[name="terms"]').is(':checked')) {
@@ -93,7 +115,7 @@
             if (!valid) {
                 $message
                     .addClass('hcp-msg-error')
-                    .text('Please fill in all required fields correctly and accept the terms and conditions.')
+                    .text('Please fill in all required fields correctly and accept the terms of trade.')
                     .show();
                 return;
             }
@@ -126,6 +148,8 @@
                             .text(res.data.message)
                             .show();
                         $form[0].reset();
+                        $('#trust-name-field').hide();
+                        $('#postal-address-fields').hide();
                         if (ctx) {
                             ctx.clearRect(0, 0, canvas.width, canvas.height);
                             hasDrawn = false;

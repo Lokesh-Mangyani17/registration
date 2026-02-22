@@ -56,10 +56,11 @@ add_action( 'init', 'hcp_reg_init' );
  */
 function hcp_reg_check_trade_upgrade() {
     $installed_version = get_option( 'hcp_reg_db_version', '1.0.0' );
-    if ( version_compare( $installed_version, '1.2.0', '<' ) ) {
+    if ( version_compare( $installed_version, '1.3.0', '<' ) ) {
+        HCP_DB::create_table();
         HCP_DB::create_trade_table();
         HCP_DB::register_trade_role();
-        update_option( 'hcp_reg_db_version', '1.2.0' );
+        update_option( 'hcp_reg_db_version', '1.3.0' );
     }
 }
 add_action( 'admin_init', 'hcp_reg_check_trade_upgrade' );
