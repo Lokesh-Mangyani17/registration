@@ -56,3 +56,12 @@
 .hcp-admin-notice {
     margin: 16px 0;
 }
+
+/* Tab navigation */
+.nav-tab-wrapper {
+    margin-bottom: 16px;
+}
+
+.nav-tab .awaiting-mod {
+    margin-left: 4px;
+}

@@ -26,12 +26,16 @@ require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-form.php';
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-admin.php';
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-email.php';
 
+require_once HCP_REG_PLUGIN_DIR . 'includes/class-trade-form.php';
+
 /**
  * Run on plugin activation.
  */
 function hcp_reg_activate() {
     HCP_DB::create_table();
     HCP_DB::register_role();
+    HCP_DB::create_trade_table();
+    HCP_DB::register_trade_role();
 }
 register_activation_hook( __FILE__, 'hcp_reg_activate' );
 
@@ -40,8 +44,22 @@ register_activation_hook( __FILE__, 'hcp_reg_activate' );
  */
 function hcp_reg_init() {
     HCP_Form::init();
+    Trade_Form::init();
     if ( is_admin() ) {
         HCP_Admin::init();
     }
 }
 add_action( 'init', 'hcp_reg_init' );
+
+/**
+ * Ensure trade table and role exist (runs once per version upgrade).
+ */
+function hcp_reg_check_trade_upgrade() {
+    $installed_version = get_option( 'hcp_reg_db_version', '1.0.0' );
+    if ( version_compare( $installed_version, '1.2.0', '<' ) ) {
+        HCP_DB::create_trade_table();
+        HCP_DB::register_trade_role();
+        update_option( 'hcp_reg_db_version', '1.2.0' );
+    }
+}
+add_action( 'admin_init', 'hcp_reg_check_trade_upgrade' );
