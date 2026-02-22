@@ -136,24 +136,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <select id="physical_country" name="physical_country">
                         <option value=""><?php esc_html_e( '— Select Country —', 'hcp-registration' ); ?></option>
                         <option value="New Zealand"><?php esc_html_e( 'New Zealand', 'hcp-registration' ); ?></option>
-                        <option value="Australia"><?php esc_html_e( 'Australia', 'hcp-registration' ); ?></option>
-                        <option value="United Kingdom"><?php esc_html_e( 'United Kingdom', 'hcp-registration' ); ?></option>
-                        <option value="United States"><?php esc_html_e( 'United States', 'hcp-registration' ); ?></option>
-                        <option value="Canada"><?php esc_html_e( 'Canada', 'hcp-registration' ); ?></option>
-                        <option value="India"><?php esc_html_e( 'India', 'hcp-registration' ); ?></option>
-                        <option value="China"><?php esc_html_e( 'China', 'hcp-registration' ); ?></option>
-                        <option value="Japan"><?php esc_html_e( 'Japan', 'hcp-registration' ); ?></option>
-                        <option value="South Korea"><?php esc_html_e( 'South Korea', 'hcp-registration' ); ?></option>
-                        <option value="Singapore"><?php esc_html_e( 'Singapore', 'hcp-registration' ); ?></option>
-                        <option value="Germany"><?php esc_html_e( 'Germany', 'hcp-registration' ); ?></option>
-                        <option value="France"><?php esc_html_e( 'France', 'hcp-registration' ); ?></option>
-                        <option value="Ireland"><?php esc_html_e( 'Ireland', 'hcp-registration' ); ?></option>
-                        <option value="South Africa"><?php esc_html_e( 'South Africa', 'hcp-registration' ); ?></option>
-                        <option value="Fiji"><?php esc_html_e( 'Fiji', 'hcp-registration' ); ?></option>
-                        <option value="Samoa"><?php esc_html_e( 'Samoa', 'hcp-registration' ); ?></option>
-                        <option value="Tonga"><?php esc_html_e( 'Tonga', 'hcp-registration' ); ?></option>
                         <option value="Other"><?php esc_html_e( 'Other', 'hcp-registration' ); ?></option>
                     </select>
+                </div>
+                <div class="hcp-field" id="physical-country-other-field" style="display:none;">
+                    <label for="physical_country_other"><?php esc_html_e( 'Please specify country', 'hcp-registration' ); ?></label>
+                    <input type="text" id="physical_country_other" name="physical_country_other" />
                 </div>
                 <div class="hcp-field-row">
                     <div class="hcp-field hcp-field-half">
@@ -193,25 +181,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <select id="postal_country" name="postal_country">
                                 <option value=""><?php esc_html_e( '— Select Country —', 'hcp-registration' ); ?></option>
                                 <option value="New Zealand"><?php esc_html_e( 'New Zealand', 'hcp-registration' ); ?></option>
-                                <option value="Australia"><?php esc_html_e( 'Australia', 'hcp-registration' ); ?></option>
-                                <option value="United Kingdom"><?php esc_html_e( 'United Kingdom', 'hcp-registration' ); ?></option>
-                                <option value="United States"><?php esc_html_e( 'United States', 'hcp-registration' ); ?></option>
-                                <option value="Canada"><?php esc_html_e( 'Canada', 'hcp-registration' ); ?></option>
-                                <option value="India"><?php esc_html_e( 'India', 'hcp-registration' ); ?></option>
-                                <option value="China"><?php esc_html_e( 'China', 'hcp-registration' ); ?></option>
-                                <option value="Japan"><?php esc_html_e( 'Japan', 'hcp-registration' ); ?></option>
-                                <option value="South Korea"><?php esc_html_e( 'South Korea', 'hcp-registration' ); ?></option>
-                                <option value="Singapore"><?php esc_html_e( 'Singapore', 'hcp-registration' ); ?></option>
-                                <option value="Germany"><?php esc_html_e( 'Germany', 'hcp-registration' ); ?></option>
-                                <option value="France"><?php esc_html_e( 'France', 'hcp-registration' ); ?></option>
-                                <option value="Ireland"><?php esc_html_e( 'Ireland', 'hcp-registration' ); ?></option>
-                                <option value="South Africa"><?php esc_html_e( 'South Africa', 'hcp-registration' ); ?></option>
-                                <option value="Fiji"><?php esc_html_e( 'Fiji', 'hcp-registration' ); ?></option>
-                                <option value="Samoa"><?php esc_html_e( 'Samoa', 'hcp-registration' ); ?></option>
-                                <option value="Tonga"><?php esc_html_e( 'Tonga', 'hcp-registration' ); ?></option>
                                 <option value="Other"><?php esc_html_e( 'Other', 'hcp-registration' ); ?></option>
                             </select>
                         </div>
+                    </div>
+                    <div class="hcp-field" id="postal-country-other-field" style="display:none;">
+                        <label for="postal_country_other"><?php esc_html_e( 'Please specify country', 'hcp-registration' ); ?></label>
+                        <input type="text" id="postal_country_other" name="postal_country_other" />
                     </div>
                 </div>
             </div>

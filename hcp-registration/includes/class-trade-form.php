@@ -118,6 +118,9 @@ class Trade_Form {
             'phone'          => sanitize_text_field( wp_unslash( $_POST['physical_phone'] ?? '' ) ),
             'fax'            => sanitize_text_field( wp_unslash( $_POST['physical_fax'] ?? '' ) ),
         );
+        if ( 'Other' === $physical['country'] && ! empty( $_POST['physical_country_other'] ) ) {
+            $physical['country'] = sanitize_text_field( wp_unslash( $_POST['physical_country_other'] ) );
+        }
         $fields['physical_address'] = wp_json_encode( $physical );
 
         // Build postal address JSON.
@@ -129,6 +132,9 @@ class Trade_Form {
                 'suburb'         => sanitize_text_field( wp_unslash( $_POST['postal_suburb'] ?? '' ) ),
                 'country'        => sanitize_text_field( wp_unslash( $_POST['postal_country'] ?? '' ) ),
             );
+            if ( 'Other' === $postal['country'] && ! empty( $_POST['postal_country_other'] ) ) {
+                $postal['country'] = sanitize_text_field( wp_unslash( $_POST['postal_country_other'] ) );
+            }
             $fields['postal_address'] = wp_json_encode( $postal );
         }
 
