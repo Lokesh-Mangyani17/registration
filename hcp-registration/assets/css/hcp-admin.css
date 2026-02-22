@@ -1,67 +1,243 @@
 /* ==========================================================================
-   HCP Registration – Admin Dashboard Styles
+   HCP Registration – Admin Dashboard Styles (Modern Layout)
    ========================================================================== */
 
-.hcp-registrations-table {
-    margin-top: 16px;
+/* Use Inter font for the admin dashboard */
+.toplevel_page_hcp-registrations .wrap {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.hcp-reject-btn {
-    color: #a00 !important;
-    border-color: #a00 !important;
+.toplevel_page_hcp-registrations .wrap > h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
 }
 
-.hcp-reject-btn:hover {
-    background: #a00 !important;
-    color: #fff !important;
+/* Tab navigation - modern card style */
+.toplevel_page_hcp-registrations .nav-tab-wrapper {
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 24px;
+    padding-bottom: 0;
+    background: transparent;
 }
 
-/* Detail view */
-.hcp-detail-table th {
-    width: 220px;
+.toplevel_page_hcp-registrations .nav-tab {
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 20px;
+    margin-bottom: -2px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.toplevel_page_hcp-registrations .nav-tab:hover {
+    color: #1e293b;
+    background: transparent;
+}
+
+.toplevel_page_hcp-registrations .nav-tab-active,
+.toplevel_page_hcp-registrations .nav-tab-active:hover,
+.toplevel_page_hcp-registrations .nav-tab-active:focus {
+    color: #0b1d3a;
+    border-bottom-color: #0b1d3a;
+    background: transparent;
+    box-shadow: none;
+}
+
+.toplevel_page_hcp-registrations .nav-tab .awaiting-mod {
+    margin-left: 6px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 7px;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+/* Sub-status filter links */
+.toplevel_page_hcp-registrations .subsubsub {
+    margin: 0 0 16px;
+    font-size: 13px;
+}
+
+.toplevel_page_hcp-registrations .subsubsub a {
+    font-weight: 500;
+    color: #64748b;
+    text-decoration: none;
+    padding: 4px 0;
+}
+
+.toplevel_page_hcp-registrations .subsubsub a:hover {
+    color: #0b1d3a;
+}
+
+.toplevel_page_hcp-registrations .subsubsub a.current {
+    color: #0b1d3a;
     font-weight: 600;
 }
 
+/* Table - Modern card style */
+.hcp-registrations-table {
+    margin-top: 8px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.hcp-registrations-table thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.hcp-registrations-table tbody td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.hcp-registrations-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.hcp-registrations-table tbody tr:hover td {
+    background: #f8fafc;
+}
+
+/* Buttons in table */
+.hcp-registrations-table .button-small {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+.hcp-reject-btn {
+    color: #dc2626 !important;
+    border-color: #fca5a5 !important;
+    background: #fef2f2 !important;
+}
+
+.hcp-reject-btn:hover {
+    background: #dc2626 !important;
+    color: #fff !important;
+    border-color: #dc2626 !important;
+}
+
+/* Detail view */
+.hcp-detail-table {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.hcp-detail-table th {
+    width: 220px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #475569;
+    background: #f8fafc;
+    padding: 12px 16px;
+}
+
+.hcp-detail-table td {
+    font-size: 14px;
+    color: #1e293b;
+    padding: 12px 16px;
+}
+
 .hcp-detail-actions {
-    margin-top: 20px;
+    margin-top: 24px;
     display: flex;
-    gap: 10px;
+    gap: 12px;
+}
+
+.hcp-detail-actions .button-large {
+    padding: 8px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 6px;
 }
 
 /* Status badges */
 .hcp-status {
     display: inline-block;
-    padding: 3px 10px;
-    border-radius: 3px;
-    font-size: 13px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
     font-weight: 600;
+    letter-spacing: 0.02em;
 }
 
 .hcp-status-pending {
-    background: #fff3cd;
-    color: #856404;
+    background: #fef3c7;
+    color: #92400e;
 }
 
 .hcp-status-approved {
-    background: #d4edda;
-    color: #155724;
+    background: #d1fae5;
+    color: #065f46;
 }
 
 .hcp-status-rejected {
-    background: #f8d7da;
-    color: #721c24;
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Section headings in detail view */
+.toplevel_page_hcp-registrations .wrap h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 28px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 /* Admin notices */
 .hcp-admin-notice {
     margin: 16px 0;
+    border-radius: 6px;
 }
 
-/* Tab navigation */
-.nav-tab-wrapper {
+/* Back link */
+.toplevel_page_hcp-registrations .wrap > a:first-of-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
     margin-bottom: 16px;
 }
 
-.nav-tab .awaiting-mod {
-    margin-left: 4px;
+.toplevel_page_hcp-registrations .wrap > a:first-of-type:hover {
+    color: #0b1d3a;
+}
+
+/* Notice info box */
+.toplevel_page_hcp-registrations .notice-info {
+    border-left-color: #3b82f6;
+    background: #eff6ff;
+    border-radius: 6px;
 }

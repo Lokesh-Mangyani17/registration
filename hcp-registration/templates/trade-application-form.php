@@ -94,19 +94,127 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
         </div>
 
+        <div class="hcp-field" id="trust-name-field" style="display:none;">
+            <label for="trade_trust_name"><?php esc_html_e( 'Trust Name', 'hcp-registration' ); ?></label>
+            <input type="text" id="trade_trust_name" name="trust_name" />
+        </div>
+
         <div class="hcp-field">
             <label for="trade_trading_name"><?php esc_html_e( 'Trading Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
             <input type="text" id="trade_trading_name" name="trading_name" required />
         </div>
 
         <div class="hcp-field">
-            <label for="trade_physical_address"><?php esc_html_e( 'Physical Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
-            <textarea id="trade_physical_address" name="physical_address" rows="3" required></textarea>
+            <label><?php esc_html_e( 'Physical Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <div class="hcp-address-group">
+                <div class="hcp-field">
+                    <label for="physical_street_address"><?php esc_html_e( 'Street Address', 'hcp-registration' ); ?></label>
+                    <input type="text" id="physical_street_address" name="physical_street_address" required />
+                </div>
+                <div class="hcp-field-row">
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_suburb"><?php esc_html_e( 'Suburb', 'hcp-registration' ); ?></label>
+                        <input type="text" id="physical_suburb" name="physical_suburb" />
+                    </div>
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_city"><?php esc_html_e( 'City', 'hcp-registration' ); ?></label>
+                        <input type="text" id="physical_city" name="physical_city" required />
+                    </div>
+                </div>
+                <div class="hcp-field-row">
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_state"><?php esc_html_e( 'State / Region', 'hcp-registration' ); ?></label>
+                        <input type="text" id="physical_state" name="physical_state" />
+                    </div>
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_postal_code"><?php esc_html_e( 'Postal Code', 'hcp-registration' ); ?></label>
+                        <input type="text" id="physical_postal_code" name="physical_postal_code" />
+                    </div>
+                </div>
+                <div class="hcp-field">
+                    <label for="physical_country"><?php esc_html_e( 'Country', 'hcp-registration' ); ?></label>
+                    <select id="physical_country" name="physical_country">
+                        <option value=""><?php esc_html_e( '— Select Country —', 'hcp-registration' ); ?></option>
+                        <option value="New Zealand"><?php esc_html_e( 'New Zealand', 'hcp-registration' ); ?></option>
+                        <option value="Australia"><?php esc_html_e( 'Australia', 'hcp-registration' ); ?></option>
+                        <option value="United Kingdom"><?php esc_html_e( 'United Kingdom', 'hcp-registration' ); ?></option>
+                        <option value="United States"><?php esc_html_e( 'United States', 'hcp-registration' ); ?></option>
+                        <option value="Canada"><?php esc_html_e( 'Canada', 'hcp-registration' ); ?></option>
+                        <option value="India"><?php esc_html_e( 'India', 'hcp-registration' ); ?></option>
+                        <option value="China"><?php esc_html_e( 'China', 'hcp-registration' ); ?></option>
+                        <option value="Japan"><?php esc_html_e( 'Japan', 'hcp-registration' ); ?></option>
+                        <option value="South Korea"><?php esc_html_e( 'South Korea', 'hcp-registration' ); ?></option>
+                        <option value="Singapore"><?php esc_html_e( 'Singapore', 'hcp-registration' ); ?></option>
+                        <option value="Germany"><?php esc_html_e( 'Germany', 'hcp-registration' ); ?></option>
+                        <option value="France"><?php esc_html_e( 'France', 'hcp-registration' ); ?></option>
+                        <option value="Ireland"><?php esc_html_e( 'Ireland', 'hcp-registration' ); ?></option>
+                        <option value="South Africa"><?php esc_html_e( 'South Africa', 'hcp-registration' ); ?></option>
+                        <option value="Fiji"><?php esc_html_e( 'Fiji', 'hcp-registration' ); ?></option>
+                        <option value="Samoa"><?php esc_html_e( 'Samoa', 'hcp-registration' ); ?></option>
+                        <option value="Tonga"><?php esc_html_e( 'Tonga', 'hcp-registration' ); ?></option>
+                        <option value="Other"><?php esc_html_e( 'Other', 'hcp-registration' ); ?></option>
+                    </select>
+                </div>
+                <div class="hcp-field-row">
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_phone"><?php esc_html_e( 'Phone', 'hcp-registration' ); ?></label>
+                        <input type="tel" id="physical_phone" name="physical_phone" />
+                    </div>
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_fax"><?php esc_html_e( 'Fax', 'hcp-registration' ); ?></label>
+                        <input type="text" id="physical_fax" name="physical_fax" />
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="hcp-field">
-            <label for="trade_postal_address"><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?></label>
-            <textarea id="trade_postal_address" name="postal_address" rows="3"></textarea>
+            <label><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?></label>
+            <div class="hcp-field" style="margin-bottom:12px;">
+                <label><?php esc_html_e( 'Same as physical address?', 'hcp-registration' ); ?></label>
+                <div class="trade-radio-group">
+                    <label class="trade-radio-label"><input type="radio" name="postal_same_as_physical" value="yes" checked /> <?php esc_html_e( 'Yes', 'hcp-registration' ); ?></label>
+                    <label class="trade-radio-label"><input type="radio" name="postal_same_as_physical" value="no" /> <?php esc_html_e( 'No', 'hcp-registration' ); ?></label>
+                </div>
+            </div>
+            <div id="postal-address-fields" style="display:none;">
+                <div class="hcp-address-group">
+                    <div class="hcp-field">
+                        <label for="postal_address_line"><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?></label>
+                        <input type="text" id="postal_address_line" name="postal_address_line" />
+                    </div>
+                    <div class="hcp-field-row">
+                        <div class="hcp-field hcp-field-half">
+                            <label for="postal_suburb"><?php esc_html_e( 'Suburb', 'hcp-registration' ); ?></label>
+                            <input type="text" id="postal_suburb" name="postal_suburb" />
+                        </div>
+                        <div class="hcp-field hcp-field-half">
+                            <label for="postal_country"><?php esc_html_e( 'Country', 'hcp-registration' ); ?></label>
+                            <select id="postal_country" name="postal_country">
+                                <option value=""><?php esc_html_e( '— Select Country —', 'hcp-registration' ); ?></option>
+                                <option value="New Zealand"><?php esc_html_e( 'New Zealand', 'hcp-registration' ); ?></option>
+                                <option value="Australia"><?php esc_html_e( 'Australia', 'hcp-registration' ); ?></option>
+                                <option value="United Kingdom"><?php esc_html_e( 'United Kingdom', 'hcp-registration' ); ?></option>
+                                <option value="United States"><?php esc_html_e( 'United States', 'hcp-registration' ); ?></option>
+                                <option value="Canada"><?php esc_html_e( 'Canada', 'hcp-registration' ); ?></option>
+                                <option value="India"><?php esc_html_e( 'India', 'hcp-registration' ); ?></option>
+                                <option value="China"><?php esc_html_e( 'China', 'hcp-registration' ); ?></option>
+                                <option value="Japan"><?php esc_html_e( 'Japan', 'hcp-registration' ); ?></option>
+                                <option value="South Korea"><?php esc_html_e( 'South Korea', 'hcp-registration' ); ?></option>
+                                <option value="Singapore"><?php esc_html_e( 'Singapore', 'hcp-registration' ); ?></option>
+                                <option value="Germany"><?php esc_html_e( 'Germany', 'hcp-registration' ); ?></option>
+                                <option value="France"><?php esc_html_e( 'France', 'hcp-registration' ); ?></option>
+                                <option value="Ireland"><?php esc_html_e( 'Ireland', 'hcp-registration' ); ?></option>
+                                <option value="South Africa"><?php esc_html_e( 'South Africa', 'hcp-registration' ); ?></option>
+                                <option value="Fiji"><?php esc_html_e( 'Fiji', 'hcp-registration' ); ?></option>
+                                <option value="Samoa"><?php esc_html_e( 'Samoa', 'hcp-registration' ); ?></option>
+                                <option value="Tonga"><?php esc_html_e( 'Tonga', 'hcp-registration' ); ?></option>
+                                <option value="Other"><?php esc_html_e( 'Other', 'hcp-registration' ); ?></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Contact & Operations -->
@@ -170,6 +278,40 @@ if ( ! defined( 'ABSPATH' ) ) {
         <!-- Signature -->
         <h3 class="trade-section-heading"><?php esc_html_e( 'Signature', 'hcp-registration' ); ?></h3>
 
+        <div class="hcp-field trade-conditions-block">
+            <h4><?php esc_html_e( 'Customer application conditions', 'hcp-registration' ); ?></h4>
+
+            <p><?php esc_html_e( 'The customer acknowledges that is has received, understood and is bound by the trading terms attached to this application ("MW Pharma Terms of Trade") and requests that MW Pharma Ltd t/a NUBU ("NUBU") supply goods requested by the customer upon and subject to the Trading Terms.', 'hcp-registration' ); ?></p>
+
+            <p><?php esc_html_e( 'The customer acknowledges that payment for goods must be made in accordance with the payment terms specified in the Trading Terms or as otherwise agreed by NUBU in writing.', 'hcp-registration' ); ?></p>
+
+            <p><?php esc_html_e( 'The customer authorises NUBU to make all necessary enquires to each of the referees and the bank for the purpose of obtaining such financial or other information that it may reasonably require for the purposes of assessing this application and the customer undertakes that it will authorise the referees and the banks to provide such information and documentation as NUBU may require.', 'hcp-registration' ); ?></p>
+
+            <p><?php esc_html_e( 'The customer undertakes to provide to NUBU such further details, documents or information concerning the customer as NUBU may reasonably require for the purposes of assessing this application.', 'hcp-registration' ); ?></p>
+
+            <h4><?php esc_html_e( 'Section 29 returns (applicable to pharmaceutical customers only)', 'hcp-registration' ); ?></h4>
+
+            <p><?php esc_html_e( 'In order to fulfil our obligations to the Ministry of Health, we require you to provide us with prescription data for any Section 29 Medicines that you purchase from NUBU.', 'hcp-registration' ); ?></p>
+
+            <p><?php esc_html_e( 'If you are placing orders with us as prescriptions come in, you will have an option to enter the Section 29 data into the HCP Community portal at the time of ordering.', 'hcp-registration' ); ?></p>
+
+            <p><?php esc_html_e( 'If you order from NUBU in volumes that allow you to keep stock on hand and don\'t have prescription data on hand at the time of ordering, you will be unable to use this function.', 'hcp-registration' ); ?></p>
+
+            <p><?php esc_html_e( 'Instead, you will need to email your data through to hq@nubupharma.com using the excel template provided by NUBU, within 5 business days of the end of the month.', 'hcp-registration' ); ?></p>
+
+            <p><?php esc_html_e( 'Please provide the following information:', 'hcp-registration' ); ?></p>
+            <ul>
+                <li><?php esc_html_e( 'Date of dispense', 'hcp-registration' ); ?></li>
+                <li><?php esc_html_e( 'Patient name', 'hcp-registration' ); ?></li>
+                <li><?php esc_html_e( 'Section 29 product dispensed', 'hcp-registration' ); ?></li>
+                <li><?php esc_html_e( 'Number of units dispensed', 'hcp-registration' ); ?></li>
+                <li><?php esc_html_e( 'Prescribing Doctor', 'hcp-registration' ); ?></li>
+                <li><?php esc_html_e( 'Pharmacode', 'hcp-registration' ); ?></li>
+            </ul>
+
+            <p><?php esc_html_e( 'I certify that I am authorised to sign this application form on behalf of the customer and that the information given is true and correct to the best of my knowledge.', 'hcp-registration' ); ?></p>
+        </div>
+
         <div class="hcp-field">
             <label><?php esc_html_e( 'Please sign below', 'hcp-registration' ); ?></label>
             <div class="trade-signature-wrap">
@@ -183,7 +325,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="hcp-field hcp-terms-field">
             <label class="hcp-checkbox-label">
                 <input type="checkbox" id="trade_terms" name="terms" value="1" required />
-                <?php esc_html_e( 'I accept the terms and conditions.', 'hcp-registration' ); ?>
+                <?php esc_html_e( 'I/We acknowledge that we have read and accept the terms of trade.', 'hcp-registration' ); ?>
             </label>
         </div>
 

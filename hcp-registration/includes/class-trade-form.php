@@ -90,9 +90,11 @@ class Trade_Form {
             'nz_business_number'      => sanitize_text_field( wp_unslash( $_POST['nz_business_number'] ?? '' ) ),
             'legal_entity_number'     => sanitize_text_field( wp_unslash( $_POST['legal_entity_number'] ?? '' ) ),
             'acts_as_trustee'         => sanitize_text_field( wp_unslash( $_POST['acts_as_trustee'] ?? 'no' ) ),
+            'trust_name'              => sanitize_text_field( wp_unslash( $_POST['trust_name'] ?? '' ) ),
             'trading_name'            => sanitize_text_field( wp_unslash( $_POST['trading_name'] ?? '' ) ),
-            'physical_address'        => sanitize_textarea_field( wp_unslash( $_POST['physical_address'] ?? '' ) ),
-            'postal_address'          => sanitize_textarea_field( wp_unslash( $_POST['postal_address'] ?? '' ) ),
+            'physical_address'        => '', // built from sub-fields below
+            'postal_same_as_physical' => sanitize_text_field( wp_unslash( $_POST['postal_same_as_physical'] ?? 'yes' ) ),
+            'postal_address'          => '', // built from sub-fields below
             'business_email'          => sanitize_email( wp_unslash( $_POST['business_email'] ?? '' ) ),
             'accounts_payable_contact' => sanitize_text_field( wp_unslash( $_POST['accounts_payable_contact'] ?? '' ) ),
             'delivery_contact'        => sanitize_text_field( wp_unslash( $_POST['delivery_contact'] ?? '' ) ),
@@ -105,17 +107,47 @@ class Trade_Form {
             'signature'               => '', // handled separately below
         );
 
+        // Build physical address JSON from sub-fields.
+        $physical = array(
+            'street_address' => sanitize_text_field( wp_unslash( $_POST['physical_street_address'] ?? '' ) ),
+            'suburb'         => sanitize_text_field( wp_unslash( $_POST['physical_suburb'] ?? '' ) ),
+            'city'           => sanitize_text_field( wp_unslash( $_POST['physical_city'] ?? '' ) ),
+            'state'          => sanitize_text_field( wp_unslash( $_POST['physical_state'] ?? '' ) ),
+            'postal_code'    => sanitize_text_field( wp_unslash( $_POST['physical_postal_code'] ?? '' ) ),
+            'country'        => sanitize_text_field( wp_unslash( $_POST['physical_country'] ?? '' ) ),
+            'phone'          => sanitize_text_field( wp_unslash( $_POST['physical_phone'] ?? '' ) ),
+            'fax'            => sanitize_text_field( wp_unslash( $_POST['physical_fax'] ?? '' ) ),
+        );
+        $fields['physical_address'] = wp_json_encode( $physical );
+
+        // Build postal address JSON.
+        if ( 'yes' === $fields['postal_same_as_physical'] ) {
+            $fields['postal_address'] = $fields['physical_address'];
+        } else {
+            $postal = array(
+                'postal_address' => sanitize_text_field( wp_unslash( $_POST['postal_address_line'] ?? '' ) ),
+                'suburb'         => sanitize_text_field( wp_unslash( $_POST['postal_suburb'] ?? '' ) ),
+                'country'        => sanitize_text_field( wp_unslash( $_POST['postal_country'] ?? '' ) ),
+            );
+            $fields['postal_address'] = wp_json_encode( $postal );
+        }
+
         $terms = $_POST['terms'] ?? '';
 
         // Required fields for trade application.
         $required = array(
             'first_name', 'last_name', 'phone', 'email',
-            'trading_name', 'physical_address',
+            'trading_name',
         );
         foreach ( $required as $key ) {
             if ( empty( $fields[ $key ] ) ) {
                 wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
             }
+        }
+
+        // Validate physical address street is filled.
+        if ( empty( $physical['street_address'] ) ) {
+            wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
         }
 
         // Validate terms acceptance.
@@ -126,6 +158,11 @@ class Trade_Form {
         // Validate email format.
         if ( ! is_email( $fields['email'] ) ) {
             wp_send_json_error( array( 'message' => __( 'Please enter a valid email address.', 'hcp-registration' ) ) );
+        }
+
+        // Validate business email format if provided.
+        if ( ! empty( $fields['business_email'] ) && ! is_email( $fields['business_email'] ) ) {
+            wp_send_json_error( array( 'message' => __( 'Please enter a valid business email address.', 'hcp-registration' ) ) );
         }
 
         // Check for duplicate pending/approved trade application.
