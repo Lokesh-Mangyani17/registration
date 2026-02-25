@@ -25,6 +25,7 @@ require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-db.php';
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-form.php';
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-admin.php';
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-email.php';
+require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-ghl.php';
 
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-trade-form.php';
 
@@ -50,6 +51,29 @@ function hcp_reg_init() {
     }
 }
 add_action( 'init', 'hcp_reg_init' );
+
+/**
+ * Register GHL settings on admin_init.
+ */
+function hcp_reg_ghl_register_settings() {
+    HCP_GHL::register_settings();
+}
+add_action( 'admin_init', 'hcp_reg_ghl_register_settings' );
+
+/**
+ * Add GHL settings sub-menu page.
+ */
+function hcp_reg_ghl_admin_menu() {
+    add_submenu_page(
+        'hcp-registrations',
+        __( 'GHL Settings', 'hcp-registration' ),
+        __( 'GHL Settings', 'hcp-registration' ),
+        'manage_options',
+        'hcp-ghl-settings',
+        array( 'HCP_GHL', 'render_settings_page' )
+    );
+}
+add_action( 'admin_menu', 'hcp_reg_ghl_admin_menu' );
 
 /**
  * Ensure trade table and role exist (runs once per version upgrade).

@@ -585,6 +585,9 @@ class HCP_Admin {
         // Send approval email with password-reset (set-password) link.
         HCP_Email::send_approval_email( $user_id, $request );
 
+        // Update contact in GoHighLevel CRM.
+        HCP_GHL::on_hcp_approved( $request );
+
         wp_safe_redirect( add_query_arg(
             array(
                 'page'    => 'hcp-registrations',
@@ -617,6 +620,9 @@ class HCP_Admin {
 
         // Notify the applicant about rejection.
         HCP_Email::send_rejection_email( $request );
+
+        // Update contact in GoHighLevel CRM.
+        HCP_GHL::on_hcp_rejected( $request );
 
         wp_safe_redirect( add_query_arg(
             array(
@@ -710,6 +716,9 @@ class HCP_Admin {
         // Send appropriate approval email.
         HCP_Email::send_trade_approval_email( $user_id, $request, $is_existing );
 
+        // Update contact in GoHighLevel CRM.
+        HCP_GHL::on_trade_approved( $request );
+
         wp_safe_redirect( add_query_arg(
             array(
                 'page'    => 'hcp-registrations',
@@ -742,6 +751,9 @@ class HCP_Admin {
 
         // Notify the applicant about rejection.
         HCP_Email::send_trade_rejection_email( $request );
+
+        // Update contact in GoHighLevel CRM.
+        HCP_GHL::on_trade_rejected( $request );
 
         wp_safe_redirect( add_query_arg(
             array(
