@@ -117,8 +117,9 @@ class HCP_GHL {
             'companyName' => $fields['practice_name'],
             'tags'        => array( 'HCP Request', 'HCP Pending' ),
             'customField' => array(
-                array( 'key' => 'hcp_type', 'field_value' => $fields['hcp_type'] ),
-                array( 'key' => 'hcp_reg_number', 'field_value' => $fields['hcp_reg_number'] ),
+                array( 'key' => 'practice_clinic_name', 'field_value' => $fields['practice_name'] ),
+                array( 'key' => 'hcp_registration_number', 'field_value' => $fields['hcp_reg_number'] ),
+                array( 'key' => 'role_of_contact', 'field_value' => $fields['hcp_type'] ),
             ),
         );
 
@@ -141,7 +142,10 @@ class HCP_GHL {
         }
 
         self::update_contact( $contact_id, array(
-            'tags' => array( 'HCP Request', 'HCP Approved' ),
+            'tags'        => array( 'HCP Request', 'HCP Approved' ),
+            'customField' => array(
+                array( 'key' => 'hcp_approved', 'field_value' => 'Approved' ),
+            ),
         ) );
     }
 
@@ -161,7 +165,10 @@ class HCP_GHL {
         }
 
         self::update_contact( $contact_id, array(
-            'tags' => array( 'HCP Request', 'HCP Rejected' ),
+            'tags'        => array( 'HCP Request', 'HCP Rejected' ),
+            'customField' => array(
+                array( 'key' => 'hcp_approved', 'field_value' => 'Declined' ),
+            ),
         ) );
     }
 
@@ -183,8 +190,8 @@ class HCP_GHL {
             'companyName' => $fields['trading_name'],
             'tags'        => array( 'Trade Request', 'Trade Pending' ),
             'customField' => array(
-                array( 'key' => 'hcp_type', 'field_value' => $fields['hcp_type'] ),
-                array( 'key' => 'hcp_reg_number', 'field_value' => $fields['hcp_reg_number'] ),
+                array( 'key' => 'role_of_contact', 'field_value' => $fields['hcp_type'] ),
+                array( 'key' => 'hcp_registration_number', 'field_value' => $fields['hcp_reg_number'] ),
                 array( 'key' => 'trading_name', 'field_value' => $fields['trading_name'] ),
                 array( 'key' => 'nature_of_business', 'field_value' => $fields['nature_of_business'] ),
             ),
@@ -209,7 +216,10 @@ class HCP_GHL {
         }
 
         self::update_contact( $contact_id, array(
-            'tags' => array( 'Trade Request', 'Trade Approved' ),
+            'tags'        => array( 'Trade Request', 'Trade Approved' ),
+            'customField' => array(
+                array( 'key' => 'hcp_trade_approved', 'field_value' => 'Yes' ),
+            ),
         ) );
     }
 
@@ -229,7 +239,10 @@ class HCP_GHL {
         }
 
         self::update_contact( $contact_id, array(
-            'tags' => array( 'Trade Request', 'Trade Rejected' ),
+            'tags'        => array( 'Trade Request', 'Trade Rejected' ),
+            'customField' => array(
+                array( 'key' => 'hcp_trade_approved', 'field_value' => 'No' ),
+            ),
         ) );
     }
 
