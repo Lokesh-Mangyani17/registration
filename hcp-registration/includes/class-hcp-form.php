@@ -103,6 +103,9 @@ class HCP_Form {
         // Notify site admin about new request.
         HCP_Email::notify_admin_new_request( $fields );
 
+        // Sync contact to GoHighLevel CRM.
+        HCP_GHL::on_hcp_submission( $fields );
+
         wp_send_json_success( array(
             'message' => __( 'Your registration request has been submitted successfully. You will receive an email once it is reviewed.', 'hcp-registration' ),
         ) );

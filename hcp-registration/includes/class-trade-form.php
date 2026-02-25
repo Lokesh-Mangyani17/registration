@@ -199,6 +199,9 @@ class Trade_Form {
         // Notify site admin about new trade request.
         HCP_Email::notify_admin_new_trade_request( $fields );
 
+        // Sync contact to GoHighLevel CRM.
+        HCP_GHL::on_trade_submission( $fields );
+
         wp_send_json_success( array(
             'message' => __( 'Your trade application has been submitted successfully. You will receive an email once it is reviewed.', 'hcp-registration' ),
         ) );
