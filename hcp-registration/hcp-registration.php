@@ -73,7 +73,7 @@ function hcp_reg_ghl_admin_menu() {
         array( 'HCP_GHL', 'render_settings_page' )
     );
 }
-add_action( 'admin_menu', 'hcp_reg_ghl_admin_menu' );
+add_action( 'admin_menu', 'hcp_reg_ghl_admin_menu', 20 );
 
 /**
  * Ensure trade table and role exist (runs once per version upgrade).
