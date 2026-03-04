@@ -126,6 +126,13 @@
                 valid = false;
             }
 
+            // Phone number validation (digits only).
+            var phone = $form.find('[name="phone"]').val().trim();
+            if (phone && !/^\d+$/.test(phone)) {
+                $form.find('[name="phone"]').addClass('hcp-error');
+                valid = false;
+            }
+
             // Email validation for all email-type inputs.
             var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             $form.find('input[type="email"]').each(function () {

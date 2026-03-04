@@ -159,6 +159,11 @@ class Trade_Form {
             wp_send_json_error( array( 'message' => __( 'Last name must not exceed 22 characters.', 'hcp-registration' ) ) );
         }
 
+        // Validate phone number (digits only).
+        if ( ! preg_match( '/^\d+$/', $fields['phone'] ) ) {
+            wp_send_json_error( array( 'message' => __( 'Phone number must contain only numbers.', 'hcp-registration' ) ) );
+        }
+
         // Validate physical address street is filled.
         if ( empty( $physical['street_address'] ) ) {
             wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );

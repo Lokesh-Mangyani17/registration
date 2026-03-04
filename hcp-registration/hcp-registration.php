@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! defined( 'HCP_REG_VERSION' ) ) {
-    define( 'HCP_REG_VERSION', '1.1.0' );
+    define( 'HCP_REG_VERSION', '1.2.0' );
 }
 
 require_once HCP_REG_DIR . 'includes/class-hcp-db.php';

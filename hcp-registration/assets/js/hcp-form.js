@@ -38,6 +38,13 @@
                 valid = false;
             }
 
+            // Phone number validation (digits only).
+            var phone = $form.find('[name="phone"]').val().trim();
+            if (phone && !/^\d+$/.test(phone)) {
+                $form.find('[name="phone"]').addClass('hcp-error');
+                valid = false;
+            }
+
             var email = $form.find('[name="email"]').val().trim();
             if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 $form.find('[name="email"]').addClass('hcp-error');
