@@ -43,7 +43,7 @@ class HCP_Email {
         );
 
         ob_start();
-        include HCP_REG_PLUGIN_DIR . 'templates/email-approved.php';
+        include HCP_REG_DIR . 'templates/email-approved.php';
         $message = ob_get_clean();
 
         $headers = array( 'Content-Type: text/html; charset=UTF-8' );
@@ -138,7 +138,7 @@ class HCP_Email {
             // Existing user – no password reset needed.
             $login_url = wp_login_url();
             ob_start();
-            include HCP_REG_PLUGIN_DIR . 'templates/email-trade-approved-existing.php';
+            include HCP_REG_DIR . 'templates/email-trade-approved-existing.php';
             $message = ob_get_clean();
         } else {
             // New user – include password-setup link.
@@ -151,7 +151,7 @@ class HCP_Email {
                 'login'
             );
             ob_start();
-            include HCP_REG_PLUGIN_DIR . 'templates/email-trade-approved-new.php';
+            include HCP_REG_DIR . 'templates/email-trade-approved-new.php';
             $message = ob_get_clean();
         }
 

@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Database helpers for the HCP Registration plugin.
+ * Database helpers for HCP Registration.
  */
 class HCP_DB {
 
