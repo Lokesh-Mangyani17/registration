@@ -14,12 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! defined( 'HCP_REG_VERSION' ) ) {
     define( 'HCP_REG_VERSION', '1.1.0' );
 }
-if ( ! defined( 'HCP_REG_PLUGIN_DIR' ) ) {
-    define( 'HCP_REG_PLUGIN_DIR', dirname( __FILE__ ) . '/' );
-}
-if ( ! defined( 'HCP_REG_PLUGIN_URL' ) ) {
-    define( 'HCP_REG_PLUGIN_URL', get_template_directory_uri() . '/hcp-registration/' );
-}
 
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-db.php';
 require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-form.php';
