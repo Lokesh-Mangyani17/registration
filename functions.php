@@ -2,27 +2,30 @@
 /**
  * Theme functions for New AI Site.
  *
- * Loads the bundled HCP Registration plugin and displays admin notices.
+ * Loads HCP Registration functionality and displays admin notices.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Load the HCP Registration plugin bundled with this theme.
+// Define paths before loading the HCP Registration files.
+define( 'HCP_REG_PLUGIN_DIR', get_template_directory() . '/hcp-registration/' );
 define( 'HCP_REG_PLUGIN_URL', get_template_directory_uri() . '/hcp-registration/' );
-require_once get_template_directory() . '/hcp-registration/hcp-registration.php';
+require_once HCP_REG_PLUGIN_DIR . 'hcp-registration.php';
 
 /**
- * Ensure the HCP Registration database table and role exist.
+ * Ensure the HCP Registration database tables and roles exist.
  *
- * The plugin's register_activation_hook does not fire when loaded from a theme,
- * so we run the setup on admin_init with a version check.
+ * Runs on admin_init with a version check so that tables are created
+ * on theme activation and kept up to date across upgrades.
  */
 function newaisite_hcp_setup() {
     if ( get_option( 'hcp_reg_version' ) !== HCP_REG_VERSION ) {
         HCP_DB::create_table();
         HCP_DB::register_role();
+        HCP_DB::create_trade_table();
+        HCP_DB::register_trade_role();
         update_option( 'hcp_reg_version', HCP_REG_VERSION );
     }
 }
