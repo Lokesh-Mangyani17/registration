@@ -9,22 +9,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div id="hcp-registration-wrap">
+    <div id="hcp-form-message" style="display:none;"></div>
     <form id="hcp-registration-form" novalidate>
         <h2><?php esc_html_e( 'Register for Access', 'hcp-registration' ); ?></h2>
         <p class="hcp-description">
             <?php esc_html_e( 'The content in this section is intended to provide medicinal cannabis information and educational resources for healthcare professionals only. Please complete the form below to register for access and the NUBU team will review and grant access once your professional registration number has been confirmed.', 'hcp-registration' ); ?>
         </p>
 
-        <div id="hcp-form-message" style="display:none;"></div>
-
         <div class="hcp-field">
             <label for="hcp_first_name"><?php esc_html_e( 'First Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-            <input type="text" id="hcp_first_name" name="first_name" required />
+            <input type="text" id="hcp_first_name" name="first_name" maxlength="22" required />
         </div>
 
         <div class="hcp-field">
             <label for="hcp_last_name"><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-            <input type="text" id="hcp_last_name" name="last_name" required />
+            <input type="text" id="hcp_last_name" name="last_name" maxlength="22" required />
         </div>
 
         <div class="hcp-field">
