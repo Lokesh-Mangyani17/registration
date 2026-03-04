@@ -58,7 +58,7 @@ class HCP_Admin {
 
         wp_enqueue_style(
             'hcp-admin-css',
-            HCP_REG_PLUGIN_URL . 'assets/css/hcp-admin.css',
+            HCP_REG_URL . 'assets/css/hcp-admin.css',
             array(),
             HCP_REG_VERSION
         );

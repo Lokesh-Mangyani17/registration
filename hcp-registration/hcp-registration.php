@@ -13,13 +13,13 @@ if ( ! defined( 'HCP_REG_VERSION' ) ) {
     define( 'HCP_REG_VERSION', '1.1.0' );
 }
 
-require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-db.php';
-require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-form.php';
-require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-admin.php';
-require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-email.php';
-require_once HCP_REG_PLUGIN_DIR . 'includes/class-hcp-ghl.php';
+require_once HCP_REG_DIR . 'includes/class-hcp-db.php';
+require_once HCP_REG_DIR . 'includes/class-hcp-form.php';
+require_once HCP_REG_DIR . 'includes/class-hcp-admin.php';
+require_once HCP_REG_DIR . 'includes/class-hcp-email.php';
+require_once HCP_REG_DIR . 'includes/class-hcp-ghl.php';
 
-require_once HCP_REG_PLUGIN_DIR . 'includes/class-trade-form.php';
+require_once HCP_REG_DIR . 'includes/class-trade-form.php';
 
 /**
  * Initialise front-end and admin components.

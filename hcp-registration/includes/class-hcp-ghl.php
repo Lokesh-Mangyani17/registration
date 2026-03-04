@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * GoHighLevel (GHL) CRM integration for HCP Registration plugin.
+ * GoHighLevel (GHL) CRM integration for HCP Registration.
  *
  * Creates or updates contacts in GHL at each registration stage:
  * - HCP / Trade form submission (create or update contact)

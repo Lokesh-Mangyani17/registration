@@ -21,14 +21,14 @@ class Trade_Form {
     public static function enqueue_assets() {
         wp_enqueue_style(
             'hcp-form-css',
-            HCP_REG_PLUGIN_URL . 'assets/css/hcp-form.css',
+            HCP_REG_URL . 'assets/css/hcp-form.css',
             array(),
             HCP_REG_VERSION
         );
 
         wp_enqueue_script(
             'trade-form-js',
-            HCP_REG_PLUGIN_URL . 'assets/js/trade-form.js',
+            HCP_REG_URL . 'assets/js/trade-form.js',
             array( 'jquery' ),
             HCP_REG_VERSION,
             true
@@ -68,7 +68,7 @@ class Trade_Form {
         }
 
         ob_start();
-        include HCP_REG_PLUGIN_DIR . 'templates/trade-application-form.php';
+        include HCP_REG_DIR . 'templates/trade-application-form.php';
         return ob_get_clean();
     }
 

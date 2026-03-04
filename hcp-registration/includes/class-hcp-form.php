@@ -21,14 +21,14 @@ class HCP_Form {
     public static function enqueue_assets() {
         wp_enqueue_style(
             'hcp-form-css',
-            HCP_REG_PLUGIN_URL . 'assets/css/hcp-form.css',
+            HCP_REG_URL . 'assets/css/hcp-form.css',
             array(),
             HCP_REG_VERSION
         );
 
         wp_enqueue_script(
             'hcp-form-js',
-            HCP_REG_PLUGIN_URL . 'assets/js/hcp-form.js',
+            HCP_REG_URL . 'assets/js/hcp-form.js',
             array( 'jquery' ),
             HCP_REG_VERSION,
             true
@@ -45,7 +45,7 @@ class HCP_Form {
      */
     public static function render_shortcode() {
         ob_start();
-        include HCP_REG_PLUGIN_DIR . 'templates/registration-form.php';
+        include HCP_REG_DIR . 'templates/registration-form.php';
         return ob_get_clean();
     }
 

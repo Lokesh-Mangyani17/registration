@@ -10,9 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define paths before loading the HCP Registration files.
-define( 'HCP_REG_PLUGIN_DIR', get_template_directory() . '/hcp-registration/' );
-define( 'HCP_REG_PLUGIN_URL', get_template_directory_uri() . '/hcp-registration/' );
-require_once HCP_REG_PLUGIN_DIR . 'hcp-registration.php';
+define( 'HCP_REG_DIR', get_template_directory() . '/hcp-registration/' );
+define( 'HCP_REG_URL', get_template_directory_uri() . '/hcp-registration/' );
+require_once HCP_REG_DIR . 'hcp-registration.php';
 
 /**
  * Ensure the HCP Registration database tables and roles exist.
