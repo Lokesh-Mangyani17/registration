@@ -9,25 +9,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div id="hcp-registration-wrap">
+    <div id="trade-form-message" style="display:none;"></div>
     <form id="trade-application-form" enctype="multipart/form-data" novalidate>
         <h2><?php esc_html_e( 'Trade Application', 'hcp-registration' ); ?></h2>
         <p class="hcp-description">
             <?php esc_html_e( 'Please complete the form below to apply for a Trade Account. The NUBU team will review your application and you will be notified by email once it has been processed.', 'hcp-registration' ); ?>
         </p>
 
-        <div id="trade-form-message" style="display:none;"></div>
-
         <!-- Personal Details -->
         <h3 class="trade-section-heading"><?php esc_html_e( 'Personal Details', 'hcp-registration' ); ?></h3>
 
         <div class="hcp-field">
             <label for="trade_first_name"><?php esc_html_e( 'First Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-            <input type="text" id="trade_first_name" name="first_name" value="<?php echo esc_attr( $prefill['first_name'] ); ?>" required />
+            <input type="text" id="trade_first_name" name="first_name" value="<?php echo esc_attr( $prefill['first_name'] ); ?>" maxlength="22" required />
         </div>
 
         <div class="hcp-field">
             <label for="trade_last_name"><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-            <input type="text" id="trade_last_name" name="last_name" value="<?php echo esc_attr( $prefill['last_name'] ); ?>" required />
+            <input type="text" id="trade_last_name" name="last_name" value="<?php echo esc_attr( $prefill['last_name'] ); ?>" maxlength="22" required />
         </div>
 
         <div class="hcp-field">

@@ -74,6 +74,14 @@ class HCP_Form {
             }
         }
 
+        // Validate first name and last name character limit.
+        if ( mb_strlen( $fields['first_name'] ) > 22 ) {
+            wp_send_json_error( array( 'message' => __( 'First name must not exceed 22 characters.', 'hcp-registration' ) ) );
+        }
+        if ( mb_strlen( $fields['last_name'] ) > 22 ) {
+            wp_send_json_error( array( 'message' => __( 'Last name must not exceed 22 characters.', 'hcp-registration' ) ) );
+        }
+
         // Validate terms acceptance.
         if ( empty( $terms ) ) {
             wp_send_json_error( array( 'message' => __( 'You must accept the terms and conditions.', 'hcp-registration' ) ) );

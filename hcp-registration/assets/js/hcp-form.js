@@ -26,6 +26,18 @@
                 }
             });
 
+            // First name and last name character limit validation.
+            var firstName = $form.find('[name="first_name"]').val().trim();
+            if (firstName.length > 22) {
+                $form.find('[name="first_name"]').addClass('hcp-error');
+                valid = false;
+            }
+            var lastName = $form.find('[name="last_name"]').val().trim();
+            if (lastName.length > 22) {
+                $form.find('[name="last_name"]').addClass('hcp-error');
+                valid = false;
+            }
+
             var email = $form.find('[name="email"]').val().trim();
             if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
                 $form.find('[name="email"]').addClass('hcp-error');
@@ -56,11 +68,11 @@
                 dataType: 'json',
                 success: function (res) {
                     if (res.success) {
+                        $form.hide();
                         $message
                             .addClass('hcp-msg-success')
                             .text(res.data.message)
                             .show();
-                        $form[0].reset();
                     } else {
                         $message
                             .addClass('hcp-msg-error')

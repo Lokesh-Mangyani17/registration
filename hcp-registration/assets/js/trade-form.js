@@ -114,6 +114,18 @@
                 }
             });
 
+            // First name and last name character limit validation.
+            var firstName = $form.find('[name="first_name"]').val().trim();
+            if (firstName.length > 22) {
+                $form.find('[name="first_name"]').addClass('hcp-error');
+                valid = false;
+            }
+            var lastName = $form.find('[name="last_name"]').val().trim();
+            if (lastName.length > 22) {
+                $form.find('[name="last_name"]').addClass('hcp-error');
+                valid = false;
+            }
+
             // Email validation for all email-type inputs.
             var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             $form.find('input[type="email"]').each(function () {
@@ -160,17 +172,11 @@
                 dataType: 'json',
                 success: function (res) {
                     if (res.success) {
+                        $form.hide();
                         $message
                             .addClass('hcp-msg-success')
                             .text(res.data.message)
                             .show();
-                        $form[0].reset();
-                        $('#trust-name-field').hide();
-                        $('#postal-address-fields').hide();
-                        if (ctx) {
-                            ctx.clearRect(0, 0, canvas.width, canvas.height);
-                            hasDrawn = false;
-                        }
                     } else {
                         $message
                             .addClass('hcp-msg-error')
