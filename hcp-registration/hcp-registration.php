@@ -2,8 +2,6 @@
 /**
  * HCP Registration – Healthcare Professional registration with admin approval workflow.
  *
- * Loaded by the theme via functions.php. This is NOT a standalone plugin.
- *
  * @package HCP_Registration
  */
 
