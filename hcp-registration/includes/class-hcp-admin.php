@@ -695,10 +695,10 @@ class HCP_Admin {
         update_user_meta( $user_id, 'trade_nz_business_number', sanitize_text_field( $request->nz_business_number ) );
         update_user_meta( $user_id, 'trade_legal_entity_number', sanitize_text_field( $request->legal_entity_number ) );
         update_user_meta( $user_id, 'trade_acts_as_trustee', sanitize_text_field( $request->acts_as_trustee ) );
-        update_user_meta( $user_id, 'trade_trust_name', sanitize_text_field( isset( $request->trust_name ) ? $request->trust_name : '' ) );
+        update_user_meta( $user_id, 'trade_trust_name', isset( $request->trust_name ) ? sanitize_text_field( $request->trust_name ) : '' );
         update_user_meta( $user_id, 'trade_trading_name', sanitize_text_field( $request->trading_name ) );
         update_user_meta( $user_id, 'trade_physical_address', sanitize_textarea_field( $request->physical_address ) );
-        update_user_meta( $user_id, 'trade_postal_same_as_physical', sanitize_text_field( isset( $request->postal_same_as_physical ) ? $request->postal_same_as_physical : 'no' ) );
+        update_user_meta( $user_id, 'trade_postal_same_as_physical', isset( $request->postal_same_as_physical ) ? sanitize_text_field( $request->postal_same_as_physical ) : 'no' );
         update_user_meta( $user_id, 'trade_postal_address', sanitize_textarea_field( $request->postal_address ) );
         update_user_meta( $user_id, 'trade_business_email', sanitize_email( $request->business_email ) );
         update_user_meta( $user_id, 'trade_accounts_payable_contact', sanitize_text_field( $request->accounts_payable_contact ) );
