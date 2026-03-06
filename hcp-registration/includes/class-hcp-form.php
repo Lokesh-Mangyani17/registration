@@ -82,6 +82,11 @@ class HCP_Form {
             wp_send_json_error( array( 'message' => __( 'Last name must not exceed 22 characters.', 'hcp-registration' ) ) );
         }
 
+        // Validate phone number (digits only).
+        if ( ! preg_match( '/^\d+$/', $fields['phone'] ) ) {
+            wp_send_json_error( array( 'message' => __( 'Phone number must contain only numbers.', 'hcp-registration' ) ) );
+        }
+
         // Validate terms acceptance.
         if ( empty( $terms ) ) {
             wp_send_json_error( array( 'message' => __( 'You must accept the terms and conditions.', 'hcp-registration' ) ) );
