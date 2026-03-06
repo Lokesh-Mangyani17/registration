@@ -563,10 +563,10 @@ class HCP_Admin {
 
         $user_id = wp_insert_user( array(
             'user_login' => $username,
-            'user_email' => $request->email,
+            'user_email' => sanitize_email( $request->email ),
             'user_pass'  => $password,
-            'first_name' => $request->first_name,
-            'last_name'  => $request->last_name,
+            'first_name' => sanitize_text_field( $request->first_name ),
+            'last_name'  => sanitize_text_field( $request->last_name ),
             'role'       => 'healthcare_professional',
         ) );
 
@@ -575,10 +575,10 @@ class HCP_Admin {
         }
 
         // Store additional profile fields as user meta.
-        update_user_meta( $user_id, 'hcp_phone', $request->phone );
-        update_user_meta( $user_id, 'hcp_practice_name', $request->practice_name );
-        update_user_meta( $user_id, 'hcp_type', $request->hcp_type );
-        update_user_meta( $user_id, 'hcp_reg_number', $request->hcp_reg_number );
+        update_user_meta( $user_id, 'hcp_phone', sanitize_text_field( $request->phone ) );
+        update_user_meta( $user_id, 'hcp_practice_name', sanitize_text_field( $request->practice_name ) );
+        update_user_meta( $user_id, 'hcp_type', sanitize_text_field( $request->hcp_type ) );
+        update_user_meta( $user_id, 'hcp_reg_number', sanitize_text_field( $request->hcp_reg_number ) );
 
         HCP_DB::update_status( $id, 'approved', get_current_user_id() );
 
@@ -675,10 +675,10 @@ class HCP_Admin {
 
             $user_id = wp_insert_user( array(
                 'user_login' => $username,
-                'user_email' => $request->email,
+                'user_email' => sanitize_email( $request->email ),
                 'user_pass'  => $password,
-                'first_name' => $request->first_name,
-                'last_name'  => $request->last_name,
+                'first_name' => sanitize_text_field( $request->first_name ),
+                'last_name'  => sanitize_text_field( $request->last_name ),
                 'role'       => 'trade_account',
             ) );
 
@@ -688,28 +688,28 @@ class HCP_Admin {
         }
 
         // Store trade-specific profile fields as user meta (separate from HCP).
-        update_user_meta( $user_id, 'trade_practice_name', $request->practice_name );
-        update_user_meta( $user_id, 'trade_hcp_type', $request->hcp_type );
-        update_user_meta( $user_id, 'trade_hcp_reg_number', $request->hcp_reg_number );
-        update_user_meta( $user_id, 'trade_company_number', $request->company_number );
-        update_user_meta( $user_id, 'trade_nz_business_number', $request->nz_business_number );
-        update_user_meta( $user_id, 'trade_legal_entity_number', $request->legal_entity_number );
-        update_user_meta( $user_id, 'trade_acts_as_trustee', $request->acts_as_trustee );
-        update_user_meta( $user_id, 'trade_trust_name', isset( $request->trust_name ) ? $request->trust_name : '' );
-        update_user_meta( $user_id, 'trade_trading_name', $request->trading_name );
-        update_user_meta( $user_id, 'trade_physical_address', $request->physical_address );
-        update_user_meta( $user_id, 'trade_postal_same_as_physical', isset( $request->postal_same_as_physical ) ? $request->postal_same_as_physical : 'no' );
-        update_user_meta( $user_id, 'trade_postal_address', $request->postal_address );
-        update_user_meta( $user_id, 'trade_business_email', $request->business_email );
-        update_user_meta( $user_id, 'trade_accounts_payable_contact', $request->accounts_payable_contact );
-        update_user_meta( $user_id, 'trade_delivery_contact', $request->delivery_contact );
-        update_user_meta( $user_id, 'trade_nature_of_business', $request->nature_of_business );
-        update_user_meta( $user_id, 'trade_date_of_incorporation', $request->date_of_incorporation );
-        update_user_meta( $user_id, 'trade_ird_number', $request->ird_number );
-        update_user_meta( $user_id, 'trade_credit_limit_over_5000', $request->credit_limit_over_5000 );
-        update_user_meta( $user_id, 'trade_media_upload', $request->media_upload );
-        update_user_meta( $user_id, 'trade_trade_reference', $request->trade_reference );
-        update_user_meta( $user_id, 'trade_signature', $request->signature );
+        update_user_meta( $user_id, 'trade_practice_name', sanitize_text_field( $request->practice_name ) );
+        update_user_meta( $user_id, 'trade_hcp_type', sanitize_text_field( $request->hcp_type ) );
+        update_user_meta( $user_id, 'trade_hcp_reg_number', sanitize_text_field( $request->hcp_reg_number ) );
+        update_user_meta( $user_id, 'trade_company_number', sanitize_text_field( $request->company_number ) );
+        update_user_meta( $user_id, 'trade_nz_business_number', sanitize_text_field( $request->nz_business_number ) );
+        update_user_meta( $user_id, 'trade_legal_entity_number', sanitize_text_field( $request->legal_entity_number ) );
+        update_user_meta( $user_id, 'trade_acts_as_trustee', sanitize_text_field( $request->acts_as_trustee ) );
+        update_user_meta( $user_id, 'trade_trust_name', sanitize_text_field( isset( $request->trust_name ) ? $request->trust_name : '' ) );
+        update_user_meta( $user_id, 'trade_trading_name', sanitize_text_field( $request->trading_name ) );
+        update_user_meta( $user_id, 'trade_physical_address', sanitize_textarea_field( $request->physical_address ) );
+        update_user_meta( $user_id, 'trade_postal_same_as_physical', sanitize_text_field( isset( $request->postal_same_as_physical ) ? $request->postal_same_as_physical : 'no' ) );
+        update_user_meta( $user_id, 'trade_postal_address', sanitize_textarea_field( $request->postal_address ) );
+        update_user_meta( $user_id, 'trade_business_email', sanitize_email( $request->business_email ) );
+        update_user_meta( $user_id, 'trade_accounts_payable_contact', sanitize_text_field( $request->accounts_payable_contact ) );
+        update_user_meta( $user_id, 'trade_delivery_contact', sanitize_text_field( $request->delivery_contact ) );
+        update_user_meta( $user_id, 'trade_nature_of_business', sanitize_text_field( $request->nature_of_business ) );
+        update_user_meta( $user_id, 'trade_date_of_incorporation', sanitize_text_field( $request->date_of_incorporation ) );
+        update_user_meta( $user_id, 'trade_ird_number', sanitize_text_field( $request->ird_number ) );
+        update_user_meta( $user_id, 'trade_credit_limit_over_5000', sanitize_text_field( $request->credit_limit_over_5000 ) );
+        update_user_meta( $user_id, 'trade_media_upload', esc_url_raw( $request->media_upload ) );
+        update_user_meta( $user_id, 'trade_trade_reference', sanitize_textarea_field( $request->trade_reference ) );
+        update_user_meta( $user_id, 'trade_signature', sanitize_text_field( $request->signature ) );
 
         HCP_DB::update_trade_status( $id, 'approved', get_current_user_id() );
 

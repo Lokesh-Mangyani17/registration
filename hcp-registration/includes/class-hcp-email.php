@@ -48,7 +48,7 @@ class HCP_Email {
 
         $headers = array( 'Content-Type: text/html; charset=UTF-8' );
 
-        wp_mail( $request->email, $subject, $message, $headers );
+        wp_mail( sanitize_email( $request->email ), $subject, $message, $headers );
     }
 
     /**
@@ -78,7 +78,7 @@ class HCP_Email {
             $site_name
         );
 
-        wp_mail( $request->email, $subject, $message );
+        wp_mail( sanitize_email( $request->email ), $subject, $message );
     }
 
     /**
@@ -97,9 +97,9 @@ class HCP_Email {
         );
 
         $message  = __( 'A new Healthcare Professional registration request has been submitted.', 'hcp-registration' ) . "\r\n\r\n";
-        $message .= sprintf( __( 'Name: %s %s', 'hcp-registration' ), $data['first_name'], $data['last_name'] ) . "\r\n";
-        $message .= sprintf( __( 'Email: %s', 'hcp-registration' ), $data['email'] ) . "\r\n";
-        $message .= sprintf( __( 'HCP Type: %s', 'hcp-registration' ), $data['hcp_type'] ) . "\r\n\r\n";
+        $message .= sprintf( __( 'Name: %s %s', 'hcp-registration' ), sanitize_text_field( $data['first_name'] ), sanitize_text_field( $data['last_name'] ) ) . "\r\n";
+        $message .= sprintf( __( 'Email: %s', 'hcp-registration' ), sanitize_email( $data['email'] ) ) . "\r\n";
+        $message .= sprintf( __( 'HCP Type: %s', 'hcp-registration' ), sanitize_text_field( $data['hcp_type'] ) ) . "\r\n\r\n";
         $message .= __( 'Please review this request in the admin dashboard.', 'hcp-registration' ) . "\r\n";
         $message .= admin_url( 'admin.php?page=hcp-registrations' );
 
@@ -156,7 +156,7 @@ class HCP_Email {
         }
 
         $headers = array( 'Content-Type: text/html; charset=UTF-8' );
-        wp_mail( $request->email, $subject, $message, $headers );
+        wp_mail( sanitize_email( $request->email ), $subject, $message, $headers );
     }
 
     /**
@@ -186,7 +186,7 @@ class HCP_Email {
             $site_name
         );
 
-        wp_mail( $request->email, $subject, $message );
+        wp_mail( sanitize_email( $request->email ), $subject, $message );
     }
 
     /**
@@ -205,9 +205,9 @@ class HCP_Email {
         );
 
         $message  = __( 'A new Trade Application has been submitted.', 'hcp-registration' ) . "\r\n\r\n";
-        $message .= sprintf( __( 'Name: %s %s', 'hcp-registration' ), $data['first_name'], $data['last_name'] ) . "\r\n";
-        $message .= sprintf( __( 'Email: %s', 'hcp-registration' ), $data['email'] ) . "\r\n";
-        $message .= sprintf( __( 'Trading Name: %s', 'hcp-registration' ), $data['trading_name'] ) . "\r\n\r\n";
+        $message .= sprintf( __( 'Name: %s %s', 'hcp-registration' ), sanitize_text_field( $data['first_name'] ), sanitize_text_field( $data['last_name'] ) ) . "\r\n";
+        $message .= sprintf( __( 'Email: %s', 'hcp-registration' ), sanitize_email( $data['email'] ) ) . "\r\n";
+        $message .= sprintf( __( 'Trading Name: %s', 'hcp-registration' ), sanitize_text_field( $data['trading_name'] ) ) . "\r\n\r\n";
         $message .= __( 'Please review this application in the admin dashboard.', 'hcp-registration' ) . "\r\n";
         $message .= admin_url( 'admin.php?page=hcp-registrations&tab=trade' );
 

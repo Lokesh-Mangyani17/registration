@@ -73,13 +73,13 @@ class HCP_DB {
         $result = $wpdb->insert(
             self::table_name(),
             array(
-                'first_name'     => $data['first_name'],
-                'last_name'      => $data['last_name'],
-                'phone'          => $data['phone'],
-                'email'          => $data['email'],
-                'practice_name'  => $data['practice_name'],
-                'hcp_type'       => $data['hcp_type'],
-                'hcp_reg_number' => $data['hcp_reg_number'],
+                'first_name'     => sanitize_text_field( $data['first_name'] ),
+                'last_name'      => sanitize_text_field( $data['last_name'] ),
+                'phone'          => sanitize_text_field( $data['phone'] ),
+                'email'          => sanitize_email( $data['email'] ),
+                'practice_name'  => sanitize_text_field( $data['practice_name'] ),
+                'hcp_type'       => sanitize_text_field( $data['hcp_type'] ),
+                'hcp_reg_number' => sanitize_text_field( $data['hcp_reg_number'] ),
                 'status'         => 'pending',
             ),
             array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
@@ -134,7 +134,7 @@ class HCP_DB {
         global $wpdb;
 
         $data   = array(
-            'status'      => $status,
+            'status'      => sanitize_text_field( $status ),
             'reviewed_at' => current_time( 'mysql' ),
         );
         $format = array( '%s', '%s' );
@@ -258,32 +258,32 @@ class HCP_DB {
         global $wpdb;
 
         $insert_data = array(
-                'first_name'             => $data['first_name'],
-                'last_name'              => $data['last_name'],
-                'phone'                  => $data['phone'],
-                'email'                  => $data['email'],
-                'practice_name'          => $data['practice_name'],
-                'hcp_type'               => $data['hcp_type'],
-                'hcp_reg_number'         => $data['hcp_reg_number'],
-                'company_number'         => $data['company_number'],
-                'nz_business_number'     => $data['nz_business_number'],
-                'legal_entity_number'    => $data['legal_entity_number'],
-                'acts_as_trustee'        => $data['acts_as_trustee'],
-                'trust_name'             => $data['trust_name'],
-                'trading_name'           => $data['trading_name'],
-                'physical_address'       => $data['physical_address'],
-                'postal_same_as_physical' => $data['postal_same_as_physical'],
-                'postal_address'         => $data['postal_address'],
-                'business_email'         => $data['business_email'],
-                'accounts_payable_contact' => $data['accounts_payable_contact'],
-                'delivery_contact'       => $data['delivery_contact'],
-                'nature_of_business'     => $data['nature_of_business'],
-                'date_of_incorporation'  => $data['date_of_incorporation'],
-                'ird_number'             => $data['ird_number'],
-                'credit_limit_over_5000' => $data['credit_limit_over_5000'],
-                'media_upload'           => $data['media_upload'],
-                'trade_reference'        => $data['trade_reference'],
-                'signature'              => $data['signature'],
+                'first_name'             => sanitize_text_field( $data['first_name'] ),
+                'last_name'              => sanitize_text_field( $data['last_name'] ),
+                'phone'                  => sanitize_text_field( $data['phone'] ),
+                'email'                  => sanitize_email( $data['email'] ),
+                'practice_name'          => sanitize_text_field( $data['practice_name'] ),
+                'hcp_type'               => sanitize_text_field( $data['hcp_type'] ),
+                'hcp_reg_number'         => sanitize_text_field( $data['hcp_reg_number'] ),
+                'company_number'         => sanitize_text_field( $data['company_number'] ),
+                'nz_business_number'     => sanitize_text_field( $data['nz_business_number'] ),
+                'legal_entity_number'    => sanitize_text_field( $data['legal_entity_number'] ),
+                'acts_as_trustee'        => sanitize_text_field( $data['acts_as_trustee'] ),
+                'trust_name'             => sanitize_text_field( $data['trust_name'] ),
+                'trading_name'           => sanitize_text_field( $data['trading_name'] ),
+                'physical_address'       => sanitize_textarea_field( $data['physical_address'] ),
+                'postal_same_as_physical' => sanitize_text_field( $data['postal_same_as_physical'] ),
+                'postal_address'         => sanitize_textarea_field( $data['postal_address'] ),
+                'business_email'         => sanitize_email( $data['business_email'] ),
+                'accounts_payable_contact' => sanitize_text_field( $data['accounts_payable_contact'] ),
+                'delivery_contact'       => sanitize_text_field( $data['delivery_contact'] ),
+                'nature_of_business'     => sanitize_text_field( $data['nature_of_business'] ),
+                'date_of_incorporation'  => sanitize_text_field( $data['date_of_incorporation'] ),
+                'ird_number'             => sanitize_text_field( $data['ird_number'] ),
+                'credit_limit_over_5000' => sanitize_text_field( $data['credit_limit_over_5000'] ),
+                'media_upload'           => esc_url_raw( $data['media_upload'] ),
+                'trade_reference'        => sanitize_textarea_field( $data['trade_reference'] ),
+                'signature'              => sanitize_text_field( $data['signature'] ),
                 'status'                 => 'pending',
             );
 
@@ -342,7 +342,7 @@ class HCP_DB {
         global $wpdb;
 
         $data   = array(
-            'status'      => $status,
+            'status'      => sanitize_text_field( $status ),
             'reviewed_at' => current_time( 'mysql' ),
         );
         $format = array( '%s', '%s' );
