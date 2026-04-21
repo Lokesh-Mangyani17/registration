@@ -55,17 +55,3 @@ function hcp_reg_ghl_admin_menu() {
     );
 }
 add_action( 'admin_menu', 'hcp_reg_ghl_admin_menu', 20 );
-
-/**
- * Ensure trade table and role exist (runs once per version upgrade).
- */
-function hcp_reg_check_trade_upgrade() {
-    $installed_version = get_option( 'hcp_reg_db_version', '1.0.0' );
-    if ( version_compare( $installed_version, '1.3.0', '<' ) ) {
-        HCP_DB::create_table();
-        HCP_DB::create_trade_table();
-        HCP_DB::register_trade_role();
-        update_option( 'hcp_reg_db_version', '1.3.0' );
-    }
-}
-add_action( 'admin_init', 'hcp_reg_check_trade_upgrade' );

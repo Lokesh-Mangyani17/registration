@@ -1,6 +1,6 @@
 <?php
 /**
- * Main template file for the New AI Site theme.
+ * Main template file for the NUBU theme.
  */
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </article>
     <?php endwhile; ?>
 <?php else : ?>
-    <p><?php esc_html_e( 'No content found.', 'new-ai-site' ); ?></p>
+    <p><?php esc_html_e( 'No content found.', 'nubu' ); ?></p>
 <?php endif; ?>
 
 <?php wp_footer(); ?>

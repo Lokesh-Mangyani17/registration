@@ -1,26 +1,26 @@
 <?php
 /**
- * Theme functions for New AI Site.
+ * Theme functions for NUBU.
  *
- * Loads HCP Registration functionality and displays admin notices.
+ * Loads HCP Registration and shows helpful admin notices.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-// Define paths before loading the HCP Registration files.
+// Set up HCP Registration paths before loading plugin files.
 define( 'HCP_REG_DIR', get_template_directory() . '/hcp-registration/' );
 define( 'HCP_REG_URL', get_template_directory_uri() . '/hcp-registration/' );
 require_once HCP_REG_DIR . 'hcp-registration.php';
 
 /**
- * Ensure the HCP Registration database tables and roles exist.
+ * Make sure HCP Registration tables and roles are ready.
  *
  * Runs on admin_init with a version check so that tables are created
  * on theme activation and kept up to date across upgrades.
  */
-function newaisite_hcp_setup() {
+function nubu_hcp_setup() {
     if ( get_option( 'hcp_reg_version' ) !== HCP_REG_VERSION ) {
         HCP_DB::create_table();
         HCP_DB::register_role();
@@ -29,12 +29,12 @@ function newaisite_hcp_setup() {
         update_option( 'hcp_reg_version', HCP_REG_VERSION );
     }
 }
-add_action( 'admin_init', 'newaisite_hcp_setup' );
+add_action( 'admin_init', 'nubu_hcp_setup' );
 
 /**
- * Show admin notices after HCP registration approve/reject.
+ * Show admin notices after HCP registration actions.
  */
-function newaisite_hcp_admin_notices() {
+function nubu_hcp_admin_notices() {
     if ( ! isset( $_GET['page'] ) || 'hcp-registrations' !== $_GET['page'] ) {
         return;
     }
@@ -55,4 +55,4 @@ function newaisite_hcp_admin_notices() {
         echo '</p></div>';
     }
 }
-add_action( 'admin_notices', 'newaisite_hcp_admin_notices' );
+add_action( 'admin_notices', 'nubu_hcp_admin_notices' );
