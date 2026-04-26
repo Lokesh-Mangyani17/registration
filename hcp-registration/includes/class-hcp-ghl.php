@@ -19,6 +19,8 @@ class HCP_GHL {
      * GHL API v1 base URL.
      */
     const API_BASE = 'https://rest.gohighlevel.com/v1';
+    const FIELD_HCP_APPROVED = 'hcp_approved';
+    const FIELD_HCP_TRADE_APPROVED = 'hcp_trade_approved';
 
     /**
      * Return the configured API key.
@@ -110,7 +112,7 @@ class HCP_GHL {
         }
 
         $contact_data = array(
-            'email'       => $fields['email'],
+            'email'       => self::normalize_email( $fields['email'] ),
             'firstName'   => $fields['first_name'],
             'lastName'    => $fields['last_name'],
             'phone'       => $fields['phone'],
@@ -120,6 +122,8 @@ class HCP_GHL {
                 array( 'key' => 'practice_clinic_name', 'field_value' => $fields['practice_name'] ),
                 array( 'key' => 'hcp_registration_number', 'field_value' => $fields['hcp_reg_number'] ),
                 array( 'key' => 'role_of_contact', 'field_value' => $fields['hcp_type'] ),
+                // Keep approval status blank while request is pending.
+                self::custom_field_value( self::FIELD_HCP_APPROVED, '' ),
             ),
         );
 
@@ -136,15 +140,17 @@ class HCP_GHL {
             return;
         }
 
-        $contact_id = self::lookup_contact_id( $request->email );
+        $email = self::normalize_email( $request->email );
+        $contact_id = self::lookup_contact_id( $email );
         if ( ! $contact_id ) {
+            self::log( 'GHL HCP approve skipped: contact not found for email ' . $email );
             return;
         }
 
         self::update_contact( $contact_id, array(
             'tags'        => array( 'HCP Request', 'HCP Approved' ),
             'customField' => array(
-                array( 'key' => 'hcp_approved', 'field_value' => 'Approved' ),
+                self::custom_field_value( self::FIELD_HCP_APPROVED, 'Approved' ),
             ),
         ) );
     }
@@ -159,15 +165,17 @@ class HCP_GHL {
             return;
         }
 
-        $contact_id = self::lookup_contact_id( $request->email );
+        $email = self::normalize_email( $request->email );
+        $contact_id = self::lookup_contact_id( $email );
         if ( ! $contact_id ) {
+            self::log( 'GHL HCP reject skipped: contact not found for email ' . $email );
             return;
         }
 
         self::update_contact( $contact_id, array(
             'tags'        => array( 'HCP Request', 'HCP Rejected' ),
             'customField' => array(
-                array( 'key' => 'hcp_approved', 'field_value' => 'Declined' ),
+                self::custom_field_value( self::FIELD_HCP_APPROVED, 'Declined' ),
             ),
         ) );
     }
@@ -183,7 +191,7 @@ class HCP_GHL {
         }
 
         $contact_data = array(
-            'email'       => $fields['email'],
+            'email'       => self::normalize_email( $fields['email'] ),
             'firstName'   => $fields['first_name'],
             'lastName'    => $fields['last_name'],
             'phone'       => $fields['phone'],
@@ -194,6 +202,8 @@ class HCP_GHL {
                 array( 'key' => 'hcp_registration_number', 'field_value' => $fields['hcp_reg_number'] ),
                 array( 'key' => 'trading_name', 'field_value' => $fields['trading_name'] ),
                 array( 'key' => 'nature_of_business', 'field_value' => $fields['nature_of_business'] ),
+                // Keep approval status blank while request is pending.
+                self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, '' ),
             ),
         );
 
@@ -210,15 +220,17 @@ class HCP_GHL {
             return;
         }
 
-        $contact_id = self::lookup_contact_id( $request->email );
+        $email = self::normalize_email( $request->email );
+        $contact_id = self::lookup_contact_id( $email );
         if ( ! $contact_id ) {
+            self::log( 'GHL Trade approve skipped: contact not found for email ' . $email );
             return;
         }
 
         self::update_contact( $contact_id, array(
             'tags'        => array( 'Trade Request', 'Trade Approved' ),
             'customField' => array(
-                array( 'key' => 'hcp_trade_approved', 'field_value' => 'Yes' ),
+                self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'Yes' ),
             ),
         ) );
     }
@@ -233,17 +245,43 @@ class HCP_GHL {
             return;
         }
 
-        $contact_id = self::lookup_contact_id( $request->email );
+        $email = self::normalize_email( $request->email );
+        $contact_id = self::lookup_contact_id( $email );
         if ( ! $contact_id ) {
+            self::log( 'GHL Trade reject skipped: contact not found for email ' . $email );
             return;
         }
 
         self::update_contact( $contact_id, array(
             'tags'        => array( 'Trade Request', 'Trade Rejected' ),
             'customField' => array(
-                array( 'key' => 'hcp_trade_approved', 'field_value' => 'No' ),
+                self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'No' ),
             ),
         ) );
+    }
+
+    /**
+     * Build a custom field payload in one place for status fields.
+     *
+     * @param string $key   GHL custom field key.
+     * @param string $value Value to set (or blank).
+     * @return array
+     */
+    private static function custom_field_value( $key, $value ) {
+        return array(
+            'key'         => $key,
+            'field_value' => $value,
+        );
+    }
+
+    /**
+     * Normalize emails before syncing with GHL.
+     *
+     * @param string $email Email address.
+     * @return string
+     */
+    private static function normalize_email( $email ) {
+        return strtolower( trim( sanitize_email( (string) $email ) ) );
     }
 
     /* ==================================================================
@@ -257,6 +295,11 @@ class HCP_GHL {
      * @return string|null Contact ID or null.
      */
     private static function lookup_contact_id( $email ) {
+        $email = self::normalize_email( $email );
+        if ( ! $email ) {
+            return null;
+        }
+
         $response = wp_remote_get(
             add_query_arg( 'email', rawurlencode( $email ), self::API_BASE . '/contacts/lookup' ),
             array(
@@ -289,6 +332,21 @@ class HCP_GHL {
      * @return string|null The GHL contact ID, or null on failure.
      */
     private static function create_or_update_contact( $data ) {
+        $email = self::normalize_email( $data['email'] ?? '' );
+        if ( ! $email ) {
+            self::log( 'GHL create/update skipped: missing email.' );
+            return null;
+        }
+
+        $data['email'] = $email;
+
+        // Force a single-contact flow by using email as the unique identifier.
+        $contact_id = self::lookup_contact_id( $email );
+        if ( $contact_id ) {
+            $updated = self::update_contact( $contact_id, $data );
+            return $updated ? $contact_id : null;
+        }
+
         $response = wp_remote_post(
             self::API_BASE . '/contacts/',
             array(
