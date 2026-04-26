@@ -112,7 +112,7 @@ class HCP_GHL {
         }
 
         $contact_data = array(
-            'email'       => $fields['email'],
+            'email'       => self::normalize_email( $fields['email'] ),
             'firstName'   => $fields['first_name'],
             'lastName'    => $fields['last_name'],
             'phone'       => $fields['phone'],
@@ -140,8 +140,14 @@ class HCP_GHL {
             return;
         }
 
-        self::create_or_update_contact( array(
-            'email'       => $request->email,
+        $email = self::normalize_email( $request->email );
+        $contact_id = self::lookup_contact_id( $email );
+        if ( ! $contact_id ) {
+            self::log( 'GHL HCP approve skipped: contact not found for email ' . $email );
+            return;
+        }
+
+        self::update_contact( $contact_id, array(
             'tags'        => array( 'HCP Request', 'HCP Approved' ),
             'customField' => array(
                 self::custom_field_value( self::FIELD_HCP_APPROVED, 'Approved' ),
@@ -159,8 +165,14 @@ class HCP_GHL {
             return;
         }
 
-        self::create_or_update_contact( array(
-            'email'       => $request->email,
+        $email = self::normalize_email( $request->email );
+        $contact_id = self::lookup_contact_id( $email );
+        if ( ! $contact_id ) {
+            self::log( 'GHL HCP reject skipped: contact not found for email ' . $email );
+            return;
+        }
+
+        self::update_contact( $contact_id, array(
             'tags'        => array( 'HCP Request', 'HCP Rejected' ),
             'customField' => array(
                 self::custom_field_value( self::FIELD_HCP_APPROVED, 'Declined' ),
@@ -179,7 +191,7 @@ class HCP_GHL {
         }
 
         $contact_data = array(
-            'email'       => $fields['email'],
+            'email'       => self::normalize_email( $fields['email'] ),
             'firstName'   => $fields['first_name'],
             'lastName'    => $fields['last_name'],
             'phone'       => $fields['phone'],
@@ -208,8 +220,14 @@ class HCP_GHL {
             return;
         }
 
-        self::create_or_update_contact( array(
-            'email'       => $request->email,
+        $email = self::normalize_email( $request->email );
+        $contact_id = self::lookup_contact_id( $email );
+        if ( ! $contact_id ) {
+            self::log( 'GHL Trade approve skipped: contact not found for email ' . $email );
+            return;
+        }
+
+        self::update_contact( $contact_id, array(
             'tags'        => array( 'Trade Request', 'Trade Approved' ),
             'customField' => array(
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'Yes' ),
@@ -227,8 +245,14 @@ class HCP_GHL {
             return;
         }
 
-        self::create_or_update_contact( array(
-            'email'       => $request->email,
+        $email = self::normalize_email( $request->email );
+        $contact_id = self::lookup_contact_id( $email );
+        if ( ! $contact_id ) {
+            self::log( 'GHL Trade reject skipped: contact not found for email ' . $email );
+            return;
+        }
+
+        self::update_contact( $contact_id, array(
             'tags'        => array( 'Trade Request', 'Trade Rejected' ),
             'customField' => array(
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'No' ),
@@ -250,6 +274,16 @@ class HCP_GHL {
         );
     }
 
+    /**
+     * Normalize emails before syncing with GHL.
+     *
+     * @param string $email Email address.
+     * @return string
+     */
+    private static function normalize_email( $email ) {
+        return strtolower( trim( sanitize_email( (string) $email ) ) );
+    }
+
     /* ==================================================================
        Low-level API helpers
        ================================================================== */
@@ -261,6 +295,11 @@ class HCP_GHL {
      * @return string|null Contact ID or null.
      */
     private static function lookup_contact_id( $email ) {
+        $email = self::normalize_email( $email );
+        if ( ! $email ) {
+            return null;
+        }
+
         $response = wp_remote_get(
             add_query_arg( 'email', rawurlencode( $email ), self::API_BASE . '/contacts/lookup' ),
             array(
