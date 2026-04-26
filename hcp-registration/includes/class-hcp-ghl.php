@@ -140,12 +140,8 @@ class HCP_GHL {
             return;
         }
 
-        $contact_id = self::lookup_contact_id( $request->email );
-        if ( ! $contact_id ) {
-            return;
-        }
-
-        self::update_contact( $contact_id, array(
+        self::create_or_update_contact( array(
+            'email'       => $request->email,
             'tags'        => array( 'HCP Request', 'HCP Approved' ),
             'customField' => array(
                 self::custom_field_value( self::FIELD_HCP_APPROVED, 'Approved' ),
@@ -163,12 +159,8 @@ class HCP_GHL {
             return;
         }
 
-        $contact_id = self::lookup_contact_id( $request->email );
-        if ( ! $contact_id ) {
-            return;
-        }
-
-        self::update_contact( $contact_id, array(
+        self::create_or_update_contact( array(
+            'email'       => $request->email,
             'tags'        => array( 'HCP Request', 'HCP Rejected' ),
             'customField' => array(
                 self::custom_field_value( self::FIELD_HCP_APPROVED, 'Declined' ),
@@ -216,12 +208,8 @@ class HCP_GHL {
             return;
         }
 
-        $contact_id = self::lookup_contact_id( $request->email );
-        if ( ! $contact_id ) {
-            return;
-        }
-
-        self::update_contact( $contact_id, array(
+        self::create_or_update_contact( array(
+            'email'       => $request->email,
             'tags'        => array( 'Trade Request', 'Trade Approved' ),
             'customField' => array(
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'Yes' ),
@@ -239,12 +227,8 @@ class HCP_GHL {
             return;
         }
 
-        $contact_id = self::lookup_contact_id( $request->email );
-        if ( ! $contact_id ) {
-            return;
-        }
-
-        self::update_contact( $contact_id, array(
+        self::create_or_update_contact( array(
+            'email'       => $request->email,
             'tags'        => array( 'Trade Request', 'Trade Rejected' ),
             'customField' => array(
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'No' ),
