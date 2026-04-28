@@ -301,7 +301,7 @@ class HCP_GHL {
         }
 
         $response = wp_remote_get(
-            add_query_arg( 'email', rawurlencode( $email ), self::API_BASE . '/contacts/lookup' ),
+            add_query_arg( 'email', $email, self::API_BASE . '/contacts/lookup' ),
             array(
                 'headers' => self::auth_headers(),
                 'timeout' => 15,
