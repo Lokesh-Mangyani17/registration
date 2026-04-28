@@ -301,7 +301,7 @@ class HCP_GHL {
         }
 
         $response = wp_remote_get(
-            add_query_arg( 'email', rawurlencode( $email ), self::API_BASE . '/contacts/lookup' ),
+            add_query_arg( 'email', $email, self::API_BASE . '/contacts/lookup' ),
             array(
                 'headers' => self::auth_headers(),
                 'timeout' => 15,
@@ -332,6 +332,21 @@ class HCP_GHL {
      * @return string|null The GHL contact ID, or null on failure.
      */
     private static function create_or_update_contact( $data ) {
+        $email = self::normalize_email( $data['email'] ?? '' );
+        if ( ! $email ) {
+            self::log( 'GHL create/update skipped: missing email.' );
+            return null;
+        }
+
+        $data['email'] = $email;
+
+        // Force a single-contact flow by using email as the unique identifier.
+        $contact_id = self::lookup_contact_id( $email );
+        if ( $contact_id ) {
+            $updated = self::update_contact( $contact_id, $data );
+            return $updated ? $contact_id : null;
+        }
+
         $response = wp_remote_post(
             self::API_BASE . '/contacts/',
             array(

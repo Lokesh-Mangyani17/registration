@@ -664,10 +664,10 @@ class HCP_Admin {
         $is_existing   = false;
 
         if ( $existing_user ) {
-            // Existing user – upgrade role.
+            // Existing user – upgrade role (replace HCP with Trade Account).
             $user_id     = $existing_user->ID;
             $is_existing = true;
-            $existing_user->add_role( 'trade_account' );
+            $existing_user->set_role( 'trade_account' );
         } else {
             // New user – create account.
             $username = self::generate_username( $request->first_name, $request->last_name );
