@@ -102,19 +102,22 @@
     margin-bottom: 28px;
 }
 
-.hcp-checkbox-label {
+.hcp-field .hcp-checkbox-label {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-bottom: 0;
+    line-height: 1.4;
     font-weight: 400 !important;
     font-size: 15px;
     cursor: pointer;
 }
 
-.hcp-checkbox-label input[type="checkbox"] {
+.hcp-field .hcp-checkbox-label input[type="checkbox"] {
     width: 18px;
     height: 18px;
-    flex-shrink: 0;
+    flex: 0 0 18px;
+    margin: 0;
     cursor: pointer;
 }
 
@@ -300,18 +303,22 @@
     margin-top: 4px;
 }
 
-.trade-radio-label {
+.hcp-field .trade-radio-label {
     display: flex;
     align-items: center;
     gap: 6px;
+    margin-bottom: 0;
+    line-height: 1.4;
     font-weight: 400 !important;
     font-size: 15px;
     cursor: pointer;
 }
 
-.trade-radio-label input[type="radio"] {
+.hcp-field .trade-radio-label input[type="radio"] {
     width: 18px;
     height: 18px;
+    flex: 0 0 18px;
+    margin: 0;
     cursor: pointer;
 }
 
