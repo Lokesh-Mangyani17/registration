@@ -1,0 +1,108 @@
+/**
+ * HCP Registration Form – Front-end JavaScript
+ */
+(function ($) {
+    'use strict';
+
+    $(function () {
+        var $form    = $('#hcp-registration-form');
+        var $message = $('#hcp-form-message');
+        var $btn     = $form.find('.hcp-submit-btn');
+        var $spinner = $form.find('.hcp-spinner');
+
+        $form.on('submit', function (e) {
+            e.preventDefault();
+
+            // Clear previous state.
+            $message.hide().removeClass('hcp-msg-success hcp-msg-error');
+            $form.find('.hcp-error').removeClass('hcp-error');
+
+            // Basic client-side validation.
+            var valid = true;
+            $form.find('input[required]:not([type="checkbox"]), select[required]').each(function () {
+                if (!$(this).val().trim()) {
+                    $(this).addClass('hcp-error');
+                    valid = false;
+                }
+            });
+
+            // First name and last name character limit validation.
+            var firstName = $form.find('[name="first_name"]').val().trim();
+            if (firstName.length > 22) {
+                $form.find('[name="first_name"]').addClass('hcp-error');
+                valid = false;
+            }
+            var lastName = $form.find('[name="last_name"]').val().trim();
+            if (lastName.length > 22) {
+                $form.find('[name="last_name"]').addClass('hcp-error');
+                valid = false;
+            }
+
+            // Phone number validation (digits only).
+            var phone = $form.find('[name="phone"]').val().trim();
+            if (phone && !/^\d+$/.test(phone)) {
+                $form.find('[name="phone"]').addClass('hcp-error');
+                valid = false;
+            }
+
+            var email = $form.find('[name="email"]').val().trim();
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                $form.find('[name="email"]').addClass('hcp-error');
+                valid = false;
+            }
+
+            // Terms checkbox validation.
+            if (!$form.find('[name="terms"]').is(':checked')) {
+                valid = false;
+            }
+
+            if (!valid) {
+                $message
+                    .addClass('hcp-msg-error')
+                    .text('Please fill in all required fields correctly and accept the terms and conditions.')
+                    .show();
+                return;
+            }
+
+            // Disable button and show spinner.
+            $btn.prop('disabled', true);
+            $spinner.show();
+
+            $.ajax({
+                url:  hcpReg.ajaxurl,
+                type: 'POST',
+                data: $form.serialize() + '&action=hcp_register&nonce=' + hcpReg.nonce,
+                dataType: 'json',
+                success: function (res) {
+                    if (res.success) {
+                        $form.hide();
+                        $message
+                            .addClass('hcp-msg-success')
+                            .text(res.data.message)
+                            .show();
+                    } else {
+                        $message
+                            .addClass('hcp-msg-error')
+                            .text(res.data.message)
+                            .show();
+                    }
+                },
+                error: function () {
+                    $message
+                        .addClass('hcp-msg-error')
+                        .text('An unexpected error occurred. Please try again.')
+                        .show();
+                },
+                complete: function () {
+                    $btn.prop('disabled', false);
+                    $spinner.hide();
+                }
+            });
+        });
+
+        // Remove error styling on input.
+        $form.on('input change', '.hcp-error', function () {
+            $(this).removeClass('hcp-error');
+        });
+    });
+})(jQuery);

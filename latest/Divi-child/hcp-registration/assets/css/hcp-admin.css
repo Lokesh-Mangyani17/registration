@@ -1,0 +1,294 @@
+/* ==========================================================================
+   HCP Registration – Admin Dashboard Styles (Modern Layout)
+   ========================================================================== */
+
+/* Use Inter font for the admin dashboard */
+.toplevel_page_hcp-registrations .wrap {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.toplevel_page_hcp-registrations .wrap > h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+    letter-spacing: -0.03em;
+}
+
+/* Dashboard summary cards */
+.hcp-dashboard-header {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.hcp-stat-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 20px 24px;
+    flex: 1;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.hcp-stat-card h4 {
+    margin: 0 0 4px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.hcp-stat-card .stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* Tab navigation - modern underline style */
+.toplevel_page_hcp-registrations .nav-tab-wrapper {
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 28px;
+    padding-bottom: 0;
+    background: transparent;
+    display: flex;
+    gap: 4px;
+}
+
+.toplevel_page_hcp-registrations .nav-tab {
+    border: none;
+    background: transparent;
+    color: #64748b;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 12px 20px;
+    margin-bottom: -1px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    border-radius: 0;
+}
+
+.toplevel_page_hcp-registrations .nav-tab:hover {
+    color: #0f172a;
+    background: transparent;
+}
+
+.toplevel_page_hcp-registrations .nav-tab-active,
+.toplevel_page_hcp-registrations .nav-tab-active:hover,
+.toplevel_page_hcp-registrations .nav-tab-active:focus {
+    color: #0b1d3a;
+    border-bottom-color: #0b1d3a;
+    background: transparent;
+    box-shadow: none;
+    font-weight: 600;
+}
+
+.toplevel_page_hcp-registrations .nav-tab .awaiting-mod {
+    margin-left: 6px;
+    background: #ef4444;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+/* Sub-status filter links */
+.toplevel_page_hcp-registrations .subsubsub {
+    margin: 0 0 20px;
+    font-size: 13px;
+    padding: 0;
+}
+
+.toplevel_page_hcp-registrations .subsubsub a {
+    font-weight: 500;
+    color: #64748b;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.toplevel_page_hcp-registrations .subsubsub a:hover {
+    color: #0f172a;
+    background: #f1f5f9;
+}
+
+.toplevel_page_hcp-registrations .subsubsub a.current {
+    color: #0b1d3a;
+    font-weight: 600;
+    background: #e2e8f0;
+}
+
+/* Table - Modern card style with clean lines */
+.hcp-registrations-table {
+    margin-top: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    background: #fff;
+}
+
+.hcp-registrations-table thead th {
+    background: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 14px 20px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.hcp-registrations-table tbody td {
+    padding: 16px 20px;
+    font-size: 14px;
+    color: #334155;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+}
+
+.hcp-registrations-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.hcp-registrations-table tbody tr:hover td {
+    background: #f8fafc;
+}
+
+/* Buttons in table */
+.hcp-registrations-table .button-small {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 6px;
+    font-weight: 500;
+    line-height: 1.6;
+    transition: all 0.15s;
+}
+
+.hcp-reject-btn {
+    color: #dc2626 !important;
+    border-color: #fca5a5 !important;
+    background: #fef2f2 !important;
+}
+
+.hcp-reject-btn:hover {
+    background: #dc2626 !important;
+    color: #fff !important;
+    border-color: #dc2626 !important;
+}
+
+/* Detail view */
+.hcp-detail-table {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    background: #fff;
+}
+
+.hcp-detail-table th {
+    width: 220px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #475569;
+    background: #f8fafc;
+    padding: 14px 20px;
+    border-right: 1px solid #f1f5f9;
+}
+
+.hcp-detail-table td {
+    font-size: 14px;
+    color: #1e293b;
+    padding: 14px 20px;
+}
+
+.hcp-detail-actions {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+}
+
+.hcp-detail-actions .button-large {
+    padding: 10px 28px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.15s;
+}
+
+/* Status badges */
+.hcp-status {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.hcp-status-pending {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.hcp-status-approved {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.hcp-status-rejected {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Section headings in detail view */
+.toplevel_page_hcp-registrations .wrap h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0f172a;
+    margin: 32px 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+/* Admin notices */
+.hcp-admin-notice {
+    margin: 16px 0;
+    border-radius: 8px;
+}
+
+/* Back link */
+.toplevel_page_hcp-registrations .wrap > a:first-of-type {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+}
+
+.toplevel_page_hcp-registrations .wrap > a:first-of-type:hover {
+    color: #0b1d3a;
+    background: #f1f5f9;
+}
+
+/* Notice info box */
+.toplevel_page_hcp-registrations .notice-info {
+    border-left-color: #3b82f6;
+    background: #eff6ff;
+    border-radius: 8px;
+}

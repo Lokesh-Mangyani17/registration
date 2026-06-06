@@ -1,0 +1,7 @@
+{
+    "require": {
+        "htmlburger/carbon-fields": "^3.6",
+        "guzzlehttp/guzzle": "^7.9",
+        "mailchimp/marketing": "^3.0"
+    }
+}
