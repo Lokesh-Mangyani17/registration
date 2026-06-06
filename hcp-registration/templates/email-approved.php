@@ -24,6 +24,9 @@ $trade_application_url = 'https://order.nubu.co.nz/trade-application-form/';
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background-color:#e6edf4;margin:0 auto;width:100%;font-family:Arial,sans-serif;">
                     <tr>
                         <td style="padding:40px 32px;background-color:#e6edf4;color:#0b1d3a;font-family:Arial,sans-serif;">
+                <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:640px;background-color:#ffffff;margin:0 auto;width:100%;font-family:Arial,sans-serif;">
+                    <tr>
+                        <td style="padding:40px 32px;color:#0b1d3a;font-family:Arial,sans-serif;">
                             <h1 style="margin:0 0 24px 0;color:#0b1d3a;font-family:Arial,sans-serif;font-size:28px;line-height:1.2;font-weight:700;">
                                 <?php
                                 printf(
