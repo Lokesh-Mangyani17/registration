@@ -105,6 +105,8 @@ class Trade_Form {
             'signature'               => '', // handled separately below
         );
 
+        $physical_country_raw = sanitize_text_field( wp_unslash( $_POST['physical_country'] ?? '' ) );
+
         // Build physical address JSON from sub-fields.
         $physical = array(
             'street_address' => sanitize_text_field( wp_unslash( $_POST['physical_street_address'] ?? '' ) ),
@@ -112,41 +114,87 @@ class Trade_Form {
             'city'           => sanitize_text_field( wp_unslash( $_POST['physical_city'] ?? '' ) ),
             'state'          => sanitize_text_field( wp_unslash( $_POST['physical_state'] ?? '' ) ),
             'postal_code'    => sanitize_text_field( wp_unslash( $_POST['physical_postal_code'] ?? '' ) ),
-            'country'        => sanitize_text_field( wp_unslash( $_POST['physical_country'] ?? '' ) ),
+            'country'        => $physical_country_raw,
             'phone'          => sanitize_text_field( wp_unslash( $_POST['physical_phone'] ?? '' ) ),
             'fax'            => sanitize_text_field( wp_unslash( $_POST['physical_fax'] ?? '' ) ),
         );
-        if ( 'Other' === $physical['country'] && ! empty( $_POST['physical_country_other'] ?? '' ) ) {
-            $physical['country'] = sanitize_text_field( wp_unslash( $_POST['physical_country_other'] ) );
+        $physical_country_other = sanitize_text_field( wp_unslash( $_POST['physical_country_other'] ?? '' ) );
+        if ( 'Other' === $physical_country_raw && ! empty( $physical_country_other ) ) {
+            $physical['country'] = $physical_country_other;
         }
         $fields['physical_address'] = wp_json_encode( $physical );
+
+        $postal_country_raw   = '';
+        $postal_country_other = '';
 
         // Build postal address JSON.
         if ( 'yes' === $fields['postal_same_as_physical'] ) {
             $fields['postal_address'] = $fields['physical_address'];
         } else {
+            $postal_country_raw = sanitize_text_field( wp_unslash( $_POST['postal_country'] ?? '' ) );
             $postal = array(
                 'postal_address' => sanitize_text_field( wp_unslash( $_POST['postal_address_line'] ?? '' ) ),
                 'suburb'         => sanitize_text_field( wp_unslash( $_POST['postal_suburb'] ?? '' ) ),
-                'country'        => sanitize_text_field( wp_unslash( $_POST['postal_country'] ?? '' ) ),
+                'country'        => $postal_country_raw,
             );
-            if ( 'Other' === $postal['country'] && ! empty( $_POST['postal_country_other'] ?? '' ) ) {
-                $postal['country'] = sanitize_text_field( wp_unslash( $_POST['postal_country_other'] ) );
+            $postal_country_other = sanitize_text_field( wp_unslash( $_POST['postal_country_other'] ?? '' ) );
+            if ( 'Other' === $postal_country_raw && ! empty( $postal_country_other ) ) {
+                $postal['country'] = $postal_country_other;
             }
             $fields['postal_address'] = wp_json_encode( $postal );
         }
 
         $terms = $_POST['terms'] ?? '';
 
-        // Required fields for trade application.
+        // Required fields for trade application. Fax is intentionally optional.
         $required = array(
-            'first_name', 'last_name', 'phone', 'email',
-            'trading_name',
+            'first_name', 'last_name', 'phone', 'email', 'practice_name',
+            'hcp_type', 'hcp_reg_number', 'company_number', 'acts_as_trustee',
+            'trading_name', 'postal_same_as_physical', 'business_email',
+            'accounts_payable_contact', 'delivery_contact', 'nature_of_business',
+            'date_of_incorporation', 'ird_number', 'credit_limit_over_5000',
+            'trade_reference',
         );
         foreach ( $required as $key ) {
             if ( empty( $fields[ $key ] ) ) {
                 wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
             }
+        }
+
+        if ( 'yes' === $fields['acts_as_trustee'] && empty( $fields['trust_name'] ) ) {
+            wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
+        }
+
+        $required_physical = array( 'street_address', 'suburb', 'city', 'state', 'postal_code', 'country', 'phone' );
+        foreach ( $required_physical as $key ) {
+            if ( empty( $physical[ $key ] ) ) {
+                wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
+            }
+        }
+
+        if ( 'Other' === $physical_country_raw && empty( $physical_country_other ) ) {
+            wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
+        }
+
+        if ( 'no' === $fields['postal_same_as_physical'] ) {
+            $required_postal = array( 'postal_address', 'suburb', 'country' );
+            foreach ( $required_postal as $key ) {
+                if ( empty( $postal[ $key ] ) ) {
+                    wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
+                }
+            }
+
+            if ( 'Other' === $postal_country_raw && empty( $postal_country_other ) ) {
+                wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
+            }
+        }
+
+        if ( empty( $_FILES['media_upload'] ) || empty( $_FILES['media_upload']['name'] ) ) {
+            wp_send_json_error( array( 'message' => __( 'Please upload a supporting document.', 'hcp-registration' ) ) );
+        }
+
+        if ( empty( $_POST['signature'] ) ) {
+            wp_send_json_error( array( 'message' => __( 'Please provide a signature.', 'hcp-registration' ) ) );
         }
 
         // Validate first name and last name character limit.

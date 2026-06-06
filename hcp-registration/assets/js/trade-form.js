@@ -148,6 +148,12 @@
                 valid = false;
             }
 
+            // Signature validation.
+            if (canvas && !hasDrawn) {
+                $('#trade-signature-pad').addClass('hcp-error');
+                valid = false;
+            }
+
             if (!valid) {
                 $message
                     .addClass('hcp-msg-error')
@@ -208,5 +214,14 @@
         $form.on('input change', '.hcp-error', function () {
             $(this).removeClass('hcp-error');
         });
+
+        if (canvas) {
+            canvas.addEventListener('mousedown', function () {
+                $('#trade-signature-pad').removeClass('hcp-error');
+            });
+            canvas.addEventListener('touchstart', function () {
+                $('#trade-signature-pad').removeClass('hcp-error');
+            });
+        }
     });
 })(jQuery);

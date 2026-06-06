@@ -44,13 +44,13 @@ if ( ! defined( 'ABSPATH' ) ) {
         <h3 class="trade-section-heading"><?php esc_html_e( 'Healthcare Professional Details', 'hcp-registration' ); ?></h3>
 
         <div class="hcp-field">
-            <label for="trade_pharmacy_name"><?php esc_html_e( 'Pharmacy/Clinic Name', 'hcp-registration' ); ?></label>
-            <input type="text" id="trade_pharmacy_name" name="pharmacy_name" value="<?php echo esc_attr( $prefill['pharmacy_name'] ); ?>" />
+            <label for="trade_pharmacy_name"><?php esc_html_e( 'Pharmacy/Clinic Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="text" id="trade_pharmacy_name" name="practice_name" value="<?php echo esc_attr( $prefill['practice_name'] ); ?>" required />
         </div>
 
         <div class="hcp-field">
-            <label for="trade_hcp_type"><?php esc_html_e( 'Healthcare Professional Type', 'hcp-registration' ); ?></label>
-            <select id="trade_hcp_type" name="hcp_type">
+            <label for="trade_hcp_type"><?php esc_html_e( 'Healthcare Professional Type', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <select id="trade_hcp_type" name="hcp_type" required>
                 <option value=""><?php esc_html_e( '— Select —', 'hcp-registration' ); ?></option>
                 <option value="Doctor" <?php selected( $prefill['hcp_type'], 'Doctor' ); ?>><?php esc_html_e( 'Doctor', 'hcp-registration' ); ?></option>
                 <option value="Nurse" <?php selected( $prefill['hcp_type'], 'Nurse' ); ?>><?php esc_html_e( 'Nurse', 'hcp-registration' ); ?></option>
@@ -63,29 +63,29 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
         <div class="hcp-field">
-            <label for="trade_hcp_reg_number"><?php esc_html_e( 'HCP Registration Number', 'hcp-registration' ); ?></label>
-            <input type="text" id="trade_hcp_reg_number" name="hcp_reg_number" value="<?php echo esc_attr( $prefill['hcp_reg_number'] ); ?>" />
+            <label for="trade_hcp_reg_number"><?php esc_html_e( 'HCP Registration Number', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="text" id="trade_hcp_reg_number" name="hcp_reg_number" value="<?php echo esc_attr( $prefill['hcp_reg_number'] ); ?>" required />
         </div>
 
         <!-- Business Details -->
         <h3 class="trade-section-heading"><?php esc_html_e( 'Business Details', 'hcp-registration' ); ?></h3>
 
         <div class="hcp-field">
-            <label for="trade_company_number"><?php esc_html_e( 'Company Number', 'hcp-registration' ); ?></label>
-            <input type="text" id="trade_company_number" name="company_number" />
+            <label for="trade_company_number"><?php esc_html_e( 'Company Number', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="text" id="trade_company_number" name="company_number" required />
         </div>
 
         <div class="hcp-field">
-            <label><?php esc_html_e( 'Does the applicant act as trustee?', 'hcp-registration' ); ?></label>
+            <label><?php esc_html_e( 'Does the applicant act as trustee?', 'hcp-registration' ); ?> <span class="required">*</span></label>
             <div class="trade-radio-group">
-                <label class="trade-radio-label"><input type="radio" name="acts_as_trustee" value="yes" /> <?php esc_html_e( 'Yes', 'hcp-registration' ); ?></label>
-                <label class="trade-radio-label"><input type="radio" name="acts_as_trustee" value="no" checked /> <?php esc_html_e( 'No', 'hcp-registration' ); ?></label>
+                <label class="trade-radio-label"><input type="radio" name="acts_as_trustee" value="yes" required /> <?php esc_html_e( 'Yes', 'hcp-registration' ); ?></label>
+                <label class="trade-radio-label"><input type="radio" name="acts_as_trustee" value="no" checked required /> <?php esc_html_e( 'No', 'hcp-registration' ); ?></label>
             </div>
         </div>
 
         <div class="hcp-field" id="trust-name-field" style="display:none;">
-            <label for="trade_trust_name"><?php esc_html_e( 'Trust Name', 'hcp-registration' ); ?></label>
-            <input type="text" id="trade_trust_name" name="trust_name" />
+            <label for="trade_trust_name"><?php esc_html_e( 'Trust Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="text" id="trade_trust_name" name="trust_name" required />
         </div>
 
         <div class="hcp-field">
@@ -97,45 +97,45 @@ if ( ! defined( 'ABSPATH' ) ) {
             <label><?php esc_html_e( 'Physical Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
             <div class="hcp-address-group">
                 <div class="hcp-field">
-                    <label for="physical_street_address"><?php esc_html_e( 'Street Address', 'hcp-registration' ); ?></label>
+                    <label for="physical_street_address"><?php esc_html_e( 'Street Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
                     <input type="text" id="physical_street_address" name="physical_street_address" required />
                 </div>
                 <div class="hcp-field-row">
                     <div class="hcp-field hcp-field-half">
-                        <label for="physical_suburb"><?php esc_html_e( 'Suburb', 'hcp-registration' ); ?></label>
-                        <input type="text" id="physical_suburb" name="physical_suburb" />
+                        <label for="physical_suburb"><?php esc_html_e( 'Suburb', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="physical_suburb" name="physical_suburb" required />
                     </div>
                     <div class="hcp-field hcp-field-half">
-                        <label for="physical_city"><?php esc_html_e( 'City', 'hcp-registration' ); ?></label>
+                        <label for="physical_city"><?php esc_html_e( 'City', 'hcp-registration' ); ?> <span class="required">*</span></label>
                         <input type="text" id="physical_city" name="physical_city" required />
                     </div>
                 </div>
                 <div class="hcp-field-row">
                     <div class="hcp-field hcp-field-half">
-                        <label for="physical_state"><?php esc_html_e( 'State / Region', 'hcp-registration' ); ?></label>
-                        <input type="text" id="physical_state" name="physical_state" />
+                        <label for="physical_state"><?php esc_html_e( 'State / Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="physical_state" name="physical_state" required />
                     </div>
                     <div class="hcp-field hcp-field-half">
-                        <label for="physical_postal_code"><?php esc_html_e( 'Postal Code', 'hcp-registration' ); ?></label>
-                        <input type="text" id="physical_postal_code" name="physical_postal_code" />
+                        <label for="physical_postal_code"><?php esc_html_e( 'Postal Code', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="physical_postal_code" name="physical_postal_code" required />
                     </div>
                 </div>
                 <div class="hcp-field">
-                    <label for="physical_country"><?php esc_html_e( 'Country', 'hcp-registration' ); ?></label>
-                    <select id="physical_country" name="physical_country">
+                    <label for="physical_country"><?php esc_html_e( 'Country', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                    <select id="physical_country" name="physical_country" required>
                         <option value=""><?php esc_html_e( '— Select Country —', 'hcp-registration' ); ?></option>
                         <option value="New Zealand"><?php esc_html_e( 'New Zealand', 'hcp-registration' ); ?></option>
                         <option value="Other"><?php esc_html_e( 'Other', 'hcp-registration' ); ?></option>
                     </select>
                 </div>
                 <div class="hcp-field" id="physical-country-other-field" style="display:none;">
-                    <label for="physical_country_other"><?php esc_html_e( 'Please specify country', 'hcp-registration' ); ?></label>
-                    <input type="text" id="physical_country_other" name="physical_country_other" />
+                    <label for="physical_country_other"><?php esc_html_e( 'Please specify country', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                    <input type="text" id="physical_country_other" name="physical_country_other" required />
                 </div>
                 <div class="hcp-field-row">
                     <div class="hcp-field hcp-field-half">
-                        <label for="physical_phone"><?php esc_html_e( 'Phone', 'hcp-registration' ); ?></label>
-                        <input type="tel" id="physical_phone" name="physical_phone" />
+                        <label for="physical_phone"><?php esc_html_e( 'Phone', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="tel" id="physical_phone" name="physical_phone" required />
                     </div>
                     <div class="hcp-field hcp-field-half">
                         <label for="physical_fax"><?php esc_html_e( 'Fax', 'hcp-registration' ); ?></label>
@@ -146,28 +146,28 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
         <div class="hcp-field">
-            <label><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?></label>
+            <label><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
             <div class="hcp-field" style="margin-bottom:12px;">
-                <label><?php esc_html_e( 'Same as physical address?', 'hcp-registration' ); ?></label>
+                <label><?php esc_html_e( 'Same as physical address?', 'hcp-registration' ); ?> <span class="required">*</span></label>
                 <div class="trade-radio-group">
-                    <label class="trade-radio-label"><input type="radio" name="postal_same_as_physical" value="yes" checked /> <?php esc_html_e( 'Yes', 'hcp-registration' ); ?></label>
-                    <label class="trade-radio-label"><input type="radio" name="postal_same_as_physical" value="no" /> <?php esc_html_e( 'No', 'hcp-registration' ); ?></label>
+                    <label class="trade-radio-label"><input type="radio" name="postal_same_as_physical" value="yes" checked required /> <?php esc_html_e( 'Yes', 'hcp-registration' ); ?></label>
+                    <label class="trade-radio-label"><input type="radio" name="postal_same_as_physical" value="no" required /> <?php esc_html_e( 'No', 'hcp-registration' ); ?></label>
                 </div>
             </div>
             <div id="postal-address-fields" style="display:none;">
                 <div class="hcp-address-group">
                     <div class="hcp-field">
-                        <label for="postal_address_line"><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?></label>
-                        <input type="text" id="postal_address_line" name="postal_address_line" />
+                        <label for="postal_address_line"><?php esc_html_e( 'Postal Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="postal_address_line" name="postal_address_line" required />
                     </div>
                     <div class="hcp-field-row">
                         <div class="hcp-field hcp-field-half">
-                            <label for="postal_suburb"><?php esc_html_e( 'Suburb', 'hcp-registration' ); ?></label>
-                            <input type="text" id="postal_suburb" name="postal_suburb" />
+                            <label for="postal_suburb"><?php esc_html_e( 'Suburb', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                            <input type="text" id="postal_suburb" name="postal_suburb" required />
                         </div>
                         <div class="hcp-field hcp-field-half">
-                            <label for="postal_country"><?php esc_html_e( 'Country', 'hcp-registration' ); ?></label>
-                            <select id="postal_country" name="postal_country">
+                            <label for="postal_country"><?php esc_html_e( 'Country', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                            <select id="postal_country" name="postal_country" required>
                                 <option value=""><?php esc_html_e( '— Select Country —', 'hcp-registration' ); ?></option>
                                 <option value="New Zealand"><?php esc_html_e( 'New Zealand', 'hcp-registration' ); ?></option>
                                 <option value="Other"><?php esc_html_e( 'Other', 'hcp-registration' ); ?></option>
@@ -175,8 +175,8 @@ if ( ! defined( 'ABSPATH' ) ) {
                         </div>
                     </div>
                     <div class="hcp-field" id="postal-country-other-field" style="display:none;">
-                        <label for="postal_country_other"><?php esc_html_e( 'Please specify country', 'hcp-registration' ); ?></label>
-                        <input type="text" id="postal_country_other" name="postal_country_other" />
+                        <label for="postal_country_other"><?php esc_html_e( 'Please specify country', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="postal_country_other" name="postal_country_other" required />
                     </div>
                 </div>
             </div>
@@ -186,43 +186,43 @@ if ( ! defined( 'ABSPATH' ) ) {
         <h3 class="trade-section-heading"><?php esc_html_e( 'Contact & Operations', 'hcp-registration' ); ?></h3>
 
         <div class="hcp-field">
-            <label for="trade_business_email"><?php esc_html_e( 'Common Business Email for Access', 'hcp-registration' ); ?></label>
-            <input type="email" id="trade_business_email" name="business_email" />
+            <label for="trade_business_email"><?php esc_html_e( 'Common Business Email for Access', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="email" id="trade_business_email" name="business_email" required />
         </div>
 
         <div class="hcp-field">
-            <label for="trade_accounts_payable"><?php esc_html_e( 'Accounts Payable Contact', 'hcp-registration' ); ?></label>
-            <input type="text" id="trade_accounts_payable" name="accounts_payable_contact" />
+            <label for="trade_accounts_payable"><?php esc_html_e( 'Accounts Payable Contact', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="text" id="trade_accounts_payable" name="accounts_payable_contact" required />
         </div>
 
         <div class="hcp-field">
-            <label for="trade_delivery_contact"><?php esc_html_e( 'Delivery Contact', 'hcp-registration' ); ?></label>
-            <input type="text" id="trade_delivery_contact" name="delivery_contact" />
+            <label for="trade_delivery_contact"><?php esc_html_e( 'Delivery Contact', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="text" id="trade_delivery_contact" name="delivery_contact" required />
         </div>
 
         <div class="hcp-field">
-            <label for="trade_nature_of_business"><?php esc_html_e( 'Nature of Business', 'hcp-registration' ); ?></label>
-            <input type="text" id="trade_nature_of_business" name="nature_of_business" />
+            <label for="trade_nature_of_business"><?php esc_html_e( 'Nature of Business', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="text" id="trade_nature_of_business" name="nature_of_business" required />
         </div>
 
         <div class="hcp-field">
-            <label for="trade_date_incorporation"><?php esc_html_e( 'Date of Incorporation', 'hcp-registration' ); ?></label>
-            <input type="date" id="trade_date_incorporation" name="date_of_incorporation" />
+            <label for="trade_date_incorporation"><?php esc_html_e( 'Date of Incorporation', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="date" id="trade_date_incorporation" name="date_of_incorporation" required />
         </div>
 
         <div class="hcp-field">
-            <label for="trade_ird_number"><?php esc_html_e( 'IRD Number', 'hcp-registration' ); ?></label>
-            <input type="text" id="trade_ird_number" name="ird_number" />
+            <label for="trade_ird_number"><?php esc_html_e( 'IRD Number', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="text" id="trade_ird_number" name="ird_number" required />
         </div>
 
         <!-- Financial -->
         <h3 class="trade-section-heading"><?php esc_html_e( 'Financial', 'hcp-registration' ); ?></h3>
 
         <div class="hcp-field">
-            <label><?php esc_html_e( 'Do you require a credit limit over $5,000?', 'hcp-registration' ); ?></label>
+            <label><?php esc_html_e( 'Do you require a credit limit over $5,000?', 'hcp-registration' ); ?> <span class="required">*</span></label>
             <div class="trade-radio-group">
-                <label class="trade-radio-label"><input type="radio" name="credit_limit_over_5000" value="yes" /> <?php esc_html_e( 'Yes', 'hcp-registration' ); ?></label>
-                <label class="trade-radio-label"><input type="radio" name="credit_limit_over_5000" value="no" checked /> <?php esc_html_e( 'No', 'hcp-registration' ); ?></label>
+                <label class="trade-radio-label"><input type="radio" name="credit_limit_over_5000" value="yes" required /> <?php esc_html_e( 'Yes', 'hcp-registration' ); ?></label>
+                <label class="trade-radio-label"><input type="radio" name="credit_limit_over_5000" value="no" checked required /> <?php esc_html_e( 'No', 'hcp-registration' ); ?></label>
             </div>
         </div>
 
@@ -230,14 +230,14 @@ if ( ! defined( 'ABSPATH' ) ) {
         <h3 class="trade-section-heading"><?php esc_html_e( 'Supporting Documents', 'hcp-registration' ); ?></h3>
 
         <div class="hcp-field">
-            <label for="trade_media_upload"><?php esc_html_e( 'Media Upload', 'hcp-registration' ); ?></label>
-            <input type="file" id="trade_media_upload" name="media_upload" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx" />
+            <label for="trade_media_upload"><?php esc_html_e( 'Media Upload', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <input type="file" id="trade_media_upload" name="media_upload" accept=".jpg,.jpeg,.png,.gif,.pdf,.doc,.docx" required />
             <p class="hcp-field-hint"><?php esc_html_e( 'Accepted formats: jpg, png, gif, pdf, doc, docx. Max 5 MB.', 'hcp-registration' ); ?></p>
         </div>
 
         <div class="hcp-field">
-            <label for="trade_trade_reference"><?php esc_html_e( 'Trade Reference', 'hcp-registration' ); ?></label>
-            <textarea id="trade_trade_reference" name="trade_reference" rows="3"></textarea>
+            <label for="trade_trade_reference"><?php esc_html_e( 'Trade Reference', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <textarea id="trade_trade_reference" name="trade_reference" rows="3" required></textarea>
         </div>
 
         <!-- Signature -->
@@ -278,7 +278,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
 
         <div class="hcp-field">
-            <label><?php esc_html_e( 'Please sign below', 'hcp-registration' ); ?></label>
+            <label><?php esc_html_e( 'Please sign below', 'hcp-registration' ); ?> <span class="required">*</span></label>
             <div class="trade-signature-wrap">
                 <canvas id="trade-signature-pad" width="600" height="200" role="img" aria-label="<?php esc_attr_e( 'Signature drawing area', 'hcp-registration' ); ?>"></canvas>
                 <input type="hidden" name="signature" id="trade_signature_data" />
@@ -290,7 +290,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="hcp-field hcp-terms-field">
             <label class="hcp-checkbox-label">
                 <input type="checkbox" id="trade_terms" name="terms" value="1" required />
-                <?php esc_html_e( 'I/We acknowledge that we have read and accept the terms of trade.', 'hcp-registration' ); ?>
+                <?php esc_html_e( 'I/We acknowledge that we have read and accept the terms of trade.', 'hcp-registration' ); ?> <span class="required">*</span>
             </label>
         </div>
 
