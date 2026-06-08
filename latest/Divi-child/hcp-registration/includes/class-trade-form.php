@@ -107,9 +107,6 @@ class Trade_Form {
 
         // Build physical address JSON (WooCommerce billing format).
         $physical = array(
-            'first_name' => sanitize_text_field( wp_unslash( $_POST['physical_first_name'] ?? '' ) ),
-            'last_name'  => sanitize_text_field( wp_unslash( $_POST['physical_last_name'] ?? '' ) ),
-            'company'    => sanitize_text_field( wp_unslash( $_POST['physical_company'] ?? '' ) ),
             'address_1'  => sanitize_text_field( wp_unslash( $_POST['physical_address_1'] ?? '' ) ),
             'address_2'  => sanitize_text_field( wp_unslash( $_POST['physical_address_2'] ?? '' ) ),
             'city'       => sanitize_text_field( wp_unslash( $_POST['physical_city'] ?? '' ) ),
@@ -126,9 +123,6 @@ class Trade_Form {
             $fields['postal_address'] = $fields['physical_address'];
         } else {
             $postal = array(
-                'first_name' => sanitize_text_field( wp_unslash( $_POST['postal_first_name'] ?? '' ) ),
-                'last_name'  => sanitize_text_field( wp_unslash( $_POST['postal_last_name'] ?? '' ) ),
-                'company'    => sanitize_text_field( wp_unslash( $_POST['postal_company'] ?? '' ) ),
                 'address_1'  => sanitize_text_field( wp_unslash( $_POST['postal_address_1'] ?? '' ) ),
                 'address_2'  => sanitize_text_field( wp_unslash( $_POST['postal_address_2'] ?? '' ) ),
                 'city'       => sanitize_text_field( wp_unslash( $_POST['postal_city'] ?? '' ) ),
@@ -160,7 +154,7 @@ class Trade_Form {
             wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
         }
 
-        $required_physical = array( 'first_name', 'last_name', 'address_1', 'city', 'postcode', 'country', 'phone' );
+        $required_physical = array( 'address_1', 'city', 'postcode', 'country', 'phone' );
         foreach ( $required_physical as $key ) {
             if ( empty( $physical[ $key ] ) ) {
                 wp_send_json_error( array( 'message' => __( 'Please fill in all required billing address fields.', 'hcp-registration' ) ) );
@@ -168,7 +162,7 @@ class Trade_Form {
         }
 
         if ( 'no' === $fields['postal_same_as_physical'] ) {
-            $required_postal = array( 'first_name', 'last_name', 'address_1', 'city', 'postcode', 'country' );
+            $required_postal = array( 'address_1', 'city', 'postcode', 'country' );
             foreach ( $required_postal as $key ) {
                 if ( empty( $postal[ $key ] ) ) {
                     wp_send_json_error( array( 'message' => __( 'Please fill in all required postal address fields.', 'hcp-registration' ) ) );
@@ -240,9 +234,8 @@ class Trade_Form {
         // Push billing address to WooCommerce user meta for logged-in users.
         if ( is_user_logged_in() ) {
             $user_id = get_current_user_id();
-            update_user_meta( $user_id, 'billing_first_name', $physical['first_name'] ?: $fields['first_name'] );
-            update_user_meta( $user_id, 'billing_last_name', $physical['last_name'] ?: $fields['last_name'] );
-            update_user_meta( $user_id, 'billing_company', $physical['company'] );
+            update_user_meta( $user_id, 'billing_first_name', $fields['first_name'] );
+            update_user_meta( $user_id, 'billing_last_name', $fields['last_name'] );
             update_user_meta( $user_id, 'billing_phone', $physical['phone'] ?: $fields['phone'] );
             update_user_meta( $user_id, 'billing_email', $fields['email'] );
             update_user_meta( $user_id, 'billing_address_1', $physical['address_1'] );

@@ -93,24 +93,10 @@ if ( ! defined( 'ABSPATH' ) ) {
             <input type="text" id="trade_trading_name" name="trading_name" required />
         </div>
 
-        <!-- Customer Billing Address -->
+        <!-- Physical Address -->
         <div class="hcp-field">
-            <label><?php esc_html_e( 'Customer Billing Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
+            <label><?php esc_html_e( 'Physical Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
             <div class="hcp-address-group">
-                <div class="hcp-field-row">
-                    <div class="hcp-field hcp-field-half">
-                        <label for="physical_first_name"><?php esc_html_e( 'First Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                        <input type="text" id="physical_first_name" name="physical_first_name" required />
-                    </div>
-                    <div class="hcp-field hcp-field-half">
-                        <label for="physical_last_name"><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                        <input type="text" id="physical_last_name" name="physical_last_name" required />
-                    </div>
-                </div>
-                <div class="hcp-field">
-                    <label for="physical_company"><?php esc_html_e( 'Company', 'hcp-registration' ); ?></label>
-                    <input type="text" id="physical_company" name="physical_company" />
-                </div>
                 <div class="hcp-field">
                     <label for="physical_address_1"><?php esc_html_e( 'Address Line 1', 'hcp-registration' ); ?> <span class="required">*</span></label>
                     <input type="text" id="physical_address_1" name="physical_address_1" required />
@@ -169,20 +155,6 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
             <div id="postal-address-fields" style="display:none;">
                 <div class="hcp-address-group">
-                    <div class="hcp-field-row">
-                        <div class="hcp-field hcp-field-half">
-                            <label for="postal_first_name"><?php esc_html_e( 'First Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                            <input type="text" id="postal_first_name" name="postal_first_name" required />
-                        </div>
-                        <div class="hcp-field hcp-field-half">
-                            <label for="postal_last_name"><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                            <input type="text" id="postal_last_name" name="postal_last_name" required />
-                        </div>
-                    </div>
-                    <div class="hcp-field">
-                        <label for="postal_company"><?php esc_html_e( 'Company', 'hcp-registration' ); ?></label>
-                        <input type="text" id="postal_company" name="postal_company" />
-                    </div>
                     <div class="hcp-field">
                         <label for="postal_address_1"><?php esc_html_e( 'Address Line 1', 'hcp-registration' ); ?> <span class="required">*</span></label>
                         <input type="text" id="postal_address_1" name="postal_address_1" required />
