@@ -16,10 +16,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // ============================================================================
-// CONSTANTS & CONFIGURATION..
+// CONSTANTS & CONFIGURATION
 // ============================================================================
-
-// DEPLOY_TEST_12345
 
 /**
  * Database version tracking constants
