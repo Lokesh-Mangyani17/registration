@@ -35,7 +35,7 @@ class Trade_Form {
         );
 
         wp_localize_script( 'trade-form-js', 'tradeReg', array(
-            'ajaxurl' => admin_url( 'admin-ajax.php' ),
+            'ajaxurl' => '/wp-admin/admin-ajax.php',
             'nonce'   => wp_create_nonce( 'trade_register_nonce' ),
         ) );
     }
