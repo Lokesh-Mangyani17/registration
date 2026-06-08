@@ -1,6 +1,6 @@
 <?php
 /**
- * Trade Application Form template.
+ * Trade Application Form Template.
  *
  * Rendered by the [trade_application_form] shortcode.
  */
