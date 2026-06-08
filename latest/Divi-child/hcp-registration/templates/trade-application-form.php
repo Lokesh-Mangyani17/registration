@@ -93,17 +93,19 @@ if ( ! defined( 'ABSPATH' ) ) {
             <input type="text" id="trade_trading_name" name="trading_name" required />
         </div>
 
-        <!-- Billing Address (Physical Address) -->
+        <!-- Customer Billing Address -->
         <div class="hcp-field">
             <label><?php esc_html_e( 'Customer Billing Address', 'hcp-registration' ); ?> <span class="required">*</span></label>
             <div class="hcp-address-group">
-                <div class="hcp-field">
-                    <label for="physical_first_name"><?php esc_html_e( 'First Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                    <input type="text" id="physical_first_name" name="physical_first_name" required />
-                </div>
-                <div class="hcp-field">
-                    <label for="physical_last_name"><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                    <input type="text" id="physical_last_name" name="physical_last_name" required />
+                <div class="hcp-field-row">
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_first_name"><?php esc_html_e( 'First Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="physical_first_name" name="physical_first_name" required />
+                    </div>
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_last_name"><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="physical_last_name" name="physical_last_name" required />
+                    </div>
                 </div>
                 <div class="hcp-field">
                     <label for="physical_company"><?php esc_html_e( 'Company', 'hcp-registration' ); ?></label>
@@ -117,39 +119,41 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <label for="physical_address_2"><?php esc_html_e( 'Address Line 2', 'hcp-registration' ); ?></label>
                     <input type="text" id="physical_address_2" name="physical_address_2" />
                 </div>
-                <div class="hcp-field">
-                    <label for="physical_city"><?php esc_html_e( 'City', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                    <input type="text" id="physical_city" name="physical_city" required />
-                </div>
                 <div class="hcp-field-row">
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_city"><?php esc_html_e( 'City', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="physical_city" name="physical_city" required />
+                    </div>
                     <div class="hcp-field hcp-field-half">
                         <label for="physical_postcode"><?php esc_html_e( 'Postcode / ZIP', 'hcp-registration' ); ?> <span class="required">*</span></label>
                         <input type="text" id="physical_postcode" name="physical_postcode" required />
-                    </div>
-                    <div class="hcp-field hcp-field-half">
-                        <label for="physical_state"><?php esc_html_e( 'State / County', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                        <input type="text" id="physical_state" name="physical_state" required />
                     </div>
                 </div>
                 <div class="hcp-field">
                     <label for="physical_country"><?php esc_html_e( 'Country / Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
                     <select id="physical_country" name="physical_country" required>
                         <option value=""><?php esc_html_e( 'Select a country / region...', 'hcp-registration' ); ?></option>
-                        <option value="New Zealand"><?php esc_html_e( 'New Zealand', 'hcp-registration' ); ?></option>
-                        <option value="Australia"><?php esc_html_e( 'Australia', 'hcp-registration' ); ?></option>
-                        <option value="United States"><?php esc_html_e( 'United States', 'hcp-registration' ); ?></option>
-                        <option value="United Kingdom"><?php esc_html_e( 'United Kingdom', 'hcp-registration' ); ?></option>
-                        <option value="Canada"><?php esc_html_e( 'Canada', 'hcp-registration' ); ?></option>
-                        <option value="Other"><?php esc_html_e( 'Other', 'hcp-registration' ); ?></option>
+                        <?php
+                        $countries = function_exists( 'WC' ) ? WC()->countries->get_countries() : array( 'NZ' => 'New Zealand' );
+                        foreach ( $countries as $code => $name ) {
+                            echo '<option value="' . esc_attr( $code ) . '">' . esc_html( $name ) . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
-                <div class="hcp-field" id="physical-country-other-field" style="display:none;">
-                    <label for="physical_country_other"><?php esc_html_e( 'Please specify country', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                    <input type="text" id="physical_country_other" name="physical_country_other" required />
-                </div>
                 <div class="hcp-field">
-                    <label for="physical_phone"><?php esc_html_e( 'Phone', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                    <input type="tel" id="physical_phone" name="physical_phone" required />
+                    <label for="physical_state"><?php esc_html_e( 'State / County', 'hcp-registration' ); ?></label>
+                    <input type="text" id="physical_state" name="physical_state" />
+                </div>
+                <div class="hcp-field-row">
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_phone"><?php esc_html_e( 'Phone', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="tel" id="physical_phone" name="physical_phone" required />
+                    </div>
+                    <div class="hcp-field hcp-field-half">
+                        <label for="physical_fax"><?php esc_html_e( 'Fax', 'hcp-registration' ); ?></label>
+                        <input type="text" id="physical_fax" name="physical_fax" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -165,13 +169,15 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
             <div id="postal-address-fields" style="display:none;">
                 <div class="hcp-address-group">
-                    <div class="hcp-field">
-                        <label for="postal_first_name"><?php esc_html_e( 'First Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                        <input type="text" id="postal_first_name" name="postal_first_name" required />
-                    </div>
-                    <div class="hcp-field">
-                        <label for="postal_last_name"><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                        <input type="text" id="postal_last_name" name="postal_last_name" required />
+                    <div class="hcp-field-row">
+                        <div class="hcp-field hcp-field-half">
+                            <label for="postal_first_name"><?php esc_html_e( 'First Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                            <input type="text" id="postal_first_name" name="postal_first_name" required />
+                        </div>
+                        <div class="hcp-field hcp-field-half">
+                            <label for="postal_last_name"><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                            <input type="text" id="postal_last_name" name="postal_last_name" required />
+                        </div>
                     </div>
                     <div class="hcp-field">
                         <label for="postal_company"><?php esc_html_e( 'Company', 'hcp-registration' ); ?></label>
@@ -185,35 +191,31 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <label for="postal_address_2"><?php esc_html_e( 'Address Line 2', 'hcp-registration' ); ?></label>
                         <input type="text" id="postal_address_2" name="postal_address_2" />
                     </div>
-                    <div class="hcp-field">
-                        <label for="postal_city"><?php esc_html_e( 'City', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                        <input type="text" id="postal_city" name="postal_city" required />
-                    </div>
                     <div class="hcp-field-row">
+                        <div class="hcp-field hcp-field-half">
+                            <label for="postal_city"><?php esc_html_e( 'City', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                            <input type="text" id="postal_city" name="postal_city" required />
+                        </div>
                         <div class="hcp-field hcp-field-half">
                             <label for="postal_postcode"><?php esc_html_e( 'Postcode / ZIP', 'hcp-registration' ); ?> <span class="required">*</span></label>
                             <input type="text" id="postal_postcode" name="postal_postcode" required />
-                        </div>
-                        <div class="hcp-field hcp-field-half">
-                            <label for="postal_state"><?php esc_html_e( 'State / County', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                            <input type="text" id="postal_state" name="postal_state" required />
                         </div>
                     </div>
                     <div class="hcp-field">
                         <label for="postal_country"><?php esc_html_e( 'Country / Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
                         <select id="postal_country" name="postal_country" required>
                             <option value=""><?php esc_html_e( 'Select a country / region...', 'hcp-registration' ); ?></option>
-                            <option value="New Zealand"><?php esc_html_e( 'New Zealand', 'hcp-registration' ); ?></option>
-                            <option value="Australia"><?php esc_html_e( 'Australia', 'hcp-registration' ); ?></option>
-                            <option value="United States"><?php esc_html_e( 'United States', 'hcp-registration' ); ?></option>
-                            <option value="United Kingdom"><?php esc_html_e( 'United Kingdom', 'hcp-registration' ); ?></option>
-                            <option value="Canada"><?php esc_html_e( 'Canada', 'hcp-registration' ); ?></option>
-                            <option value="Other"><?php esc_html_e( 'Other', 'hcp-registration' ); ?></option>
+                            <?php
+                            $countries = function_exists( 'WC' ) ? WC()->countries->get_countries() : array( 'NZ' => 'New Zealand' );
+                            foreach ( $countries as $code => $name ) {
+                                echo '<option value="' . esc_attr( $code ) . '">' . esc_html( $name ) . '</option>';
+                            }
+                            ?>
                         </select>
                     </div>
-                    <div class="hcp-field" id="postal-country-other-field" style="display:none;">
-                        <label for="postal_country_other"><?php esc_html_e( 'Please specify country', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                        <input type="text" id="postal_country_other" name="postal_country_other" required />
+                    <div class="hcp-field">
+                        <label for="postal_state"><?php esc_html_e( 'State / County', 'hcp-registration' ); ?></label>
+                        <input type="text" id="postal_state" name="postal_state" />
                     </div>
                     <div class="hcp-field">
                         <label for="postal_phone"><?php esc_html_e( 'Phone', 'hcp-registration' ); ?> <span class="required">*</span></label>
@@ -287,21 +289,21 @@ if ( ! defined( 'ABSPATH' ) ) {
         <div class="hcp-field trade-conditions-block">
             <h4><?php esc_html_e( 'Customer application conditions', 'hcp-registration' ); ?></h4>
 
-            <p><?php esc_html_e( 'The customer acknowledges that is has received, understood and is bound by the trading terms attached to this application ("MW Pharma Terms of Trade") and requests credit on the terms contained therein.', 'hcp-registration' ); ?></p>
+            <p><?php esc_html_e( 'The customer acknowledges that is has received, understood and is bound by the trading terms attached to this application ("MW Pharma Terms of Trade") and requests that MW Pharma Ltd t/a NUBU ("NUBU") supply goods requested by the customer upon and subject to the Trading Terms.', 'hcp-registration' ); ?></p>
 
-            <p><?php esc_html_e( 'The customer acknowledges that payment for goods must be made in accordance with the payment terms specified in the Trading Terms or as otherwise agreed by NUBU with the customer.', 'hcp-registration' ); ?></p>
+            <p><?php esc_html_e( 'The customer acknowledges that payment for goods must be made in accordance with the payment terms specified in the Trading Terms or as otherwise agreed by NUBU in writing.', 'hcp-registration' ); ?></p>
 
-            <p><?php esc_html_e( 'The customer authorises NUBU to make all necessary enquires to each of the referees and the bank for the purpose of obtaining such financial or other information as may be necessary.', 'hcp-registration' ); ?></p>
+            <p><?php esc_html_e( 'The customer authorises NUBU to make all necessary enquires to each of the referees and the bank for the purpose of obtaining such financial or other information that it may reasonably require for the purposes of assessing this application and the customer undertakes that it will authorise the referees and the banks to provide such information and documentation as NUBU may require.', 'hcp-registration' ); ?></p>
 
-            <p><?php esc_html_e( 'The customer undertakes to provide to NUBU such further details, documents or information concerning the customer as NUBU may reasonably require for the purposes of managing credit risk.', 'hcp-registration' ); ?></p>
+            <p><?php esc_html_e( 'The customer undertakes to provide to NUBU such further details, documents or information concerning the customer as NUBU may reasonably require for the purposes of assessing this application.', 'hcp-registration' ); ?></p>
 
             <h4><?php esc_html_e( 'Section 29 returns (applicable to pharmaceutical customers only)', 'hcp-registration' ); ?></h4>
 
-            <p><?php esc_html_e( 'In order to fulfil our obligations to the Ministry of Health, we require you to provide us with prescription data for any Section 29 Medicines that you purchase from us.', 'hcp-registration' ); ?></p>
+            <p><?php esc_html_e( 'In order to fulfil our obligations to the Ministry of Health, we require you to provide us with prescription data for any Section 29 Medicines that you purchase from NUBU.', 'hcp-registration' ); ?></p>
 
             <p><?php esc_html_e( 'If you are placing orders with us as prescriptions come in, you will have an option to enter the Section 29 data into the HCP Community portal at the time of ordering.', 'hcp-registration' ); ?></p>
 
-            <p><?php esc_html_e( "If you order from NUBU in volumes that allow you to keep stock on hand and don't have prescription data on hand at the time of ordering, you will be unable to use the Section 29 HCP portal to provide your data.", 'hcp-registration' ); ?></p>
+            <p><?php esc_html_e( "If you order from NUBU in volumes that allow you to keep stock on hand and don't have prescription data on hand at the time of ordering, you will be unable to use this function.", 'hcp-registration' ); ?></p>
 
             <p><?php esc_html_e( 'Instead, you will need to email your data through to hq@nubupharma.com using the excel template provided by NUBU, within 5 business days of the end of the month.', 'hcp-registration' ); ?></p>
 
@@ -315,7 +317,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <li><?php esc_html_e( 'Pharmacode', 'hcp-registration' ); ?></li>
             </ul>
 
-            <p><?php esc_html_e( 'I certify that I am authorised to sign this application form on behalf of the customer and that the information given is true and correct to the best of my knowledge and belief.', 'hcp-registration' ); ?></p>
+            <p><?php esc_html_e( 'I certify that I am authorised to sign this application form on behalf of the customer and that the information given is true and correct to the best of my knowledge.', 'hcp-registration' ); ?></p>
         </div>
 
         <div class="hcp-field">

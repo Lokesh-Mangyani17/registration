@@ -686,6 +686,21 @@ class HCP_Admin {
             }
         }
 
+        // Push WooCommerce billing address fields from the physical address stored in the application.
+        $physical = json_decode( $request->physical_address, true );
+        if ( is_array( $physical ) ) {
+            update_user_meta( $user_id, 'billing_first_name', sanitize_text_field( $request->first_name ) );
+            update_user_meta( $user_id, 'billing_last_name', sanitize_text_field( $request->last_name ) );
+            update_user_meta( $user_id, 'billing_phone', sanitize_text_field( $request->phone ) );
+            update_user_meta( $user_id, 'billing_email', sanitize_email( $request->email ) );
+            update_user_meta( $user_id, 'billing_address_1', sanitize_text_field( $physical['address_1'] ?? '' ) );
+            update_user_meta( $user_id, 'billing_address_2', sanitize_text_field( $physical['address_2'] ?? '' ) );
+            update_user_meta( $user_id, 'billing_city', sanitize_text_field( $physical['city'] ?? '' ) );
+            update_user_meta( $user_id, 'billing_state', sanitize_text_field( $physical['state'] ?? '' ) );
+            update_user_meta( $user_id, 'billing_postcode', sanitize_text_field( $physical['postcode'] ?? '' ) );
+            update_user_meta( $user_id, 'billing_country', sanitize_text_field( $physical['country'] ?? '' ) );
+        }
+
         // Store trade-specific profile fields as user meta (separate from HCP).
         update_user_meta( $user_id, 'trade_pharmacy_name', sanitize_text_field( $request->pharmacy_name ) );
         update_user_meta( $user_id, 'trade_hcp_type', sanitize_text_field( $request->hcp_type ) );

@@ -105,9 +105,7 @@ class Trade_Form {
             'signature'               => '', // handled separately below
         );
 
-        $physical_country_raw = sanitize_text_field( wp_unslash( $_POST['physical_country'] ?? '' ) );
-
-        // Build physical address JSON from billing address fields (WooCommerce standard format).
+        // Build physical address JSON (WooCommerce billing format).
         $physical = array(
             'first_name' => sanitize_text_field( wp_unslash( $_POST['physical_first_name'] ?? '' ) ),
             'last_name'  => sanitize_text_field( wp_unslash( $_POST['physical_last_name'] ?? '' ) ),
@@ -117,24 +115,16 @@ class Trade_Form {
             'city'       => sanitize_text_field( wp_unslash( $_POST['physical_city'] ?? '' ) ),
             'postcode'   => sanitize_text_field( wp_unslash( $_POST['physical_postcode'] ?? '' ) ),
             'state'      => sanitize_text_field( wp_unslash( $_POST['physical_state'] ?? '' ) ),
-            'country'    => $physical_country_raw,
+            'country'    => sanitize_text_field( wp_unslash( $_POST['physical_country'] ?? '' ) ),
             'phone'      => sanitize_text_field( wp_unslash( $_POST['physical_phone'] ?? '' ) ),
+            'fax'        => sanitize_text_field( wp_unslash( $_POST['physical_fax'] ?? '' ) ),
         );
-        
-        $physical_country_other = sanitize_text_field( wp_unslash( $_POST['physical_country_other'] ?? '' ) );
-        if ( 'Other' === $physical_country_raw && ! empty( $physical_country_other ) ) {
-            $physical['country'] = $physical_country_other;
-        }
         $fields['physical_address'] = wp_json_encode( $physical );
-
-        $postal_country_raw   = '';
-        $postal_country_other = '';
 
         // Build postal address JSON.
         if ( 'yes' === $fields['postal_same_as_physical'] ) {
             $fields['postal_address'] = $fields['physical_address'];
         } else {
-            $postal_country_raw = sanitize_text_field( wp_unslash( $_POST['postal_country'] ?? '' ) );
             $postal = array(
                 'first_name' => sanitize_text_field( wp_unslash( $_POST['postal_first_name'] ?? '' ) ),
                 'last_name'  => sanitize_text_field( wp_unslash( $_POST['postal_last_name'] ?? '' ) ),
@@ -144,13 +134,8 @@ class Trade_Form {
                 'city'       => sanitize_text_field( wp_unslash( $_POST['postal_city'] ?? '' ) ),
                 'postcode'   => sanitize_text_field( wp_unslash( $_POST['postal_postcode'] ?? '' ) ),
                 'state'      => sanitize_text_field( wp_unslash( $_POST['postal_state'] ?? '' ) ),
-                'country'    => $postal_country_raw,
-                'phone'      => sanitize_text_field( wp_unslash( $_POST['postal_phone'] ?? '' ) ),
+                'country'    => sanitize_text_field( wp_unslash( $_POST['postal_country'] ?? '' ) ),
             );
-            $postal_country_other = sanitize_text_field( wp_unslash( $_POST['postal_country_other'] ?? '' ) );
-            if ( 'Other' === $postal_country_raw && ! empty( $postal_country_other ) ) {
-                $postal['country'] = $postal_country_other;
-            }
             $fields['postal_address'] = wp_json_encode( $postal );
         }
 
@@ -175,27 +160,19 @@ class Trade_Form {
             wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
         }
 
-        $required_physical = array( 'first_name', 'last_name', 'address_1', 'city', 'postcode', 'state', 'country', 'phone' );
+        $required_physical = array( 'first_name', 'last_name', 'address_1', 'city', 'postcode', 'country', 'phone' );
         foreach ( $required_physical as $key ) {
             if ( empty( $physical[ $key ] ) ) {
                 wp_send_json_error( array( 'message' => __( 'Please fill in all required billing address fields.', 'hcp-registration' ) ) );
             }
         }
 
-        if ( 'Other' === $physical_country_raw && empty( $physical_country_other ) ) {
-            wp_send_json_error( array( 'message' => __( 'Please specify the country.', 'hcp-registration' ) ) );
-        }
-
         if ( 'no' === $fields['postal_same_as_physical'] ) {
-            $required_postal = array( 'first_name', 'last_name', 'address_1', 'city', 'postcode', 'state', 'country', 'phone' );
+            $required_postal = array( 'first_name', 'last_name', 'address_1', 'city', 'postcode', 'country' );
             foreach ( $required_postal as $key ) {
                 if ( empty( $postal[ $key ] ) ) {
                     wp_send_json_error( array( 'message' => __( 'Please fill in all required postal address fields.', 'hcp-registration' ) ) );
                 }
-            }
-
-            if ( 'Other' === $postal_country_raw && empty( $postal_country_other ) ) {
-                wp_send_json_error( array( 'message' => __( 'Please specify the country.', 'hcp-registration' ) ) );
             }
         }
 
@@ -258,6 +235,22 @@ class Trade_Form {
 
         if ( ! $insert_id ) {
             wp_send_json_error( array( 'message' => __( 'Something went wrong. Please try again.', 'hcp-registration' ) ) );
+        }
+
+        // Push billing address to WooCommerce user meta for logged-in users.
+        if ( is_user_logged_in() ) {
+            $user_id = get_current_user_id();
+            update_user_meta( $user_id, 'billing_first_name', $physical['first_name'] ?: $fields['first_name'] );
+            update_user_meta( $user_id, 'billing_last_name', $physical['last_name'] ?: $fields['last_name'] );
+            update_user_meta( $user_id, 'billing_company', $physical['company'] );
+            update_user_meta( $user_id, 'billing_phone', $physical['phone'] ?: $fields['phone'] );
+            update_user_meta( $user_id, 'billing_email', $fields['email'] );
+            update_user_meta( $user_id, 'billing_address_1', $physical['address_1'] );
+            update_user_meta( $user_id, 'billing_address_2', $physical['address_2'] );
+            update_user_meta( $user_id, 'billing_city', $physical['city'] );
+            update_user_meta( $user_id, 'billing_state', $physical['state'] );
+            update_user_meta( $user_id, 'billing_postcode', $physical['postcode'] );
+            update_user_meta( $user_id, 'billing_country', $physical['country'] );
         }
 
         // Notify site admin about new trade request.
