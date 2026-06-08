@@ -236,6 +236,7 @@ class Trade_Form {
             $user_id = get_current_user_id();
             update_user_meta( $user_id, 'billing_first_name', $fields['first_name'] );
             update_user_meta( $user_id, 'billing_last_name', $fields['last_name'] );
+            update_user_meta( $user_id, 'billing_company', $fields['practice_name'] );
             update_user_meta( $user_id, 'billing_phone', $physical['phone'] ?: $fields['phone'] );
             update_user_meta( $user_id, 'billing_email', $fields['email'] );
             update_user_meta( $user_id, 'billing_address_1', $physical['address_1'] );

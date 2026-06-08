@@ -122,7 +122,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <?php
                         $countries = function_exists( 'WC' ) ? WC()->countries->get_countries() : array( 'NZ' => 'New Zealand' );
                         foreach ( $countries as $code => $name ) {
-                            echo '<option value="' . esc_attr( $code ) . '">' . esc_html( $name ) . '</option>';
+                            echo '<option value="' . esc_attr( $code ) . '"' . selected( $code, 'NZ', false ) . '>' . esc_html( $name ) . '</option>';
                         }
                         ?>
                     </select>

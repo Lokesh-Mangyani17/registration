@@ -691,6 +691,7 @@ class HCP_Admin {
         if ( is_array( $physical ) ) {
             update_user_meta( $user_id, 'billing_first_name', sanitize_text_field( $request->first_name ) );
             update_user_meta( $user_id, 'billing_last_name', sanitize_text_field( $request->last_name ) );
+            update_user_meta( $user_id, 'billing_company', sanitize_text_field( $request->practice_name ) );
             update_user_meta( $user_id, 'billing_phone', sanitize_text_field( $request->phone ) );
             update_user_meta( $user_id, 'billing_email', sanitize_email( $request->email ) );
             update_user_meta( $user_id, 'billing_address_1', sanitize_text_field( $physical['address_1'] ?? '' ) );
