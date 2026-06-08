@@ -167,8 +167,10 @@ function nubu_add_custom_role_below_subscriber() {
 
     // Add custom roles with appropriate capabilities
     add_role( 'pending_approval', 'Pending Approval', array() );
-    add_role( 'trade_account', 'Trade Account', get_role( 'customer' )->capabilities );
-    add_role( 'healthcare_professional', 'Healthcare Professionals', get_role( 'subscriber' )->capabilities );
+    $customer_role    = get_role( 'customer' );
+    $subscriber_role  = get_role( 'subscriber' );
+    add_role( 'trade_account', 'Trade Account', $customer_role ? $customer_role->capabilities : array( 'read' => true ) );
+    add_role( 'healthcare_professional', 'Healthcare Professionals', $subscriber_role ? $subscriber_role->capabilities : array( 'read' => true ) );
 }
 add_action( 'init', 'nubu_add_custom_role_below_subscriber' );
 
