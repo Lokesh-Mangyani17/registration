@@ -338,17 +338,19 @@ class HCP_Admin {
                                 </td>
                                 <td><?php echo esc_html( $r->submitted_at ); ?></td>
                                 <td>
-                                    <a href="<?php echo esc_url( add_query_arg( array( 'tab' => 'trade', 'trade_view' => $r->id ), admin_url( 'admin.php?page=hcp-registrations' ) ) ); ?>" class="button button-small">
-                                        <?php esc_html_e( 'View', 'hcp-registration' ); ?>
-                                    </a>
-                                    <?php if ( 'pending' === $r->status ) : ?>
-                                        <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=trade_approve&id=' . $r->id ), 'trade_action_' . $r->id ) ); ?>" class="button button-small button-primary">
-                                            <?php esc_html_e( 'Approve', 'hcp-registration' ); ?>
+                                    <div class="hcp-action-btns">
+                                        <a href="<?php echo esc_url( add_query_arg( array( 'tab' => 'trade', 'trade_view' => $r->id ), admin_url( 'admin.php?page=hcp-registrations' ) ) ); ?>" class="button button-small">
+                                            <?php esc_html_e( 'View', 'hcp-registration' ); ?>
                                         </a>
-                                        <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=trade_reject&id=' . $r->id ), 'trade_action_' . $r->id ) ); ?>" class="button button-small hcp-reject-btn" onclick="return confirm('<?php esc_attr_e( 'Are you sure you want to reject this application?', 'hcp-registration' ); ?>');">
-                                            <?php esc_html_e( 'Reject', 'hcp-registration' ); ?>
-                                        </a>
-                                    <?php endif; ?>
+                                        <?php if ( 'pending' === $r->status ) : ?>
+                                            <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=trade_approve&id=' . $r->id ), 'trade_action_' . $r->id ) ); ?>" class="button button-small button-primary">
+                                                <?php esc_html_e( 'Approve', 'hcp-registration' ); ?>
+                                            </a>
+                                            <a href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=trade_reject&id=' . $r->id ), 'trade_action_' . $r->id ) ); ?>" class="button button-small hcp-reject-btn" onclick="return confirm('<?php esc_attr_e( 'Are you sure you want to reject this application?', 'hcp-registration' ); ?>');">
+                                                <?php esc_html_e( 'Reject', 'hcp-registration' ); ?>
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

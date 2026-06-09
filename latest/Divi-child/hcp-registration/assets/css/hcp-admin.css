@@ -292,3 +292,12 @@
     background: #eff6ff;
     border-radius: 8px;
 }
+
+/* Action buttons in table rows */
+.hcp-action-btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: nowrap;
+}
