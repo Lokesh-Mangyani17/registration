@@ -65,10 +65,9 @@ class HCP_GHL {
             'companyName' => $fields['practice_name'],
             'tags'        => array( 'HCP Request', 'HCP Pending' ),
             'customField' => array(
-                array( 'key' => 'practice_clinic_name', 'field_value' => $fields['practice_name'] ),
+                array( 'key' => 'practice_clinic_name',    'field_value' => $fields['practice_name'] ),
                 array( 'key' => 'hcp_registration_number', 'field_value' => $fields['hcp_reg_number'] ),
-                array( 'key' => 'role_of_contact', 'field_value' => $fields['hcp_type'] ),
-                // Keep approval status blank while request is pending.
+                array( 'key' => 'role_of_contact',         'field_value' => $fields['hcp_type'] ),
                 self::custom_field_value( self::FIELD_HCP_APPROVED, '' ),
             ),
         );
@@ -136,19 +135,40 @@ class HCP_GHL {
             return;
         }
 
+        // Decode physical address JSON to get individual address fields.
+        $physical = is_array( $fields['physical_address'] )
+            ? $fields['physical_address']
+            : (array) json_decode( $fields['physical_address'], true );
+
         $contact_data = array(
             'email'       => self::normalize_email( $fields['email'] ),
             'firstName'   => $fields['first_name'],
             'lastName'    => $fields['last_name'],
             'phone'       => $fields['phone'],
             'companyName' => $fields['trading_name'],
+            'address1'    => $physical['address_1'] ?? '',
+            'city'        => $physical['city'] ?? '',
+            'state'       => $physical['state'] ?? '',
+            'postalCode'  => $physical['postcode'] ?? '',
+            'country'     => $physical['country'] ?? 'NZ',
             'tags'        => array( 'Trade Request', 'Trade Pending' ),
             'customField' => array(
-                array( 'key' => 'role_of_contact', 'field_value' => $fields['hcp_type'] ),
-                array( 'key' => 'hcp_registration_number', 'field_value' => $fields['hcp_reg_number'] ),
-                array( 'key' => 'trading_name', 'field_value' => $fields['trading_name'] ),
-                array( 'key' => 'nature_of_business', 'field_value' => $fields['nature_of_business'] ),
-                // Keep approval status blank while request is pending.
+                array( 'key' => 'practice_clinic_name',     'field_value' => $fields['practice_name'] ),
+                array( 'key' => 'role_of_contact',          'field_value' => $fields['hcp_type'] ),
+                array( 'key' => 'hcp_registration_number',  'field_value' => $fields['hcp_reg_number'] ),
+                array( 'key' => 'trading_name',             'field_value' => $fields['trading_name'] ),
+                array( 'key' => 'company_number',           'field_value' => $fields['company_number'] ),
+                array( 'key' => 'acts_as_trustee',          'field_value' => $fields['acts_as_trustee'] ),
+                array( 'key' => 'trust_name',               'field_value' => $fields['trust_name'] ?? '' ),
+                array( 'key' => 'nature_of_business',       'field_value' => $fields['nature_of_business'] ),
+                array( 'key' => 'date_of_incorporation',    'field_value' => $fields['date_of_incorporation'] ),
+                array( 'key' => 'ird_number',               'field_value' => $fields['ird_number'] ),
+                array( 'key' => 'business_email',           'field_value' => $fields['business_email'] ),
+                array( 'key' => 'accounts_payable_contact', 'field_value' => $fields['accounts_payable_contact'] ),
+                array( 'key' => 'delivery_contact',         'field_value' => $fields['delivery_contact'] ),
+                array( 'key' => 'credit_limit_over_5000',   'field_value' => $fields['credit_limit_over_5000'] ),
+                array( 'key' => 'physical_address_line_2',  'field_value' => $physical['address_2'] ?? '' ),
+                array( 'key' => 'physical_phone',           'field_value' => $physical['phone'] ?? '' ),
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, '' ),
             ),
         );
@@ -173,9 +193,36 @@ class HCP_GHL {
             return;
         }
 
+        $physical = (array) json_decode( $request->physical_address, true );
+
         self::update_contact( $contact_id, array(
+            'firstName'   => $request->first_name,
+            'lastName'    => $request->last_name,
+            'phone'       => $request->phone,
+            'companyName' => $request->trading_name,
+            'address1'    => $physical['address_1'] ?? '',
+            'city'        => $physical['city'] ?? '',
+            'state'       => $physical['state'] ?? '',
+            'postalCode'  => $physical['postcode'] ?? '',
+            'country'     => $physical['country'] ?? 'NZ',
             'tags'        => array( 'Trade Request', 'Trade Approved' ),
             'customField' => array(
+                array( 'key' => 'practice_clinic_name',     'field_value' => $request->practice_name ),
+                array( 'key' => 'role_of_contact',          'field_value' => $request->hcp_type ),
+                array( 'key' => 'hcp_registration_number',  'field_value' => $request->hcp_reg_number ),
+                array( 'key' => 'trading_name',             'field_value' => $request->trading_name ),
+                array( 'key' => 'company_number',           'field_value' => $request->company_number ),
+                array( 'key' => 'acts_as_trustee',          'field_value' => $request->acts_as_trustee ),
+                array( 'key' => 'trust_name',               'field_value' => $request->trust_name ?? '' ),
+                array( 'key' => 'nature_of_business',       'field_value' => $request->nature_of_business ),
+                array( 'key' => 'date_of_incorporation',    'field_value' => $request->date_of_incorporation ),
+                array( 'key' => 'ird_number',               'field_value' => $request->ird_number ),
+                array( 'key' => 'business_email',           'field_value' => $request->business_email ),
+                array( 'key' => 'accounts_payable_contact', 'field_value' => $request->accounts_payable_contact ),
+                array( 'key' => 'delivery_contact',         'field_value' => $request->delivery_contact ),
+                array( 'key' => 'credit_limit_over_5000',   'field_value' => $request->credit_limit_over_5000 ),
+                array( 'key' => 'physical_address_line_2',  'field_value' => $physical['address_2'] ?? '' ),
+                array( 'key' => 'physical_phone',           'field_value' => $physical['phone'] ?? '' ),
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'Yes' ),
             ),
         ) );
