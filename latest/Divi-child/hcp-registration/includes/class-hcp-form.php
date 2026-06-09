@@ -60,7 +60,7 @@ class HCP_Form {
             'last_name'      => sanitize_text_field( wp_unslash( $_POST['last_name'] ?? '' ) ),
             'phone'          => sanitize_text_field( wp_unslash( $_POST['phone'] ?? '' ) ),
             'email'          => sanitize_email( wp_unslash( $_POST['email'] ?? '' ) ),
-            'practice_name'  => sanitize_text_field( wp_unslash( $_POST['practice_name'] ?? '' ) ),
+            'pharmacy_name'  => sanitize_text_field( wp_unslash( $_POST['pharmacy_name'] ?? '' ) ),
             'hcp_type'       => sanitize_text_field( wp_unslash( $_POST['hcp_type'] ?? '' ) ),
             'hcp_reg_number' => sanitize_text_field( wp_unslash( $_POST['hcp_reg_number'] ?? '' ) ),
         );

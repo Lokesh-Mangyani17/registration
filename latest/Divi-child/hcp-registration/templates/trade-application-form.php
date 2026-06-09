@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
         <div class="hcp-field">
             <label for="trade_pharmacy_name"><?php esc_html_e( 'Pharmacy/Clinic Name', 'hcp-registration' ); ?> <span class="required">*</span></label>
-            <input type="text" id="trade_pharmacy_name" name="practice_name" value="<?php echo esc_attr( $prefill['practice_name'] ); ?>" required />
+            <input type="text" id="trade_pharmacy_name" name="pharmacy_name" value="<?php echo esc_attr( $prefill['pharmacy_name'] ); ?>" required />
         </div>
 
         <div class="hcp-field">

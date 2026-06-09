@@ -62,10 +62,10 @@ class HCP_GHL {
             'firstName'   => $fields['first_name'],
             'lastName'    => $fields['last_name'],
             'phone'       => $fields['phone'],
-            'companyName' => $fields['practice_name'],
+            'companyName' => $fields['pharmacy_name'],
             'tags'        => array( 'HCP Request', 'HCP Pending' ),
             'customField' => array(
-                array( 'key' => 'practice_clinic_name',    'field_value' => $fields['practice_name'] ),
+                array( 'key' => 'practice_clinic_name',    'field_value' => $fields['pharmacy_name'] ),
                 array( 'key' => 'hcp_registration_number', 'field_value' => $fields['hcp_reg_number'] ),
                 array( 'key' => 'role_of_contact',         'field_value' => $fields['hcp_type'] ),
                 self::custom_field_value( self::FIELD_HCP_APPROVED, '' ),
@@ -153,7 +153,7 @@ class HCP_GHL {
             'country'     => $physical['country'] ?? 'NZ',
             'tags'        => array( 'Trade Request', 'Trade Pending' ),
             'customField' => array(
-                array( 'key' => 'practice_clinic_name',     'field_value' => $fields['practice_name'] ),
+                array( 'key' => 'practice_clinic_name',     'field_value' => $fields['pharmacy_name'] ),
                 array( 'key' => 'role_of_contact',          'field_value' => $fields['hcp_type'] ),
                 array( 'key' => 'hcp_registration_number',  'field_value' => $fields['hcp_reg_number'] ),
                 array( 'key' => 'trading_name',             'field_value' => $fields['trading_name'] ),

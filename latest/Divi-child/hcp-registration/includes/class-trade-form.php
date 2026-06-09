@@ -51,7 +51,7 @@ class Trade_Form {
             'last_name'      => '',
             'phone'          => '',
             'email'          => '',
-            'practice_name'  => '',
+            'pharmacy_name'  => '',
             'hcp_type'       => '',
             'hcp_reg_number' => '',
         );
@@ -62,7 +62,7 @@ class Trade_Form {
             $prefill['last_name']      = $user->last_name;
             $prefill['email']          = $user->user_email;
             $prefill['phone']          = get_user_meta( $user->ID, 'hcp_phone', true );
-            $prefill['practice_name']  = get_user_meta( $user->ID, 'hcp_practice_name', true );
+            $prefill['pharmacy_name']  = get_user_meta( $user->ID, 'hcp_pharmacy_name', true );
             $prefill['hcp_type']       = get_user_meta( $user->ID, 'hcp_type', true );
             $prefill['hcp_reg_number'] = get_user_meta( $user->ID, 'hcp_reg_number', true );
         }
@@ -83,7 +83,7 @@ class Trade_Form {
             'last_name'               => sanitize_text_field( wp_unslash( $_POST['last_name'] ?? '' ) ),
             'phone'                   => sanitize_text_field( wp_unslash( $_POST['phone'] ?? '' ) ),
             'email'                   => sanitize_email( wp_unslash( $_POST['email'] ?? '' ) ),
-            'practice_name'           => sanitize_text_field( wp_unslash( $_POST['practice_name'] ?? '' ) ),
+            'pharmacy_name'           => sanitize_text_field( wp_unslash( $_POST['pharmacy_name'] ?? '' ) ),
             'hcp_type'                => sanitize_text_field( wp_unslash( $_POST['hcp_type'] ?? '' ) ),
             'hcp_reg_number'          => sanitize_text_field( wp_unslash( $_POST['hcp_reg_number'] ?? '' ) ),
             'company_number'          => sanitize_text_field( wp_unslash( $_POST['company_number'] ?? '' ) ),
@@ -137,7 +137,7 @@ class Trade_Form {
 
         // Required fields for trade application.
         $required = array(
-            'first_name', 'last_name', 'phone', 'email', 'practice_name',
+            'first_name', 'last_name', 'phone', 'email', 'pharmacy_name',
             'hcp_type', 'hcp_reg_number', 'company_number', 'acts_as_trustee',
             'trading_name', 'postal_same_as_physical', 'business_email',
             'accounts_payable_contact', 'delivery_contact', 'nature_of_business',
@@ -236,8 +236,8 @@ class Trade_Form {
             $user_id = get_current_user_id();
             update_user_meta( $user_id, 'billing_first_name', $fields['first_name'] );
             update_user_meta( $user_id, 'billing_last_name', $fields['last_name'] );
-            update_user_meta( $user_id, 'billing_company', $fields['practice_name'] );
-            update_user_meta( $user_id, 'trade_pharmacy_name', $fields['practice_name'] );
+            update_user_meta( $user_id, 'billing_company', $fields['pharmacy_name'] );
+            update_user_meta( $user_id, 'trade_pharmacy_name', $fields['pharmacy_name'] );
             update_user_meta( $user_id, 'billing_phone', $physical['phone'] ?: $fields['phone'] );
             update_user_meta( $user_id, 'billing_email', $fields['email'] );
             update_user_meta( $user_id, 'billing_address_1', $physical['address_1'] );

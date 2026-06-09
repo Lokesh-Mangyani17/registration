@@ -222,7 +222,7 @@ class HCP_Admin {
                 <tr><th><?php esc_html_e( 'Last Name', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->last_name ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'Phone', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->phone ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'Email', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->email ); ?></td></tr>
-                <tr><th><?php esc_html_e( 'Pharmacy / Clinic Name', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->pharmacy_name ); ?></td></tr>
+                <tr><th><?php esc_html_e( 'Pharmacy / Clinic Name', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->practice_name ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'Healthcare Professional Type', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->hcp_type ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'HCP Registration Number', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->hcp_reg_number ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'Status', 'hcp-registration' ); ?></th><td><span class="hcp-status hcp-status-<?php echo esc_attr( $r->status ); ?>"><?php echo esc_html( ucfirst( $r->status ) ); ?></span></td></tr>
@@ -395,7 +395,7 @@ class HCP_Admin {
 
             <h3><?php esc_html_e( 'Healthcare Professional Details', 'hcp-registration' ); ?></h3>
             <table class="form-table hcp-detail-table">
-                <tr><th><?php esc_html_e( 'Pharmacy / Clinic Name', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->pharmacy_name ); ?></td></tr>
+                <tr><th><?php esc_html_e( 'Pharmacy / Clinic Name', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->practice_name ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'Healthcare Professional Type', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->hcp_type ); ?></td></tr>
                 <tr><th><?php esc_html_e( 'HCP Registration Number', 'hcp-registration' ); ?></th><td><?php echo esc_html( $r->hcp_reg_number ); ?></td></tr>
             </table>
