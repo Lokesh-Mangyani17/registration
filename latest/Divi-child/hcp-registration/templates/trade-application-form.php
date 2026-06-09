@@ -125,22 +125,22 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <label for="physical_state"><?php esc_html_e( 'Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
                         <select id="physical_state" name="physical_state" required>
                         <option value=""><?php esc_html_e( '— Select a region —', 'hcp-registration' ); ?></option>
-                        <option value="NTL"><?php esc_html_e( 'Northland', 'hcp-registration' ); ?></option>
-                        <option value="AUK"><?php esc_html_e( 'Auckland', 'hcp-registration' ); ?></option>
-                        <option value="WKO"><?php esc_html_e( 'Waikato', 'hcp-registration' ); ?></option>
-                        <option value="BOP"><?php esc_html_e( 'Bay of Plenty', 'hcp-registration' ); ?></option>
-                        <option value="GIS"><?php esc_html_e( 'Gisborne', 'hcp-registration' ); ?></option>
-                        <option value="HKB"><?php esc_html_e( "Hawke's Bay", 'hcp-registration' ); ?></option>
-                        <option value="TKI"><?php esc_html_e( 'Taranaki', 'hcp-registration' ); ?></option>
-                        <option value="MWT"><?php esc_html_e( 'Manawatū-Whanganui', 'hcp-registration' ); ?></option>
-                        <option value="WGN"><?php esc_html_e( 'Wellington', 'hcp-registration' ); ?></option>
-                        <option value="NSN"><?php esc_html_e( 'Nelson', 'hcp-registration' ); ?></option>
-                        <option value="TAS"><?php esc_html_e( 'Tasman', 'hcp-registration' ); ?></option>
-                        <option value="MBH"><?php esc_html_e( 'Marlborough', 'hcp-registration' ); ?></option>
-                        <option value="WTC"><?php esc_html_e( 'West Coast', 'hcp-registration' ); ?></option>
-                        <option value="CAN"><?php esc_html_e( 'Canterbury', 'hcp-registration' ); ?></option>
-                        <option value="OTA"><?php esc_html_e( 'Otago', 'hcp-registration' ); ?></option>
-                        <option value="STL"><?php esc_html_e( 'Southland', 'hcp-registration' ); ?></option>
+                        <option value="Northland"><?php esc_html_e( 'Northland', 'hcp-registration' ); ?></option>
+                        <option value="Auckland"><?php esc_html_e( 'Auckland', 'hcp-registration' ); ?></option>
+                        <option value="Waikato"><?php esc_html_e( 'Waikato', 'hcp-registration' ); ?></option>
+                        <option value="Bay of Plenty"><?php esc_html_e( 'Bay of Plenty', 'hcp-registration' ); ?></option>
+                        <option value="Gisborne"><?php esc_html_e( 'Gisborne', 'hcp-registration' ); ?></option>
+                        <option value="Hawke's Bay"><?php esc_html_e( "Hawke's Bay", 'hcp-registration' ); ?></option>
+                        <option value="Taranaki"><?php esc_html_e( 'Taranaki', 'hcp-registration' ); ?></option>
+                        <option value="Manawatu-Whanganui"><?php esc_html_e( 'Manawatū-Whanganui', 'hcp-registration' ); ?></option>
+                        <option value="Wellington"><?php esc_html_e( 'Wellington', 'hcp-registration' ); ?></option>
+                        <option value="Nelson"><?php esc_html_e( 'Nelson', 'hcp-registration' ); ?></option>
+                        <option value="Tasman"><?php esc_html_e( 'Tasman', 'hcp-registration' ); ?></option>
+                        <option value="Marlborough"><?php esc_html_e( 'Marlborough', 'hcp-registration' ); ?></option>
+                        <option value="West Coast"><?php esc_html_e( 'West Coast', 'hcp-registration' ); ?></option>
+                        <option value="Canterbury"><?php esc_html_e( 'Canterbury', 'hcp-registration' ); ?></option>
+                        <option value="Otago"><?php esc_html_e( 'Otago', 'hcp-registration' ); ?></option>
+                        <option value="Southland"><?php esc_html_e( 'Southland', 'hcp-registration' ); ?></option>
                         </select>
                     </div>
                 </div>
