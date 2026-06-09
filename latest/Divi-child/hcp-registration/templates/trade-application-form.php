@@ -115,7 +115,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <input type="text" id="physical_postcode" name="physical_postcode" required />
                     </div>
                 </div>
-                <input type="hidden" name="physical_country" value="NZ" />
+                <div class="hcp-field">
+                    <label for="physical_country"><?php esc_html_e( 'Country / Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                    <input type="text" id="physical_country" value="<?php esc_attr_e( 'New Zealand', 'hcp-registration' ); ?>" readonly />
+                    <input type="hidden" name="physical_country" value="NZ" />
+                </div>
                 <div class="hcp-field">
                     <label for="physical_state"><?php esc_html_e( 'Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
                     <select id="physical_state" name="physical_state" required>
@@ -180,7 +184,11 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <input type="text" id="postal_postcode" name="postal_postcode" required />
                         </div>
                     </div>
-                    <input type="hidden" name="postal_country" value="NZ" />
+                    <div class="hcp-field">
+                        <label for="postal_country"><?php esc_html_e( 'Country / Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <input type="text" id="postal_country" value="<?php esc_attr_e( 'New Zealand', 'hcp-registration' ); ?>" readonly />
+                        <input type="hidden" name="postal_country" value="NZ" />
+                    </div>
                     <div class="hcp-field">
                         <label for="postal_state"><?php esc_html_e( 'Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
                         <select id="postal_state" name="postal_state" required>
