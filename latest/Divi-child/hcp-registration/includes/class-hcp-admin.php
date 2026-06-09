@@ -867,10 +867,40 @@ class HCP_Admin {
             <h3><?php esc_html_e( 'Trade Account Information', 'hcp-registration' ); ?></h3>
             <table class="form-table" role="presentation">
                 <?php foreach ( $trade_fields as $meta_key => $label ) : ?>
-                    <tr>
-                        <th><label for="<?php echo esc_attr( $meta_key ); ?>"><?php echo esc_html( $label ); ?></label></th>
-                        <td><input type="text" name="<?php echo esc_attr( $meta_key ); ?>" id="<?php echo esc_attr( $meta_key ); ?>" value="<?php echo esc_attr( get_user_meta( $user->ID, $meta_key, true ) ); ?>" class="regular-text" /></td>
-                    </tr>
+                    <?php
+                    $raw_value = get_user_meta( $user->ID, $meta_key, true );
+                    // Format address JSON fields as readable text.
+                    $address_keys = array( 'trade_physical_address', 'trade_postal_address' );
+                    if ( in_array( $meta_key, $address_keys, true ) && ! empty( $raw_value ) ) {
+                        $addr = json_decode( $raw_value, true );
+                        if ( is_array( $addr ) ) {
+                            $parts = array_filter( array(
+                                $addr['address_1'] ?? '',
+                                $addr['address_2'] ?? '',
+                                $addr['city']      ?? '',
+                                $addr['state']     ?? '',
+                                $addr['postcode']  ?? '',
+                                $addr['country']   ?? '',
+                            ) );
+                            $display_value = implode( ', ', $parts );
+                        } else {
+                            $display_value = $raw_value;
+                        }
+                        ?>
+                        <tr>
+                            <th><?php echo esc_html( $label ); ?></th>
+                            <td><p class="description"><?php echo esc_html( $display_value ); ?></p></td>
+                        </tr>
+                        <?php
+                    } else {
+                        ?>
+                        <tr>
+                            <th><label for="<?php echo esc_attr( $meta_key ); ?>"><?php echo esc_html( $label ); ?></label></th>
+                            <td><input type="text" name="<?php echo esc_attr( $meta_key ); ?>" id="<?php echo esc_attr( $meta_key ); ?>" value="<?php echo esc_attr( $raw_value ); ?>" class="regular-text" /></td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
                 <?php endforeach; ?>
             </table>
             <?php

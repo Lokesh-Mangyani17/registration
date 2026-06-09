@@ -163,16 +163,16 @@ class HCP_GHL {
                 array( 'key' => 'nature_of_business',       'field_value' => $fields['nature_of_business'] ),
                 array( 'key' => 'date_of_incorporated',     'field_value' => $fields['date_of_incorporation'] ),
                 array( 'key' => 'ird_number',               'field_value' => $fields['ird_number'] ),
-                array( 'key' => 'business_email',           'field_value' => $fields['business_email'] ),
-                array( 'key' => 'accounts_payable_contact', 'field_value' => $fields['accounts_payable_contact'] ),
-                array( 'key' => 'delivery_contact',         'field_value' => $fields['delivery_contact'] ),
-                array( 'key' => 'credit_limit_over_5000',   'field_value' => $fields['credit_limit_over_5000'] ),
-                array( 'key' => 'physical_address_line_2',  'field_value' => $physical['address_2'] ?? '' ),
-                array( 'key' => 'fax',                      'field_value' => $physical['fax'] ?? '' ),
-                array( 'key' => 'same_as_physical_address', 'field_value' => $fields['postal_same_as_physical'] ),
-                array( 'key' => 'postal_address',           'field_value' => $fields['postal_address'] ),
+                array( 'key' => 'business_common_email_for_access', 'field_value' => $fields['business_email'] ),
+                array( 'key' => 'account_payable_full_name',        'field_value' => $fields['accounts_payable_contact'] ),
+                array( 'key' => 'delivery_contact_name',            'field_value' => $fields['delivery_contact'] ),
+                array( 'key' => 'do_you_require_a_credit_limit_over_5000', 'field_value' => $fields['credit_limit_over_5000'] ),
+                array( 'key' => 'physical_address_line_2',          'field_value' => $physical['address_2'] ?? '' ),
+                array( 'key' => 'fax',                              'field_value' => $physical['fax'] ?? '' ),
+                array( 'key' => 'same_as_physical_address',         'field_value' => $fields['postal_same_as_physical'] ),
+                array( 'key' => 'postal_address',                   'field_value' => self::format_address( $fields['postal_address'] ) ),
                 array( 'key' => 'please_upload_a_copy_of_any_required_licenses_including_those_showing_that_you_are_authorised_to_deal_sell_and_or_prescribe_prescription_medicines_and_or_controlled_drugs_as_per_the_medicines_act_and_regulation_and_misuse_of_drug_act_and_regulation', 'field_value' => $fields['media_upload'] ),
-                array( 'key' => 'signature',                'field_value' => $fields['signature'] ),
+                array( 'key' => 'signature',                        'field_value' => self::save_signature_image( $fields['signature'] ) ),
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, '' ),
             ),
         );
@@ -221,16 +221,16 @@ class HCP_GHL {
                 array( 'key' => 'nature_of_business',       'field_value' => $request->nature_of_business ),
                 array( 'key' => 'date_of_incorporated',     'field_value' => $request->date_of_incorporation ),
                 array( 'key' => 'ird_number',               'field_value' => $request->ird_number ),
-                array( 'key' => 'business_email',           'field_value' => $request->business_email ),
-                array( 'key' => 'accounts_payable_contact', 'field_value' => $request->accounts_payable_contact ),
-                array( 'key' => 'delivery_contact',         'field_value' => $request->delivery_contact ),
-                array( 'key' => 'credit_limit_over_5000',   'field_value' => $request->credit_limit_over_5000 ),
-                array( 'key' => 'physical_address_line_2',  'field_value' => $physical['address_2'] ?? '' ),
-                array( 'key' => 'fax',                      'field_value' => $physical['fax'] ?? '' ),
-                array( 'key' => 'same_as_physical_address', 'field_value' => $request->postal_same_as_physical ),
-                array( 'key' => 'postal_address',           'field_value' => $request->postal_address ),
+                array( 'key' => 'business_common_email_for_access',        'field_value' => $request->business_email ),
+                array( 'key' => 'account_payable_full_name',               'field_value' => $request->accounts_payable_contact ),
+                array( 'key' => 'delivery_contact_name',                   'field_value' => $request->delivery_contact ),
+                array( 'key' => 'do_you_require_a_credit_limit_over_5000', 'field_value' => $request->credit_limit_over_5000 ),
+                array( 'key' => 'physical_address_line_2',                 'field_value' => $physical['address_2'] ?? '' ),
+                array( 'key' => 'fax',                                     'field_value' => $physical['fax'] ?? '' ),
+                array( 'key' => 'same_as_physical_address',                'field_value' => $request->postal_same_as_physical ),
+                array( 'key' => 'postal_address',                          'field_value' => self::format_address( $request->postal_address ) ),
                 array( 'key' => 'please_upload_a_copy_of_any_required_licenses_including_those_showing_that_you_are_authorised_to_deal_sell_and_or_prescribe_prescription_medicines_and_or_controlled_drugs_as_per_the_medicines_act_and_regulation_and_misuse_of_drug_act_and_regulation', 'field_value' => $request->media_upload ),
-                array( 'key' => 'signature',                'field_value' => $request->signature ),
+                array( 'key' => 'signature',                               'field_value' => self::save_signature_image( $request->signature ) ),
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'Yes' ),
             ),
         ) );
@@ -259,6 +259,63 @@ class HCP_GHL {
                 self::custom_field_value( self::FIELD_HCP_TRADE_APPROVED, 'No' ),
             ),
         ) );
+    }
+
+    /**
+     * Format a JSON-encoded address string into a readable single-line address.
+     *
+     * @param string $json JSON string or already-decoded array.
+     * @return string
+     */
+    private static function format_address( $json ) {
+        $addr = is_array( $json ) ? $json : json_decode( $json, true );
+        if ( ! is_array( $addr ) ) {
+            return (string) $json;
+        }
+        $parts = array_filter( array(
+            $addr['address_1'] ?? '',
+            $addr['address_2'] ?? '',
+            $addr['city']      ?? '',
+            $addr['state']     ?? '',
+            $addr['postcode']  ?? '',
+            $addr['country']   ?? '',
+        ) );
+        return implode( ', ', $parts );
+    }
+
+    /**
+     * Save a base64 signature data-URL as a PNG file and return its URL.
+     * Falls back to returning an empty string if saving fails.
+     *
+     * @param string $data_url Base64 data-URL from the signature canvas.
+     * @return string File URL or empty string.
+     */
+    private static function save_signature_image( $data_url ) {
+        if ( empty( $data_url ) ) {
+            return '';
+        }
+        // Already a URL (previously saved).
+        if ( filter_var( $data_url, FILTER_VALIDATE_URL ) ) {
+            return $data_url;
+        }
+        if ( ! preg_match( '/^data:image\/png;base64,(.+)$/i', $data_url, $matches ) ) {
+            return '';
+        }
+        $image_data = base64_decode( $matches[1] );
+        if ( ! $image_data ) {
+            return '';
+        }
+        if ( ! function_exists( 'wp_upload_dir' ) ) {
+            return '';
+        }
+        $upload     = wp_upload_dir();
+        $filename   = 'signature_' . uniqid() . '.png';
+        $file_path  = trailingslashit( $upload['path'] ) . $filename;
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+        if ( false === file_put_contents( $file_path, $image_data ) ) {
+            return '';
+        }
+        return trailingslashit( $upload['url'] ) . $filename;
     }
 
     /**
