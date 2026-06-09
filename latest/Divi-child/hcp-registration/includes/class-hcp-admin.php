@@ -703,7 +703,7 @@ class HCP_Admin {
         }
 
         // Store trade-specific profile fields as user meta (separate from HCP).
-        update_user_meta( $user_id, 'trade_pharmacy_name', sanitize_text_field( $request->pharmacy_name ) );
+        update_user_meta( $user_id, 'trade_pharmacy_name', sanitize_text_field( $request->practice_name ) );
         update_user_meta( $user_id, 'trade_hcp_type', sanitize_text_field( $request->hcp_type ) );
         update_user_meta( $user_id, 'trade_hcp_reg_number', sanitize_text_field( $request->hcp_reg_number ) );
         update_user_meta( $user_id, 'trade_company_number', sanitize_text_field( $request->company_number ) );

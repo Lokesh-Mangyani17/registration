@@ -125,22 +125,22 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <label for="physical_state"><?php esc_html_e( 'Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
                         <select id="physical_state" name="physical_state" required>
                         <option value=""><?php esc_html_e( '— Select a region —', 'hcp-registration' ); ?></option>
-                        <option value="NL"><?php esc_html_e( 'Northland', 'hcp-registration' ); ?></option>
-                        <option value="AK"><?php esc_html_e( 'Auckland', 'hcp-registration' ); ?></option>
-                        <option value="WK"><?php esc_html_e( 'Waikato', 'hcp-registration' ); ?></option>
-                        <option value="BP"><?php esc_html_e( 'Bay of Plenty', 'hcp-registration' ); ?></option>
-                        <option value="GI"><?php esc_html_e( 'Gisborne', 'hcp-registration' ); ?></option>
-                        <option value="HB"><?php esc_html_e( "Hawke's Bay", 'hcp-registration' ); ?></option>
-                        <option value="TK"><?php esc_html_e( 'Taranaki', 'hcp-registration' ); ?></option>
-                        <option value="MW"><?php esc_html_e( 'Manawatū-Whanganui', 'hcp-registration' ); ?></option>
-                        <option value="WE"><?php esc_html_e( 'Wellington', 'hcp-registration' ); ?></option>
-                        <option value="NS"><?php esc_html_e( 'Nelson', 'hcp-registration' ); ?></option>
-                        <option value="TM"><?php esc_html_e( 'Tasman', 'hcp-registration' ); ?></option>
-                        <option value="MB"><?php esc_html_e( 'Marlborough', 'hcp-registration' ); ?></option>
-                        <option value="WC"><?php esc_html_e( 'West Coast', 'hcp-registration' ); ?></option>
-                        <option value="CT"><?php esc_html_e( 'Canterbury', 'hcp-registration' ); ?></option>
-                        <option value="OT"><?php esc_html_e( 'Otago', 'hcp-registration' ); ?></option>
-                        <option value="SL"><?php esc_html_e( 'Southland', 'hcp-registration' ); ?></option>
+                        <option value="NTL"><?php esc_html_e( 'Northland', 'hcp-registration' ); ?></option>
+                        <option value="AUK"><?php esc_html_e( 'Auckland', 'hcp-registration' ); ?></option>
+                        <option value="WKO"><?php esc_html_e( 'Waikato', 'hcp-registration' ); ?></option>
+                        <option value="BOP"><?php esc_html_e( 'Bay of Plenty', 'hcp-registration' ); ?></option>
+                        <option value="GIS"><?php esc_html_e( 'Gisborne', 'hcp-registration' ); ?></option>
+                        <option value="HKB"><?php esc_html_e( "Hawke's Bay", 'hcp-registration' ); ?></option>
+                        <option value="TKI"><?php esc_html_e( 'Taranaki', 'hcp-registration' ); ?></option>
+                        <option value="MWT"><?php esc_html_e( 'Manawatū-Whanganui', 'hcp-registration' ); ?></option>
+                        <option value="WGN"><?php esc_html_e( 'Wellington', 'hcp-registration' ); ?></option>
+                        <option value="NSN"><?php esc_html_e( 'Nelson', 'hcp-registration' ); ?></option>
+                        <option value="TAS"><?php esc_html_e( 'Tasman', 'hcp-registration' ); ?></option>
+                        <option value="MBH"><?php esc_html_e( 'Marlborough', 'hcp-registration' ); ?></option>
+                        <option value="WTC"><?php esc_html_e( 'West Coast', 'hcp-registration' ); ?></option>
+                        <option value="CAN"><?php esc_html_e( 'Canterbury', 'hcp-registration' ); ?></option>
+                        <option value="OTA"><?php esc_html_e( 'Otago', 'hcp-registration' ); ?></option>
+                        <option value="STL"><?php esc_html_e( 'Southland', 'hcp-registration' ); ?></option>
                         </select>
                     </div>
                 </div>
