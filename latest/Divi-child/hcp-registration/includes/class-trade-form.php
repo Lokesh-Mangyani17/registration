@@ -246,6 +246,29 @@ class Trade_Form {
             update_user_meta( $user_id, 'billing_state', $physical['state'] );
             update_user_meta( $user_id, 'billing_postcode', $physical['postcode'] );
             update_user_meta( $user_id, 'billing_country', $physical['country'] );
+
+            // Keep the checkout address book in sync.
+            // Update (or seed) the 'home' entry in _multiple_addresses so the
+            // address that was just submitted appears on the checkout page.
+            $saved_addresses = get_user_meta( $user_id, '_multiple_addresses', true );
+            $saved_addresses = is_array( $saved_addresses ) ? $saved_addresses : [];
+
+            $is_first_address = empty( $saved_addresses );
+            $saved_addresses['home'] = array(
+                'name'       => 'home',
+                'first_name' => $fields['first_name'],
+                'last_name'  => $fields['last_name'],
+                'company'    => $fields['pharmacy_name'],
+                'address_1'  => $physical['address_1'],
+                'address_2'  => $physical['address_2'],
+                'city'       => $physical['city'],
+                'state'      => $physical['state'],
+                'postcode'   => $physical['postcode'],
+                'phone'      => $physical['phone'] ?: $fields['phone'],
+                'email'      => $fields['email'],
+                'is_default' => $is_first_address || ( isset( $saved_addresses['home']['is_default'] ) && $saved_addresses['home']['is_default'] ),
+            );
+            update_user_meta( $user_id, '_multiple_addresses', $saved_addresses );
         }
 
         // Notify site admin about new trade request.

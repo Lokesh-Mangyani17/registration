@@ -1580,30 +1580,45 @@ function nubu_maybe_save_default_billing_address() {
 
     $user_id = get_current_user_id();
 
-    // Check if user already has billing addresses saved
-    $addresses = get_user_meta( $user_id, '_multiple_addresses', true );
-    if ( ! empty( $addresses ) && is_array( $addresses ) ) {
-        return; // Already has addresses saved
+    // Load billing address fields from user meta.
+    $address_1 = get_user_meta( $user_id, 'billing_address_1', true );
+
+    // Nothing to seed if there is no billing address yet.
+    if ( empty( $address_1 ) ) {
+        return;
     }
-	
-	$billing = array();
-	
-    // Load default billing fields from user meta
-    $billing['home'] = [
-		'name'		 => 'home',
+
+    $addresses = get_user_meta( $user_id, '_multiple_addresses', true );
+    $addresses = is_array( $addresses ) ? $addresses : [];
+
+    // Already has a non-blank 'home' entry — nothing to do.
+    if ( ! empty( $addresses['home']['address_1'] ) ) {
+        return;
+    }
+
+    // Seed (or refresh a blank 'home' entry) from billing meta.
+    $addresses['home'] = [
+        'name'       => 'home',
         'first_name' => get_user_meta( $user_id, 'billing_first_name', true ),
         'last_name'  => get_user_meta( $user_id, 'billing_last_name', true ),
         'company'    => get_user_meta( $user_id, 'billing_company', true ),
-        'address_1'  => get_user_meta( $user_id, 'billing_address_1', true ),
+        'address_1'  => $address_1,
         'address_2'  => get_user_meta( $user_id, 'billing_address_2', true ),
         'city'       => get_user_meta( $user_id, 'billing_city', true ),
         'state'      => get_user_meta( $user_id, 'billing_state', true ),
         'postcode'   => get_user_meta( $user_id, 'billing_postcode', true ),
         'phone'      => get_user_meta( $user_id, 'billing_phone', true ),
         'email'      => get_user_meta( $user_id, 'billing_email', true ),
-		'is_default' => true
+        'is_default' => true,
     ];
 
-    // Save as the initial billing_addresses entry
-    update_user_meta( $user_id, '_multiple_addresses', $billing );
+    // Make sure no other address is marked as default.
+    foreach ( $addresses as $key => &$addr ) {
+        if ( 'home' !== $key ) {
+            $addr['is_default'] = false;
+        }
+    }
+    unset( $addr );
+
+    update_user_meta( $user_id, '_multiple_addresses', $addresses );
 }
