@@ -115,21 +115,28 @@ if ( ! defined( 'ABSPATH' ) ) {
                         <input type="text" id="physical_postcode" name="physical_postcode" required />
                     </div>
                 </div>
+                <input type="hidden" name="physical_country" value="NZ" />
                 <div class="hcp-field">
-                    <label for="physical_country"><?php esc_html_e( 'Country / Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                    <select id="physical_country" name="physical_country" required>
-                        <option value=""><?php esc_html_e( 'Select a country / region...', 'hcp-registration' ); ?></option>
-                        <?php
-                        $countries = function_exists( 'WC' ) ? WC()->countries->get_countries() : array( 'NZ' => 'New Zealand' );
-                        foreach ( $countries as $code => $name ) {
-                            echo '<option value="' . esc_attr( $code ) . '"' . selected( $code, 'NZ', false ) . '>' . esc_html( $name ) . '</option>';
-                        }
-                        ?>
+                    <label for="physical_state"><?php esc_html_e( 'Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                    <select id="physical_state" name="physical_state" required>
+                        <option value=""><?php esc_html_e( '— Select a region —', 'hcp-registration' ); ?></option>
+                        <option value="NL"><?php esc_html_e( 'Northland', 'hcp-registration' ); ?></option>
+                        <option value="AK"><?php esc_html_e( 'Auckland', 'hcp-registration' ); ?></option>
+                        <option value="WK"><?php esc_html_e( 'Waikato', 'hcp-registration' ); ?></option>
+                        <option value="BP"><?php esc_html_e( 'Bay of Plenty', 'hcp-registration' ); ?></option>
+                        <option value="GI"><?php esc_html_e( 'Gisborne', 'hcp-registration' ); ?></option>
+                        <option value="HB"><?php esc_html_e( "Hawke's Bay", 'hcp-registration' ); ?></option>
+                        <option value="TK"><?php esc_html_e( 'Taranaki', 'hcp-registration' ); ?></option>
+                        <option value="MW"><?php esc_html_e( 'Manawatū-Whanganui', 'hcp-registration' ); ?></option>
+                        <option value="WE"><?php esc_html_e( 'Wellington', 'hcp-registration' ); ?></option>
+                        <option value="NS"><?php esc_html_e( 'Nelson', 'hcp-registration' ); ?></option>
+                        <option value="TM"><?php esc_html_e( 'Tasman', 'hcp-registration' ); ?></option>
+                        <option value="MB"><?php esc_html_e( 'Marlborough', 'hcp-registration' ); ?></option>
+                        <option value="WC"><?php esc_html_e( 'West Coast', 'hcp-registration' ); ?></option>
+                        <option value="CT"><?php esc_html_e( 'Canterbury', 'hcp-registration' ); ?></option>
+                        <option value="OT"><?php esc_html_e( 'Otago', 'hcp-registration' ); ?></option>
+                        <option value="SL"><?php esc_html_e( 'Southland', 'hcp-registration' ); ?></option>
                     </select>
-                </div>
-                <div class="hcp-field">
-                    <label for="physical_state"><?php esc_html_e( 'State / County', 'hcp-registration' ); ?></label>
-                    <input type="text" id="physical_state" name="physical_state" />
                 </div>
                 <div class="hcp-field-row">
                     <div class="hcp-field hcp-field-half">
@@ -173,21 +180,28 @@ if ( ! defined( 'ABSPATH' ) ) {
                             <input type="text" id="postal_postcode" name="postal_postcode" required />
                         </div>
                     </div>
+                    <input type="hidden" name="postal_country" value="NZ" />
                     <div class="hcp-field">
-                        <label for="postal_country"><?php esc_html_e( 'Country / Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
-                        <select id="postal_country" name="postal_country" required>
-                            <option value=""><?php esc_html_e( 'Select a country / region...', 'hcp-registration' ); ?></option>
-                            <?php
-                            $countries = function_exists( 'WC' ) ? WC()->countries->get_countries() : array( 'NZ' => 'New Zealand' );
-                            foreach ( $countries as $code => $name ) {
-                                echo '<option value="' . esc_attr( $code ) . '">' . esc_html( $name ) . '</option>';
-                            }
-                            ?>
+                        <label for="postal_state"><?php esc_html_e( 'Region', 'hcp-registration' ); ?> <span class="required">*</span></label>
+                        <select id="postal_state" name="postal_state" required>
+                            <option value=""><?php esc_html_e( '— Select a region —', 'hcp-registration' ); ?></option>
+                            <option value="NL"><?php esc_html_e( 'Northland', 'hcp-registration' ); ?></option>
+                            <option value="AK"><?php esc_html_e( 'Auckland', 'hcp-registration' ); ?></option>
+                            <option value="WK"><?php esc_html_e( 'Waikato', 'hcp-registration' ); ?></option>
+                            <option value="BP"><?php esc_html_e( 'Bay of Plenty', 'hcp-registration' ); ?></option>
+                            <option value="GI"><?php esc_html_e( 'Gisborne', 'hcp-registration' ); ?></option>
+                            <option value="HB"><?php esc_html_e( "Hawke's Bay", 'hcp-registration' ); ?></option>
+                            <option value="TK"><?php esc_html_e( 'Taranaki', 'hcp-registration' ); ?></option>
+                            <option value="MW"><?php esc_html_e( 'Manawatū-Whanganui', 'hcp-registration' ); ?></option>
+                            <option value="WE"><?php esc_html_e( 'Wellington', 'hcp-registration' ); ?></option>
+                            <option value="NS"><?php esc_html_e( 'Nelson', 'hcp-registration' ); ?></option>
+                            <option value="TM"><?php esc_html_e( 'Tasman', 'hcp-registration' ); ?></option>
+                            <option value="MB"><?php esc_html_e( 'Marlborough', 'hcp-registration' ); ?></option>
+                            <option value="WC"><?php esc_html_e( 'West Coast', 'hcp-registration' ); ?></option>
+                            <option value="CT"><?php esc_html_e( 'Canterbury', 'hcp-registration' ); ?></option>
+                            <option value="OT"><?php esc_html_e( 'Otago', 'hcp-registration' ); ?></option>
+                            <option value="SL"><?php esc_html_e( 'Southland', 'hcp-registration' ); ?></option>
                         </select>
-                    </div>
-                    <div class="hcp-field">
-                        <label for="postal_state"><?php esc_html_e( 'State / County', 'hcp-registration' ); ?></label>
-                        <input type="text" id="postal_state" name="postal_state" />
                     </div>
                     <div class="hcp-field">
                         <label for="postal_phone"><?php esc_html_e( 'Phone', 'hcp-registration' ); ?> <span class="required">*</span></label>

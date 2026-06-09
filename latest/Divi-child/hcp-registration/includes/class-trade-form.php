@@ -154,7 +154,7 @@ class Trade_Form {
             wp_send_json_error( array( 'message' => __( 'Please fill in all required fields.', 'hcp-registration' ) ) );
         }
 
-        $required_physical = array( 'address_1', 'city', 'postcode', 'country', 'phone' );
+        $required_physical = array( 'address_1', 'city', 'postcode', 'state', 'country', 'phone' );
         foreach ( $required_physical as $key ) {
             if ( empty( $physical[ $key ] ) ) {
                 wp_send_json_error( array( 'message' => __( 'Please fill in all required billing address fields.', 'hcp-registration' ) ) );
@@ -162,7 +162,7 @@ class Trade_Form {
         }
 
         if ( 'no' === $fields['postal_same_as_physical'] ) {
-            $required_postal = array( 'address_1', 'city', 'postcode', 'country' );
+            $required_postal = array( 'address_1', 'city', 'postcode', 'state', 'country' );
             foreach ( $required_postal as $key ) {
                 if ( empty( $postal[ $key ] ) ) {
                     wp_send_json_error( array( 'message' => __( 'Please fill in all required postal address fields.', 'hcp-registration' ) ) );
