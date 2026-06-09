@@ -458,6 +458,14 @@
     margin-bottom: 4px;
 }
 
+/* Read-only field (e.g. locked country) */
+.hcp-readonly {
+    background-color: #f3f4f6 !important;
+    color: #6b7280 !important;
+    cursor: not-allowed !important;
+    border-color: #d1d5db !important;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     .hcp-field-row {
