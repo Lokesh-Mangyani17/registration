@@ -42,16 +42,6 @@ function nubu_product_custom_fields() {
         //Field::make( 'text', 'prospect_api_key', __( 'Prospect API Key'))
         //->help_text("DEPRECATED. This is the API key that will be used to authenticate with Prospect. Obtained <a href='https://crm.prospect365.com/view/User/CB/Security'>here</a> whilst logged in."),
         
-        Field::make('text', 'mailchimp_api_key', __("Mailchimp API Key")),
-        Field::make('text', 'mailchimp_server_prefix', __("Mailchimp Server Prefix"))->set_width(33),
-        Field::make('text', 'mailchimp_list_id', __("Mailchimp List ID"))->set_width(33),
-        Field::make( 'select', 'mailchimp_initial_status', 'Mailchimp Initial Status' )
-            ->set_options([
-                'subscribed' => 'Subscribed',
-                'pending' => 'Pending',
-                'transactional' => 'Transactional',
-	        ])->set_width(33),
-        
         Field::make( 'text', 'registration_form_id', __( 'Registration Form ID')),
         
         Field::make('text', 'trade_account_form_url', 'Trade Account Application Form URL')
@@ -203,7 +193,6 @@ function nubu_product_custom_fields() {
         Field::make('text', 'registration_clinic', 'Registration Clinic'),
         Field::make('text', 'unleashed_customer_code', 'Unleashed Customer Code'),
         Field::make('text', 'unleashed_customer_guid', 'Unleashed Customer Guid'),
-        Field::make('text', 'mailchimp_user_id', 'Mailchimp User ID'),
         Field::make('text', 'sell_price_tier_reference', 'Sell Price Tier'),
         Field::make('association', 'catalog', 'Catalog')
         ->set_types([[
